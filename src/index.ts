@@ -14,7 +14,7 @@ const splitWord = (word: string) => {
 const getTagGenerator = (highlightTag: string) => (text: string) =>
   `<${highlightTag}>${text}</${highlightTag}>`;
 
-export default (
+export const bionicReading = (
   text: string,
   { highlightTag }: Options = {
     highlightTag: 'b',

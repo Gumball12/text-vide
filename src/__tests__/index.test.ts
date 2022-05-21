@@ -1,4 +1,4 @@
-import bionicReading from '..';
+import { bionicReading } from '..';
 import { describe, expect, it } from 'vitest';
 
 describe('test bionicReading module', () => {
