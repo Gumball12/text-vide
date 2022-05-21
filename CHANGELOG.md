@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Gumball12/bionic-reading/compare/v1.0.2...v1.1.0) (2022-05-21)
+
+
+### Bug Fixes
+
+* do not use deafult export ([fdc32b2](https://github.com/Gumball12/bionic-reading/commit/fdc32b23bccf1e540812dd0515745ffbb68fd866))
+* fix release scripts ([b5495c3](https://github.com/Gumball12/bionic-reading/commit/b5495c3353a29087e2b5c8e219807063fb1490fc))
+
 ### [1.0.2](https://github.com/Gumball12/bionic-reading/compare/v1.0.1...v1.0.2) (2022-05-21)
 
 
