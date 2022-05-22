@@ -29,7 +29,19 @@ describe('test bionicReading module', () => {
     expect(bionicReading(text)).toBe(expectedText);
   });
 
-  it('test options.highlightTag :: <b> -> <strong>', () => {
+  it('pass empty string', () => {
+    const text = '';
+    const expected = '';
+    expect(bionicReading(text)).toBe(expected);
+  });
+});
+
+describe('test options', () => {
+  it('pass empty options object', () => {
+    expect(bionicReading('aaaa', {})).toBe('<b>aa</b>aa');
+  });
+
+  it('options.highlightTag :: <b> -> <strong>', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     const expectedText =
@@ -38,13 +50,33 @@ describe('test bionicReading module', () => {
     expect(bionicReading(text, { highlightTag: 'strong' })).toBe(expectedText);
   });
 
-  it('pass empty string', () => {
-    const text = '';
-    const expected = '';
-    expect(bionicReading(text)).toBe(expected);
+  it('options.markdown', () => {
+    const text =
+      'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const expectedText =
+      '**or**em **ips**um **dol**or **si**t **ame**t, **conse**tetur **sadip**scing **eli**tr, **se**d **di**am **non**umy **eir**mod **tem**por **invi**dunt **u**t **lab**ore **e**t **dol**ore **mag**na **aliq**uyam **era**t, **se**d **di**am **volup**tua. **A**t **ve**ro **eo**s **e**t **accu**sam **e**t **jus**to **du**o **dolo**res **e**t **e**a **reb**um. **St**et **cli**ta **ka**sd **guber**gren, **n**o **se**a **taki**mata **sanc**tus **es**t **Lor**em **ips**um **dol**or **si**t **ame**t. **Lor**em **ips**um **dol**or **si**t **ame**t, **conse**tetur **sadip**scing **eli**tr, **se**d **di**am **non**umy **eir**mod **tem**por **invi**dunt **u**t **lab**ore **e**t **dol**ore **mag**na **aliq**uyam **era**t, **se**d **di**am **volup**tua. **A**t **ve**ro **eo**s **e**t **accu**sam **e**t **jus**to **du**o **dolo**res **e**t **e**a **reb**um. **St**et **cli**ta **ka**sd **guber**gren, **n**o **se**a **taki**mata **sanc**tus **es**t **Lor**em **ips**um **dol**or **si**t **ame**t.';
+
+    expect(bionicReading(text, { markdown: true })).toBe(expectedText);
   });
 
-  it('pass empty options object', () => {
-    expect(bionicReading('aaaa', {})).toBe('<b>aa</b>aa');
+  it('options.markdown w/ options.markdownStyle :: `**` -> `__`', () => {
+    const text =
+      'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const expectedText =
+      '__or__em __ips__um __dol__or __si__t __ame__t, __conse__tetur __sadip__scing __eli__tr, __se__d __di__am __non__umy __eir__mod __tem__por __invi__dunt __u__t __lab__ore __e__t __dol__ore __mag__na __aliq__uyam __era__t, __se__d __di__am __volup__tua. __A__t __ve__ro __eo__s __e__t __accu__sam __e__t __jus__to __du__o __dolo__res __e__t __e__a __reb__um. __St__et __cli__ta __ka__sd __guber__gren, __n__o __se__a __taki__mata __sanc__tus __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __conse__tetur __sadip__scing __eli__tr, __se__d __di__am __non__umy __eir__mod __tem__por __invi__dunt __u__t __lab__ore __e__t __dol__ore __mag__na __aliq__uyam __era__t, __se__d __di__am __volup__tua. __A__t __ve__ro __eo__s __e__t __accu__sam __e__t __jus__to __du__o __dolo__res __e__t __e__a __reb__um. __St__et __cli__ta __ka__sd __guber__gren, __n__o __se__a __taki__mata __sanc__tus __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
+
+    expect(bionicReading(text, { markdown: true, markdownStyle: '__' })).toBe(
+      expectedText,
+    );
+  });
+
+  it('empty options.markdownStyle :: `**` -> ``', () => {
+    const text =
+      'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const expectedText = text;
+
+    expect(bionicReading(text, { markdown: true, markdownStyle: '' })).toBe(
+      expectedText,
+    );
   });
 });
