@@ -4,7 +4,7 @@ type Options = Partial<{
   highlightTag: string;
 }>;
 
-const splitWord = (word: string) => {
+const splitWord = (word: string): [string, string] => {
   const { length } = word;
   const midPoint = Math.round(length / 2);
   const first = word.slice(0, midPoint);
@@ -13,8 +13,10 @@ const splitWord = (word: string) => {
   return [first, second];
 };
 
-const getTagGenerator = (highlightTag: string) => (text: string) =>
-  `<${highlightTag}>${text}</${highlightTag}>`;
+const getBionicConvertor =
+  (begin: string, end?: string) =>
+  ([firstText, secondText]: [string, string]) =>
+    `${begin}${firstText}${end ?? begin}${secondText}`;
 
 export const bionicReading = (text: string, options: Options = {}) => {
   if (!text?.length) {
@@ -25,12 +27,13 @@ export const bionicReading = (text: string, options: Options = {}) => {
     highlightTag: 'b',
   });
 
-  const getTag = getTagGenerator(highlightTag);
+  const bionicConvertor = getBionicConvertor(
+    `<${highlightTag}>`,
+    `</${highlightTag}>`,
+  );
 
   const wordList = text.split(' ');
-  const bionicWordList = wordList
-    .map(splitWord)
-    .map(([first, second]) => `${getTag(first)}${second}`);
+  const bionicWordList = wordList.map(splitWord).map(bionicConvertor);
 
   return bionicWordList.join(' ');
 };
