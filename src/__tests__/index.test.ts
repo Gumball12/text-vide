@@ -34,6 +34,12 @@ describe('test bionicReading module', () => {
     const expected = '';
     expect(bionicReading(text)).toBe(expected);
   });
+
+  it('pass len 1 string', () => {
+    const text = 'a';
+    const expected = '<b>a</b>';
+    expect(bionicReading(text)).toBe(expected);
+  });
 });
 
 describe('test options', () => {
