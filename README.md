@@ -6,7 +6,7 @@
 
 [try on runkit](https://npm.runkit.com/bionic-reading)
 
-Reading for everyone. [Bionic Reading API](https://bionic-reading.com/).
+An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-reading.com/).
 
 ## ⚙️ Install
 
