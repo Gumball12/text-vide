@@ -37,4 +37,14 @@ describe('test bionicReading module', () => {
 
     expect(bionicReading(text, { highlightTag: 'strong' })).toBe(expectedText);
   });
+
+  it('pass empty string', () => {
+    const text = '';
+    const expected = '';
+    expect(bionicReading(text)).toBe(expected);
+  });
+
+  it('pass empty options object', () => {
+    expect(bionicReading('aaaa', {})).toBe('<b>aa</b>aa');
+  });
 });

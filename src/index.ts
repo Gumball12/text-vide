@@ -1,6 +1,8 @@
-type Options = {
+import defaults from './utils/defaults';
+
+type Options = Partial<{
   highlightTag: string;
-};
+}>;
 
 const splitWord = (word: string) => {
   const { length } = word;
@@ -14,12 +16,15 @@ const splitWord = (word: string) => {
 const getTagGenerator = (highlightTag: string) => (text: string) =>
   `<${highlightTag}>${text}</${highlightTag}>`;
 
-export const bionicReading = (
-  text: string,
-  { highlightTag }: Options = {
+export const bionicReading = (text: string, options: Options = {}) => {
+  if (!text?.length) {
+    return '';
+  }
+
+  const { highlightTag } = defaults<Required<Options>>(options, {
     highlightTag: 'b',
-  },
-) => {
+  });
+
   const getTag = getTagGenerator(highlightTag);
 
   const wordList = text.split(' ');
