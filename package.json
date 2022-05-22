@@ -26,7 +26,6 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "README.md",
     "dist"
   ],
   "scripts": {
