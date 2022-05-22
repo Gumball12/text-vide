@@ -52,7 +52,17 @@ bionicReading('bionic-reading'); // '<b>bionic-</b>reading'
 
 ### Options
 
-#### `highlightTag: string`
+```ts
+type Options = Partial<{
+  highlightTag: string;
+  markdown: boolean;
+  markdownStyle: string;
+}>;
+```
+
+#### `highlightTag`
+
+- Default Value: `'b'`
 
 ```ts
 // default highlight tag: `<b>`
@@ -63,6 +73,26 @@ bionicReading('bionic-reading'); // '<b>bionic-</b>reading'
 // changed highlight tag: `<strong>`
 bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bionic-</strong>reading'
 ```
+
+#### `markdown`
+
+- Default Value: `false`
+
+```ts
+bionicReading('bionic-reading', { markdown: true, highlightTag: 'strong' }); // '**bionic-**reading'
+```
+
+If true, the `highlightTag` option is ignored.
+
+#### `markdownStyle`
+
+- Default Value: `'**'`
+
+```ts
+bionicReading('bionic-reading', { markdown: true, markdownStyle: '__' }); // '__bionic-__reading'
+```
+
+If the `markdown` option is false, this option is ignored.
 
 ## Motivations
 
