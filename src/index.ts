@@ -1,30 +1,22 @@
 import defaults from './utils/defaults';
 import splitWord from './utils/splitWord';
-
-type Options = Partial<{
-  highlightTag: string;
-  markdown: boolean;
-  markdownStyle: string;
-}>;
+import { Options } from './types';
 
 const getBionicConvertor =
   (begin: string, end?: string) =>
   ([firstText, secondText]: [string, string]) =>
     `${begin}${firstText}${end ?? begin}${secondText}`;
 
-export const bionicReading = (text: string, options: Options = {}) => {
+export const bionicReading = (text: string, options: Partial<Options> = {}) => {
   if (!text?.length) {
     return '';
   }
 
-  const { highlightTag, markdown, markdownStyle } = defaults<Required<Options>>(
-    options,
-    {
-      highlightTag: 'b',
-      markdown: false,
-      markdownStyle: '**',
-    },
-  );
+  const { highlightTag, markdown, markdownStyle } = defaults<Options>(options, {
+    highlightTag: 'b',
+    markdown: false,
+    markdownStyle: '**',
+  });
 
   let bionicConvertor = getBionicConvertor(
     `<${highlightTag}>`,
