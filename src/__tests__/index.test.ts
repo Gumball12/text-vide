@@ -40,6 +40,22 @@ describe('test bionicReading module', () => {
     const expected = '<b>a</b>';
     expect(bionicReading(text)).toBe(expected);
   });
+
+  it('pass strings with line break', () => {
+    const text = `
+    a
+    b
+    c
+    `;
+
+    const expected = `
+    <b>a</b>
+    <b>b</b>
+    <b>c</b>
+    `;
+
+    expect(bionicReading(text)).toBe(expected);
+  });
 });
 
 describe('test options', () => {
@@ -83,6 +99,40 @@ describe('test options', () => {
 
     expect(bionicReading(text, { markdown: true, markdownStyle: '' })).toBe(
       expectedText,
+    );
+  });
+
+  it('pass strings with line break (markdown)', () => {
+    const text = `
+    a
+    b
+    c
+    `;
+
+    const expected = `
+    **a**
+    **b**
+    **c**
+    `;
+
+    expect(bionicReading(text, { markdown: true })).toBe(expected);
+  });
+
+  it('pass strings with line break (markdown + style)', () => {
+    const text = `
+    a
+    b
+    c
+    `;
+
+    const expected = `
+    __a__
+    __b__
+    __c__
+    `;
+
+    expect(bionicReading(text, { markdown: true, markdownStyle: '__' })).toBe(
+      expected,
     );
   });
 });

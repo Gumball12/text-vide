@@ -1,34 +1,29 @@
-import defaults from './utils/defaults';
-import splitWord from './utils/splitWord';
+import getBionicWordConvertor from './getBionicWordConvertor';
 import { Options } from './types';
+import splitWord from './utils/splitWord';
 
-const getBionicConvertor =
-  (begin: string, end?: string) =>
-  ([firstText, secondText]: [string, string]) =>
-    `${begin}${firstText}${end ?? begin}${secondText}`;
+const convertParagraphToBionicParagraph =
+  (bionicWordConvertor: ReturnType<typeof getBionicWordConvertor>) =>
+  (paragraph: string) => {
+    const wordList = paragraph.split(' ');
+    const splittedWordList = wordList.map(splitWord);
+    const bionicWordList = splittedWordList.map(bionicWordConvertor);
+
+    return bionicWordList.join(' ');
+  };
 
 export const bionicReading = (text: string, options: Partial<Options> = {}) => {
   if (!text?.length) {
     return '';
   }
 
-  const { highlightTag, markdown, markdownStyle } = defaults<Options>(options, {
-    highlightTag: 'b',
-    markdown: false,
-    markdownStyle: '**',
-  });
+  const bionicWordConvertor = getBionicWordConvertor(options);
+  const bionicParagraphConvertor =
+    convertParagraphToBionicParagraph(bionicWordConvertor);
 
-  let bionicConvertor = getBionicConvertor(
-    `<${highlightTag}>`,
-    `</${highlightTag}>`,
-  );
+  const paragraphList = text.split('\n');
+  const bionicParagraphList = paragraphList.map(bionicParagraphConvertor);
 
-  if (markdown) {
-    bionicConvertor = getBionicConvertor(markdownStyle);
-  }
-
-  const wordList = text.split(' ');
-  const bionicWordList = wordList.map(splitWord).map(bionicConvertor);
-
-  return bionicWordList.join(' ');
+  const bionicText = bionicParagraphList.join('\n');
+  return bionicText;
 };
