@@ -1,4 +1,7 @@
-export default <T = unknown>(origin: Partial<T>, defaultValue: T) => ({
+import isEmptyString from './isEmptyString';
+import omitBy from './omitBy';
+
+export default <T>(origin: Partial<T>, defaultValue: T): T => ({
   ...defaultValue,
-  ...origin,
+  ...omitBy(origin, isEmptyString),
 });

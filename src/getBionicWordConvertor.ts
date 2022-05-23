@@ -7,7 +7,7 @@ import { Options } from './types';
 import defaults from './utils/defaults';
 
 const getGuaranteedOptions = (options: Partial<Options>): Options =>
-  defaults<Options>(options, {
+  defaults(options, {
     highlightTag: DEFAULT_HIGHLIGHT_TAG,
     markdown: DEFAULT_MARKDOWN,
     markdownStyle: DEFAULT_MARKDOWN_STYLE,

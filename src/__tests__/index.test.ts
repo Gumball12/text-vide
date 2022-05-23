@@ -95,7 +95,8 @@ describe('test options', () => {
   it('empty options.markdownStyle :: `**` -> ``', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
-    const expectedText = text;
+    const expectedText =
+      '**or**em **ips**um **dol**or **si**t **ame**t, **conse**tetur **sadip**scing **eli**tr, **se**d **di**am **non**umy **eir**mod **tem**por **invi**dunt **u**t **lab**ore **e**t **dol**ore **mag**na **aliq**uyam **era**t, **se**d **di**am **volup**tua. **A**t **ve**ro **eo**s **e**t **accu**sam **e**t **jus**to **du**o **dolo**res **e**t **e**a **reb**um. **St**et **cli**ta **ka**sd **guber**gren, **n**o **se**a **taki**mata **sanc**tus **es**t **Lor**em **ips**um **dol**or **si**t **ame**t. **Lor**em **ips**um **dol**or **si**t **ame**t, **conse**tetur **sadip**scing **eli**tr, **se**d **di**am **non**umy **eir**mod **tem**por **invi**dunt **u**t **lab**ore **e**t **dol**ore **mag**na **aliq**uyam **era**t, **se**d **di**am **volup**tua. **A**t **ve**ro **eo**s **e**t **accu**sam **e**t **jus**to **du**o **dolo**res **e**t **e**a **reb**um. **St**et **cli**ta **ka**sd **guber**gren, **n**o **se**a **taki**mata **sanc**tus **es**t **Lor**em **ips**um **dol**or **si**t **ame**t.';
 
     expect(bionicReading(text, { markdown: true, markdownStyle: '' })).toBe(
       expectedText,
@@ -134,5 +135,9 @@ describe('test options', () => {
     expect(bionicReading(text, { markdown: true, markdownStyle: '__' })).toBe(
       expected,
     );
+  });
+
+  it('pass empty highlightTag', () => {
+    expect(bionicReading('a', { highlightTag: '' })).toBe('<b>a</b>');
   });
 });
