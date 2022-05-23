@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bionic Reading Sandbox</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <textarea id="paragraph"></textarea>
+
+    <hr />
+
+    <pre id="rendered"></pre>
+
+    <hr />
+
+    <pre id="rendered-raw"></pre>
+
+    <hr class="bold" />
+
+    <div class="container">
+      <div class="container__option" id="render-style">
+        <h3>- Render Style</h3>
+
+        <div>
+          <label>Use DOM Style</label>
+          <input type="radio" value="dom" name="render-style" checked />
+        </div>
+
+        <div>
+          <label>Use Markdown Style</label>
+          <input type="radio" value="markdown" name="render-style" />
+        </div>
+      </div>
+
+      <div class="container__option">
+        <h3>- highlighted DOM Tag Style</h3>
+        <input value="b" placeholder="default: b" id="dom-tag-style" />
+      </div>
+
+      <div class="container__option">
+        <h3>- Highlighted Markdown Style</h3>
+        <input value="**" placeholder="default: **" id="markdown-style" />
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

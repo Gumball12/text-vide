@@ -1,9 +1,7 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
-  test: {
-    coverage: {
-      reporter: ['text', 'lcov', 'html'],
-    },
-  },
+  root: path.resolve(__dirname, 'sandbox'),
+  publicDir: '/bionic-reading/',
 });
