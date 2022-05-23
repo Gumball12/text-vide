@@ -1,4 +1,4 @@
-export default <T = unknown>(origin: Partial<T>, defaultValue: T) => ({
+export default <T>(origin: Partial<T>, defaultValue: T): T => ({
   ...defaultValue,
   ...origin,
 });
