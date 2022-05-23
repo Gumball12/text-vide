@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/Gumball12/bionic-reading/compare/v1.2.1...v1.2.2) (2022-05-23)
+
+
+### Features
+
+* define default options value ([f71cc5d](https://github.com/Gumball12/bionic-reading/commit/f71cc5dd35ece8e6a8bb05fac33e17e485c9d19b))
+* define Options type ([d632ee7](https://github.com/Gumball12/bionic-reading/commit/d632ee747df61154257d6cde084a41ceb9c0a6a7))
+* implement getBionicWordConvertor ([b184fb4](https://github.com/Gumball12/bionic-reading/commit/b184fb4956a218f18a9d87d505e033f9d02e401f))
+* implement isEmptyString util ([1ffa4e3](https://github.com/Gumball12/bionic-reading/commit/1ffa4e3de4d0b722b621da26e46fb9a3ad39b9f7))
+* implement omitBy util ([05c4579](https://github.com/Gumball12/bionic-reading/commit/05c4579c4bbc39f248f201f9a8ea02cfccdbe81a))
+* implement publish-sandbox action ([12888db](https://github.com/Gumball12/bionic-reading/commit/12888db0edbe07348c10610e3825c1971f3bccd3))
+* implement sandbox ([d56cb82](https://github.com/Gumball12/bionic-reading/commit/d56cb82ae3ca6e6ee69a5ca5109d6846ea205bfc))
+* supports strings with newlines ([bce07f7](https://github.com/Gumball12/bionic-reading/commit/bce07f71fde302794e13124bd5e8ff0617d56a37))
+
+
+### Bug Fixes
+
+* add root field to test only src directory ([f9e00fd](https://github.com/Gumball12/bionic-reading/commit/f9e00fdf698981395e8b0592691be33b2bff8f35))
+* handle if passing an empty style string ([7b60e96](https://github.com/Gumball12/bionic-reading/commit/7b60e9672e06a611990c95d726479b6ebd14c82e))
+* use base field instead of publicDir ([09cc18c](https://github.com/Gumball12/bionic-reading/commit/09cc18cf545474db5c92cefeeb7e1148f159da1a))
+
 ### [1.2.1](https://github.com/Gumball12/bionic-reading/compare/v1.2.0...v1.2.1) (2022-05-22)
 
 ## [1.2.0](https://github.com/Gumball12/bionic-reading/compare/v1.1.0...v1.2.0) (2022-05-22)
