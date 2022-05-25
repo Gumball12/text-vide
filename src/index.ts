@@ -1,6 +1,6 @@
 import getBionicWordConvertor from './getBionicWordConvertor';
 import { Options } from './types';
-import splitWord from './utils/splitWord';
+import splitWord from './splitWord';
 
 const convertParagraphToBionicParagraph =
   (bionicWordConvertor: ReturnType<typeof getBionicWordConvertor>) =>

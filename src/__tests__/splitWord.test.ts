@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import splitWord from '../utils/splitWord';
+import splitWord from '../splitWord';
 
 describe('test splitWord util function', () => {
   it('pass len 4 word', () => {
