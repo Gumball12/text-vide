@@ -11,7 +11,7 @@ describe('test getBionicConvertor function', () => {
 
     const bionicWordConvertor = getBionicWordConvertor(options);
 
-    const plainSplittedWord: [string, string] = ['a', ''];
+    const plainSplittedWord: [string, string, string] = ['', 'a', ''];
     const expectedBionicWord = '<b>a</b>';
 
     expect(bionicWordConvertor(plainSplittedWord)).toBe(expectedBionicWord);
@@ -26,11 +26,14 @@ describe('test getBionicConvertor function', () => {
 
     const bionicWordConvertor = getBionicWordConvertor(options);
 
-    const plainSplittedWord = (0xffffff * Math.random())
-      .toString(16)
-      .slice(Math.floor(Math.random() * 3) + 1)
-      .split('.') as [string, string];
-    const expectedBionicWord = `<b>${plainSplittedWord[0]}</b>${plainSplittedWord[1]}`;
+    const plainSplittedWord = [
+      '',
+      ...(0xffffff * Math.random())
+        .toString(16)
+        .slice(Math.floor(Math.random() * 3) + 1)
+        .split('.'),
+    ] as [string, string, string];
+    const expectedBionicWord = `<b>${plainSplittedWord[1]}</b>${plainSplittedWord[2]}`;
 
     expect(bionicWordConvertor(plainSplittedWord)).toBe(expectedBionicWord);
   });
@@ -44,7 +47,7 @@ describe('test getBionicConvertor function', () => {
 
     const bionicWordConvertor = getBionicWordConvertor(options);
 
-    const plainSplittedWord: [string, string] = ['ab', 'c'];
+    const plainSplittedWord: [string, string, string] = ['', 'ab', 'c'];
     const expectedBionicWord = '**ab**c';
 
     expect(bionicWordConvertor(plainSplittedWord)).toBe(expectedBionicWord);
@@ -59,7 +62,7 @@ describe('test getBionicConvertor function', () => {
 
     const bionicWordConvertor = getBionicWordConvertor(options);
 
-    const plainSplittedWord: [string, string] = ['ab', 'c'];
+    const plainSplittedWord: [string, string, string] = ['', 'ab', 'c'];
     const expectedBionicWord = '_ab_c';
 
     expect(bionicWordConvertor(plainSplittedWord)).toBe(expectedBionicWord);

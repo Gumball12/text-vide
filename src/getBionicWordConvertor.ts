@@ -13,15 +13,19 @@ const getGuaranteedOptions = (options: Partial<Options>): Options =>
     markdownStyle: DEFAULT_MARKDOWN_STYLE,
   });
 
-const generateBionicWordConvertor =
-  (begin: string, end?: string) =>
-  ([firstText, secondText]: [string, string]) => {
-    if (!firstText?.length) {
+const getStringElement =
+  (begin: string, end?: string) => (textContent: string) => {
+    if (!textContent.length) {
       return '';
     }
 
-    return `${begin}${firstText}${end ?? begin}${secondText}`;
+    return `${begin}${textContent}${end ?? begin}`;
   };
+
+const generateBionicWordConvertor =
+  (begin: string, end?: string) =>
+  ([firstText, middleText, lastText]: [string, string, string]) =>
+    `${firstText}${getStringElement(begin, end)(middleText)}${lastText}`;
 
 export default (options: Partial<Options>) => {
   const { highlightTag, markdown, markdownStyle } =

@@ -6,10 +6,19 @@ const convertParagraphToBionicParagraph =
   (bionicWordConvertor: ReturnType<typeof getBionicWordConvertor>) =>
   (paragraph: string) => {
     const wordList = paragraph.split(' ');
-    const splittedWordList = wordList.map(conv2IntermediateWord);
-    const bionicWordList = splittedWordList.map(bionicWordConvertor);
+    const dashedWordList = wordList.map(word => word.split('-'));
 
-    return bionicWordList.join(' ');
+    const splittedDashedWordList = dashedWordList.map(dashedWord =>
+      dashedWord.map(conv2IntermediateWord),
+    );
+    const bionicSplittedDashedWordList = splittedDashedWordList.map(
+      splittedDashedWord => splittedDashedWord.map(bionicWordConvertor),
+    );
+
+    const dashedBionicWordList = bionicSplittedDashedWordList.map(
+      bionicSplittedDashedWord => bionicSplittedDashedWord.join('-'),
+    );
+    return dashedBionicWordList.join(' ');
   };
 
 export const bionicReading = (text: string, options: Partial<Options> = {}) => {
@@ -21,7 +30,7 @@ export const bionicReading = (text: string, options: Partial<Options> = {}) => {
   const bionicParagraphConvertor =
     convertParagraphToBionicParagraph(bionicWordConvertor);
 
-  const paragraphList = text.split('\n');
+  const paragraphList = text.split(/\r?\n/);
   const bionicParagraphList = paragraphList.map(bionicParagraphConvertor);
 
   const bionicText = bionicParagraphList.join('\n');
