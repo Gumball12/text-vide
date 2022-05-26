@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import isEmptyString from '../utils/isEmptyString';
+import isEmptyString from '../isEmptyString';
 
 describe('test isEmptyString util', () => {
   it('pass not empty string', () => {

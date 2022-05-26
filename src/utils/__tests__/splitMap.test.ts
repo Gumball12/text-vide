@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import splitMap from '../utils/splitMap';
+import splitMap from '../splitMap';
 
 const randomString = () => Math.random().toString(16).split('.')[1];
 

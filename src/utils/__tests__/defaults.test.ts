@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import defaults from '../utils/defaults';
+import defaults from '../defaults';
 
 describe('test defaultValue util function', () => {
   it('tests including default values', () => {

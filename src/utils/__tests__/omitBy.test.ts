@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import omitBy from '../utils/omitBy';
+import omitBy from '../omitBy';
 
 describe('test omitBy util function', () => {
   it('omit number values', () => {
