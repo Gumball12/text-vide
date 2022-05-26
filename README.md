@@ -6,14 +6,18 @@
 
 > [Try on Runkit](https://npm.runkit.com/bionic-reading) or [Online Sandbox](https://gumball12.github.io/bionic-reading/)
 
+> Currently only supported in **English**.
+
 An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-reading.com/).
+
+[How was this made?](./HOW.md)
 
 ## ⚙️ Install
 
 ```bash
 npm i bionic-reading
-yarn add bionic-reading # or Yarn
-pnpm add bionic-reading # or Pnpm
+yarn add bionic-reading
+pnpm add bionic-reading
 ```
 
 ## 📖 Usage
@@ -28,7 +32,7 @@ const text =
 
 const bionicText = bionicReading(text);
 
-console.log(bionicText); // '<b>Bion</b>ic ... <b>conte</b>nt.'
+console.log(bionicText); // '<b>Bion</b>ic <b>Readi</b>ng ... <b>writt</b>en <b>conte</b>nt.'
 ```
 
 ### CommonJS (NodeJS)
@@ -41,7 +45,7 @@ const text =
 
 const bionicText = bionicReading(text);
 
-console.log(bionicText); // '<b>Bion</b>ic ... <b>conte</b>nt.'
+console.log(bionicText); // '<b>Bion</b>ic <b>Readi</b>ng ... <b>writt</b>en <b>conte</b>nt.'
 ```
 
 ## 📚 API
@@ -49,7 +53,7 @@ console.log(bionicText); // '<b>Bion</b>ic ... <b>conte</b>nt.'
 ### `BionicReading(text: string, options?: Options)`
 
 ```ts
-bionicReading('bionic-reading'); // '<b>bionic-</b>reading'
+bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
 ```
 
 ### Options
@@ -68,12 +72,12 @@ type Options = Partial<{
 
 ```ts
 // default highlight tag: `<b>`
-bionicReading('bionic-reading'); // '<b>bionic-</b>reading'
+bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
 ```
 
 ```ts
 // changed highlight tag: `<strong>`
-bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bionic-</strong>reading'
+bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bion</strong>ic-<strong>readi</strong>ng'
 ```
 
 #### `markdown`
@@ -81,7 +85,7 @@ bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bionic-
 - Default Value: `false`
 
 ```ts
-bionicReading('bionic-reading', { markdown: true, highlightTag: 'strong' }); // '**bionic-**reading'
+bionicReading('bionic-reading', { markdown: true, highlightTag: 'strong' }); // '**bion**ic-**readi**ng'
 ```
 
 If true, the `highlightTag` option is ignored.
@@ -91,7 +95,7 @@ If true, the `highlightTag` option is ignored.
 - Default Value: `'**'`
 
 ```ts
-bionicReading('bionic-reading', { markdown: true, markdownStyle: '__' }); // '__bionic-__reading'
+bionicReading('bionic-reading', { markdown: true, markdownStyle: '__' }); // '__bion__ic-__readi__ng'
 ```
 
 If the `markdown` option is false, this option is ignored.
