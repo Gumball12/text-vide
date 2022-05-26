@@ -1,12 +1,12 @@
 import getBionicWordConvertor from './getBionicWordConvertor';
 import { Options } from './types';
-import splitWord from './splitWord';
+import conv2IntermediateWord from './conv2IntermediateWord';
 
 const convertParagraphToBionicParagraph =
   (bionicWordConvertor: ReturnType<typeof getBionicWordConvertor>) =>
   (paragraph: string) => {
     const wordList = paragraph.split(' ');
-    const splittedWordList = wordList.map(splitWord);
+    const splittedWordList = wordList.map(conv2IntermediateWord);
     const bionicWordList = splittedWordList.map(bionicWordConvertor);
 
     return bionicWordList.join(' ');
