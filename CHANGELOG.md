@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/Gumball12/bionic-reading/compare/v1.2.2...v1.2.3) (2022-05-26)
+
+
+### Features
+
+* implement splitMap util function ([2b1db41](https://github.com/Gumball12/bionic-reading/commit/2b1db41ebc957a75d0bd52a4bebbbbe2085275c3))
+* improve to perform the same behavior as the real bionic-reading API ([4e8d6bd](https://github.com/Gumball12/bionic-reading/commit/4e8d6bd93d72c21c12d054521b4b9da8cabd8cee)), closes [#12](https://github.com/Gumball12/bionic-reading/issues/12)
+
 ### [1.2.2](https://github.com/Gumball12/bionic-reading/compare/v1.2.1...v1.2.2) (2022-05-23)
 
 
