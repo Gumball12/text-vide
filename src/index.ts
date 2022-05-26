@@ -1,25 +1,7 @@
 import getBionicWordConvertor from './getBionicWordConvertor';
 import { Options } from './types';
 import conv2IntermediateWord from './conv2IntermediateWord';
-
-const convertParagraphToBionicParagraph =
-  (bionicWordConvertor: ReturnType<typeof getBionicWordConvertor>) =>
-  (paragraph: string) => {
-    const wordList = paragraph.split(' ');
-    const dashedWordList = wordList.map(word => word.split('-'));
-
-    const splittedDashedWordList = dashedWordList.map(dashedWord =>
-      dashedWord.map(conv2IntermediateWord),
-    );
-    const bionicSplittedDashedWordList = splittedDashedWordList.map(
-      splittedDashedWord => splittedDashedWord.map(bionicWordConvertor),
-    );
-
-    const dashedBionicWordList = bionicSplittedDashedWordList.map(
-      bionicSplittedDashedWord => bionicSplittedDashedWord.join('-'),
-    );
-    return dashedBionicWordList.join(' ');
-  };
+import splitMap from './utils/splitMap';
 
 export const bionicReading = (text: string, options: Partial<Options> = {}) => {
   if (!text?.length) {
@@ -27,12 +9,18 @@ export const bionicReading = (text: string, options: Partial<Options> = {}) => {
   }
 
   const bionicWordConvertor = getBionicWordConvertor(options);
-  const bionicParagraphConvertor =
-    convertParagraphToBionicParagraph(bionicWordConvertor);
 
-  const paragraphList = text.split(/\r?\n/);
-  const bionicParagraphList = paragraphList.map(bionicParagraphConvertor);
+  const syllableToBionic = (syllable: string) => {
+    const intermediate = conv2IntermediateWord(syllable);
+    return bionicWordConvertor(intermediate);
+  };
+  const wordToSyllable = (word: string) =>
+    splitMap(word, '-', '-', syllableToBionic);
+  const paragraphToWord = (paragraph: string) =>
+    splitMap(paragraph, ' ', ' ', wordToSyllable);
+  const textToParagraph = (text: string) =>
+    splitMap(text, /\r?\n/, '\n', paragraphToWord);
 
-  const bionicText = bionicParagraphList.join('\n');
+  const bionicText = textToParagraph(text);
   return bionicText;
 };
