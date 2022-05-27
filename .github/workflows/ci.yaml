@@ -22,7 +22,8 @@ jobs:
       - uses: actions/cache@v3
         id: pnpm-cache
         with:
-          path: node_modules
+          path: |
+            **/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
