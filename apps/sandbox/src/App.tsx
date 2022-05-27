@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   SvgIcon,
   TextField,
   ToggleButton,
@@ -10,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { bionicReading } from 'bionic-reading/src';
 
 const DEBOUNCE_TIMEOUT = 400;
+const COPIED_EFFECT_DEBOUNCE_TIMEOUT = 1200;
+
 const INITIAL_INPUT =
   'Bionic Reading is a new method facilitating the reading process by guiding the eyes through text with artificial fixation points. As a result, the reader is only focusing on the highlighted initial letters and lets the brain center complete the word. In a digital world dominated by shallow forms of reading, Bionic Reading aims to encourage a more in-depth reading and understanding of written content.';
 
@@ -19,37 +22,135 @@ const MarkdownIcon = () => (
   </SvgIcon>
 );
 
+type Edits = {
+  renderStyle: 'html' | 'markdown';
+  tagStyle: string;
+  mdStyle: string;
+  input: string;
+};
+
+const defaultEdits: Edits = {
+  renderStyle: 'html',
+  tagStyle: 'b',
+  mdStyle: '**',
+  input: INITIAL_INPUT,
+};
+
+const storeEdits = ({ renderStyle, tagStyle, mdStyle, input }: Edits) => {
+  const search = [
+    `renderStyle=${encodeURIComponent(renderStyle)}`,
+    `tagStyle=${encodeURIComponent(tagStyle)}`,
+    `mdStyle=${encodeURIComponent(mdStyle)}`,
+    `input=${encodeURIComponent(input)}`,
+  ].join('&');
+
+  // eslint-disable-next-line
+  // @ts-ignore
+  history.replaceState(null, null, `?${search}`);
+};
+
+const getEdits = (): Edits => {
+  const maybeEditsString = location.search.slice(1);
+
+  if (!maybeEditsString?.length) {
+    return defaultEdits;
+  }
+
+  const maybeEdits = maybeEditsString.split('&').reduce((maybeEdits, str) => {
+    const [maybeKey, maybeValue] = str.split('=');
+
+    if (!maybeKey.length) {
+      return maybeEdits;
+    }
+
+    const key = maybeKey as keyof Edits;
+    const value = maybeValue ?? defaultEdits[key];
+
+    if (!value) {
+      return maybeEdits;
+    }
+
+    // eslint-disable-next-line
+    // @ts-ignore
+    maybeEdits[key] = decodeURIComponent(value);
+    return maybeEdits;
+  }, {} as Partial<Edits>);
+
+  return {
+    ...defaultEdits,
+    ...maybeEdits,
+  };
+};
+
+const initialEdits = getEdits();
+
 const App = () => {
-  const [renderStyle, setRenderStyle] = useState<'html' | 'markdown'>('html');
-  const [tagStyle, setTagStyle] = useState<string>('b');
-  const [mdStyle, setMdStyle] = useState<string>('**');
-  const [input, setInput] = useState<string>(INITIAL_INPUT);
+  const [renderStyle, setRenderStyle] = useState<'html' | 'markdown'>(
+    initialEdits.renderStyle,
+  );
+  const [tagStyle, setTagStyle] = useState<string>(initialEdits.tagStyle);
+  const [mdStyle, setMdStyle] = useState<string>(initialEdits.mdStyle);
+  const [input, setInput] = useState<string>(initialEdits.input);
   const [bionicReadingText, setBionicReadingText] = useState<string>('');
+  const [copiedEffect, setCopiedEffect] = useState<boolean>(false);
 
   useEffect(() => {
     const store = setTimeout(() => {
       const options = {
         markdown: renderStyle === 'markdown',
-        highlightedTag: tagStyle,
+        highlightTag: tagStyle,
         markdownStyle: mdStyle,
       };
 
       const bionicReadingText = bionicReading(input, options);
       setBionicReadingText(bionicReadingText);
+      storeEdits({
+        renderStyle,
+        tagStyle,
+        mdStyle,
+        input,
+      });
     }, DEBOUNCE_TIMEOUT);
 
     return () => clearTimeout(store);
   }, [renderStyle, tagStyle, mdStyle, input]);
 
+  const copyUrl = () => {
+    const { href: url } = location;
+    navigator.clipboard.writeText(url);
+    setCopiedEffect(true);
+  };
+
+  useEffect(() => {
+    const store = setTimeout(
+      () => setCopiedEffect(false),
+      COPIED_EFFECT_DEBOUNCE_TIMEOUT,
+    );
+
+    return () => clearTimeout(store);
+  }, [copiedEffect]);
+
+  const reset = () => {
+    const { renderStyle, tagStyle, mdStyle, input } = defaultEdits;
+
+    setRenderStyle(renderStyle);
+    setTagStyle(tagStyle);
+    setMdStyle(mdStyle);
+    setInput(input);
+  };
+
   return (
     <div className="max-w-4xl m-auto sm:px-8 px-4 py-4 leading-tight">
-      <header className="mb-3">
+      <header className="flex justify-between mb-3">
         <h1 className="text-2xl">Bionic Reading Sandbox</h1>
+        <Button variant="outlined" onClick={copyUrl}>
+          Copy URL
+        </Button>
       </header>
 
       <main className="flex flex-col gap-y-8">
         <section>
-          <section className="mb-4">
+          <section className="flex justify-between mb-4">
             <ToggleButtonGroup
               exclusive
               color="primary"
@@ -63,6 +164,10 @@ const App = () => {
                 <MarkdownIcon />
               </ToggleButton>
             </ToggleButtonGroup>
+
+            <Button variant="outlined" color="error" onClick={reset}>
+              reset
+            </Button>
           </section>
 
           <section className="flex gap-x-2">
