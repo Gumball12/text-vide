@@ -4,9 +4,9 @@
 
 [![ci](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml/badge.svg)](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/Gumball12/bionic-reading/branch/main/graph/badge.svg?token=MsLDgzri5B)](https://codecov.io/gh/Gumball12/bionic-reading)
 
-> [Try on Runkit](https://npm.runkit.com/bionic-reading) or [Online Sandbox](https://gumball12.github.io/bionic-reading/)
+> **Support for all languages with Space-separated words.**
 
-> Currently only supported in **English**.
+> [Try on Runkit](https://npm.runkit.com/bionic-reading) or [Online Sandbox](https://gumball12.github.io/bionic-reading/)
 
 An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-reading.com/).
 
