@@ -1,6 +1,6 @@
 # bionic-reading
 
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/bionic-reading)](https://www.npmjs.com/package/bionic-reading) [![GitHub package.json version](https://img.shields.io/github/package-json/v/Gumball12/bionic-reading)](https://github.com/Gumball12/bionic-reading/releases) [![changelog](https://img.shields.io/badge/CHANGELOG-gray)](./CHANGELOG.md)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/bionic-reading)](https://www.npmjs.com/package/bionic-reading) ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/Gumball12/bionic-reading?filename=packages%2Fbionic-reading%2Fpackage.json) [![changelog](https://img.shields.io/badge/CHANGELOG-gray)](./CHANGELOG.md)
 
 [![ci](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml/badge.svg)](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/Gumball12/bionic-reading/branch/main/graph/badge.svg?token=MsLDgzri5B)](https://codecov.io/gh/Gumball12/bionic-reading)
 
