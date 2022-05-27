@@ -20,18 +20,26 @@ describe('test bionicReading module', () => {
     expect(bionicReading(text)).toBe(expectedText);
   });
 
-  /*
-  it('test korean', () => {
+  it('special char (dash)', () => {
+    const text = '-----';
+    const expected = '-----';
+    expect(bionicReading(text)).toBe(expected);
+  });
+
+  it('test Korean', () => {
     const text =
       '바이오닉 리딩은 인위적인 fixation point를 사용하여 문장을 읽기 쉽게 만들어줍니다. 눈은 강조된 단어만 따라가며 뇌를 의존해 문장을 완성합니다. 얕고 넓은 디지털 정보 시대에 바이오닉 리딩은 콘텐츠를 깊게 음미할 수 있도록 도와줍니다.';
     const expectedText =
-      '<b>바이</b>오닉 <b>리딩</b>은 <b>인위</b>적인 <b>fixa</b>tion <b>poi</b>nt를 <b>사용</b>하여 <b>문장</b>을 <b>읽</b>기 <b>쉽</b>게 <b>만들어줍</b>니다. <b>눈</b>은 <b>강조</b>된 <b>단어</b>만 <b>따라</b>가며 <b>뇌</b>를 <b>의존</b>해 <b>문장</b>을 <b>완성합</b>니다. <b>얕</b>고 <b>넓</b>은 <b>디지</b>털 <b>정</b>보 <b>시대</b>에 <b>바이</b>오닉 <b>리딩</b>은 <b>콘텐</b>츠를 <b>깊</b>게 <b>음미</b>할 <b>수</b> <b>있도</b>록 <b>도와줍</b>니다.';
-    const bionicText = bionicReading(text);
-    console.log(bionicText);
+      '<b>바이오</b>닉 <b>리딩</b>은 <b>인위적</b>인 <b>fixati</b>on <b>poin</b>t를 <b>사용하</b>여 <b>문장</b>을 <b>읽</b>기 <b>쉽</b>게 <b>만들어줍</b>니다. <b>눈</b>은 <b>강조</b>된 <b>단어</b>만 <b>따라가</b>며 <b>뇌</b>를 <b>의존</b>해 <b>문장</b>을 <b>완성합</b>니다. <b>얕</b>고 <b>넓</b>은 <b>디지</b>털 <b>정</b>보 <b>시대</b>에 <b>바이오</b>닉 <b>리딩</b>은 <b>콘텐츠</b>를 <b>깊</b>게 <b>음미</b>할 수 <b>있도</b>록 <b>도와줍</b>니다.';
 
-    expect(bionicText).toBe(expectedText);
+    expect(bionicReading(text)).toBe(expectedText);
   });
-  */
+
+  it('test Russian', () => {
+    const text = `Конституция СФРЮ 1974 года - третья и последняя конституция Социалистической Федеративной Республики Югославии. Вступила в силу 21 февраля 1974 года, действие окончательно прекратилось в результате начавшегося распада Югославии в 1992 году.`;
+    const expected = `<b>Конституц</b>ия <b>СФР</b>Ю <b>197</b>4 <b>год</b>а - <b>трет</b>ья и <b>последн</b>яя <b>конституц</b>ия <b>Социалистичес</b>кой <b>Федеративн</b>ой <b>Республи</b>ки <b>Югослав</b>ии. <b>Вступи</b>ла в <b>сил</b>у <b>2</b>1 <b>февра</b>ля <b>197</b>4 <b>год</b>а, <b>действ</b>ие <b>окончатель</b>но <b>прекратило</b>сь в <b>результа</b>те <b>начавшего</b>ся <b>распа</b>да <b>Югослав</b>ии в <b>199</b>2 <b>год</b>у.`;
+    expect(bionicReading(text)).toBe(expected);
+  });
 
   it('pass empty string', () => {
     const text = '';
