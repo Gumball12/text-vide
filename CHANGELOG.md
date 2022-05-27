@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/Gumball12/bionic-reading/compare/v1.3.0...v1.3.1) (2022-05-27)
+
+
+### Bug Fixes
+
+* fix npm publishing process ([13a7278](https://github.com/Gumball12/bionic-reading/commit/13a7278addc6d3599007610e8cea76acf16f09e0))
+
 ## [1.3.0](https://github.com/Gumball12/bionic-reading/compare/v1.2.3...v1.3.0) (2022-05-27)
 
 
