@@ -1,6 +1,6 @@
 {
   "name": "bionic-reading",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "An Open-Source JavaScript Implementation of Bionic Reading.",
   "repository": {
     "type": "git",

@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Gumball12/bionic-reading/compare/v1.2.3...v1.3.0) (2022-05-27)
+
+
+### Features
+
+* support multiple languages ([5c9c200](https://github.com/Gumball12/bionic-reading/commit/5c9c2002f3ae501554f54e26e56ff33ea3ec1823))
+
+
+### Bug Fixes
+
+* fix actions/cache key ([139171f](https://github.com/Gumball12/bionic-reading/commit/139171f9c5cd752dacd728f9b27e1eb299119460))
+* fix npm script ([f6c6706](https://github.com/Gumball12/bionic-reading/commit/f6c6706570ed1b724add21c5fd2262a7ae123ca8))
+* set cache field for test and release pipelines to false ([673f8fb](https://github.com/Gumball12/bionic-reading/commit/673f8fb0e3c89b037daa161c0e7b3138fd6ddf8e))
+
 ### [1.2.3](https://github.com/Gumball12/bionic-reading/compare/v1.2.2...v1.2.3) (2022-05-26)
 
 
