@@ -217,7 +217,7 @@ const App = () => {
         </section>
       </main>
 
-      <footer className="absolute right-4 bottom-4">
+      <footer className="fixed right-4 bottom-4 bg-white px-2 py-1">
         <a
           className="text-gray-400 underline-gray-300"
           href="https://github.com/Gumball12/bionic-reading"
