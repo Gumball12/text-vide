@@ -1,57 +1,28 @@
 {
-  "name": "bionic-reading",
-  "version": "1.2.3",
-  "description": "Reading for everyone. Bionic Reading API.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gumball12/bionic-reading.git"
-  },
-  "author": "Gumball12 <to@shj.rip>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Gumball12/bionic-reading/issues"
-  },
-  "homepage": "https://github.com/Gumball12/bionic-reading#readme",
-  "keywords": [
-    "bionic-reading",
-    "bionic reading",
-    "bionic",
-    "reading",
-    "readable",
-    "text",
-    "highlighted",
-    "fixation-points"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
-    "test": "vitest run --coverage",
-    "lint": "eslint --ext .ts ./src/**.ts",
-    "build": "tsup",
-    "dev:sandbox": "vite",
-    "build:sandbox": "tsup sandbox/src/main.ts && vite build",
-    "release-major": "standard-version --release-as major",
-    "release-minor": "standard-version --release-as minor",
-    "release-patch": "standard-version --release-as patch",
+    "build": "turbo run build",
+    "dev": "turbo run dev --no-cache --parallel --continue",
+    "preview": "turbo run preview",
+    "test": "turbo run test",
+    "lint": "eslint --ext .ts ./**/src/**.ts",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@types/node": "^17.0.35",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
-    "c8": "^7.11.3",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
-    "standard-version": "^9.5.0",
     "tsup": "^5.12.8",
+    "turbo": "^1.2.14",
     "typescript": "^4.6.4",
     "vite": "^2.9.9",
     "vitest": "^0.12.8"

@@ -1,0 +1,45 @@
+{
+  "name": "bionic-reading",
+  "version": "1.2.3",
+  "description": "An Open-Source JavaScript Implementation of Bionic Reading.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gumball12/bionic-reading.git"
+  },
+  "author": {
+    "name": "Gumball12",
+    "email": "to@shj.rip",
+    "url": "https://github.com/Gumball12"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gumball12/bionic-reading/issues"
+  },
+  "homepage": "https://github.com/Gumball12/bionic-reading#readme",
+  "keywords": [
+    "bionic-reading",
+    "bionic reading",
+    "bionic",
+    "reading",
+    "readable",
+    "text",
+    "highlighted",
+    "fixation-points"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "vitest run --coverage",
+    "build": "tsup",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "c8": "^7.11.3",
+    "standard-version": "^9.5.0"
+  }
+}

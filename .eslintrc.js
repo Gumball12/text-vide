@@ -14,7 +14,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['./__tests__/**'],
+      files: ['./**/__tests__/**'],
       rules: {
         'no-restricted-globals': 'off',
         'no-restricted-syntax': 'off',

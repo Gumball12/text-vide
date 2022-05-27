@@ -2,7 +2,7 @@
 
 import './reset.css';
 import './style.css';
-import { bionicReading } from '../../src';
+import { bionicReading } from 'bionic-reading/src';
 
 let options = {
   markdown: false,

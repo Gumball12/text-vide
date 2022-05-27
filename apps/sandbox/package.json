@@ -1,0 +1,13 @@
+{
+  "name": "sandbox",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup ./src/main.ts && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "bionic-reading": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}
