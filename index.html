@@ -6,51 +6,22 @@
     <title>Bionic Reading Sandbox</title>
 
     <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
       href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/bionic-reading/assets/index.c6146593.js"></script>
-    <link rel="stylesheet" href="/bionic-reading/assets/index.b1638329.css">
+    <script type="module" crossorigin src="/bionic-reading/assets/index.15a2720f.js"></script>
+    <link rel="stylesheet" href="/bionic-reading/assets/index.5ebc3943.css">
   </head>
   <body>
-    <textarea id="paragraph"></textarea>
-
-    <hr />
-
-    <pre id="rendered"></pre>
-
-    <hr />
-
-    <pre id="rendered-raw"></pre>
-
-    <hr class="bold" />
-
-    <div class="container">
-      <div class="container__option" id="render-style">
-        <h3>- Render Style</h3>
-
-        <div>
-          <label>Use DOM Style</label>
-          <input type="radio" value="dom" name="render-style" checked />
-        </div>
-
-        <div>
-          <label>Use Markdown Style</label>
-          <input type="radio" value="markdown" name="render-style" />
-        </div>
-      </div>
-
-      <div class="container__option">
-        <h3>- highlighted DOM Tag Style</h3>
-        <input value="b" placeholder="default: b" id="dom-tag-style" />
-      </div>
-
-      <div class="container__option">
-        <h3>- Highlighted Markdown Style</h3>
-        <input value="**" placeholder="default: **" id="markdown-style" />
-      </div>
-    </div>
-
+    <div id="root"></div>
     
   </body>
 </html>
