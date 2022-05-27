@@ -34,6 +34,6 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
-      - run: npm publish packages/bionic-reading
+      - run: cd ./packages/bionic-reading && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
