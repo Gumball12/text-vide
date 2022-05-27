@@ -1,19 +1,14 @@
 {
-  "extends": "../tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./base.json",
   "compilerOptions": {
     "useDefineForClassFields": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "sourceMap": true,
     "resolveJsonModule": true,
     "noEmit": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true
-  },
-  "include": [
-    "src"
-  ]
+  }
 }
