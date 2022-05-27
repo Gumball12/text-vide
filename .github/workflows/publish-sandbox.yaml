@@ -30,7 +30,7 @@ jobs:
       - if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install
 
-      - run: pnpm run build:sandbox
+      - run: pnpm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
