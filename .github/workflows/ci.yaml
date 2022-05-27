@@ -35,7 +35,7 @@ jobs:
 
       - run: pnpm run lint
       - run: pnpm run build
-      - run: pnpm run coverage
+      - run: pnpm run test
 
       - uses: codecov/codecov-action@v2
         with:

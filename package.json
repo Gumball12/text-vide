@@ -29,8 +29,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest run",
-    "coverage": "vitest run --coverage",
+    "test": "vitest run --coverage",
     "lint": "eslint --ext .ts ./src/**.ts",
     "build": "tsup",
     "dev:sandbox": "vite",
