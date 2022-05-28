@@ -1,3 +1,5 @@
+import isNumberString from './utils/isNumberString';
+
 type IntermediateWord = [string, string, string];
 
 const WORD_WITHOUT_SPECIAL_CHAR_REGEX =
@@ -62,12 +64,20 @@ const getSplitPoint = (length: number, fixationPoint: number) => {
 };
 
 const getConvertibleWord = (word: string) => {
+  if (isNumberString(word)) {
+    return '';
+  }
+
   let convertibleWord: string | undefined;
 
   if (word.length <= 1) {
     convertibleWord = word.match(WORD_WITHOUT_SPECIAL_CHAR_REGEX)?.[0];
   } else {
     convertibleWord = word.match(CONVERTIBLE_WORD_REGEX_UPPER_LEN_2)?.[0];
+  }
+
+  if (convertibleWord && isNumberString(convertibleWord)) {
+    return '';
   }
 
   return convertibleWord ?? '';

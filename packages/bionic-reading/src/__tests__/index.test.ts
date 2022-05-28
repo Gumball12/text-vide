@@ -20,6 +20,13 @@ describe('test bionicReading module', () => {
     expect(bionicReading(text)).toBe(expectedText);
   });
 
+  it('test paragraph 3 (with number)', () => {
+    const text = `Pan Am Flight 7 was a westbound round-the-world flight operated by Pan American World Airways that crashed in the Pacific Ocean on November 8, 1957, while flying from San Francisco International Airport to Honolulu International Airport. The crash of the Boeing 377 Stratocruiser 10-29 (example pictured) killed all thirty-six passengers and eight crew members. The flight's fate was not known until about nine hours after its last radio transmission. No emergency radio reports were received.`;
+    const expectedText = `<b>Pa</b>n <b>A</b>m <b>Flig</b>ht 7 <b>wa</b>s a <b>westbou</b>nd <b>rou</b>nd-<b>th</b>e-<b>wor</b>ld <b>flig</b>ht <b>operat</b>ed <b>b</b>y <b>Pa</b>n <b>Americ</b>an <b>Wor</b>ld <b>Airwa</b>ys <b>tha</b>t <b>crash</b>ed <b>i</b>n <b>th</b>e <b>Pacif</b>ic <b>Oce</b>an <b>o</b>n <b>Novemb</b>er 8, 1957, <b>whi</b>le <b>flyi</b>ng <b>fro</b>m <b>Sa</b>n <b>Francis</b>co <b>Internatio</b>nal <b>Airpo</b>rt <b>t</b>o <b>Honolu</b>lu <b>Internatio</b>nal <b>Airpo</b>rt. <b>Th</b>e <b>cra</b>sh <b>o</b>f <b>th</b>e <b>Boei</b>ng 377 <b>Stratocrui</b>ser 10-29 (<b>examp</b>le <b>pictur</b>ed) <b>kill</b>ed <b>al</b>l <b>thir</b>ty-<b>si</b>x <b>passenge</b>rs <b>an</b>d <b>eig</b>ht <b>cre</b>w <b>membe</b>rs. <b>Th</b>e <b>flight</b>'s <b>fat</b>e <b>wa</b>s <b>no</b>t <b>kno</b>wn <b>unt</b>il <b>abo</b>ut <b>nin</b>e <b>hou</b>rs <b>aft</b>er <b>it</b>s <b>las</b>t <b>rad</b>io <b>transmissi</b>on. <b>N</b>o <b>emergen</b>cy <b>rad</b>io <b>repor</b>ts <b>wer</b>e <b>receiv</b>ed.`;
+
+    expect(bionicReading(text)).toBe(expectedText);
+  });
+
   it('special char (dash)', () => {
     const text = '-----';
     const expected = '-----';
@@ -37,7 +44,7 @@ describe('test bionicReading module', () => {
 
   it('test Russian', () => {
     const text = `Конституция СФРЮ 1974 года - третья и последняя конституция Социалистической Федеративной Республики Югославии. Вступила в силу 21 февраля 1974 года, действие окончательно прекратилось в результате начавшегося распада Югославии в 1992 году.`;
-    const expected = `<b>Конституц</b>ия <b>СФР</b>Ю <b>197</b>4 <b>год</b>а - <b>трет</b>ья и <b>последн</b>яя <b>конституц</b>ия <b>Социалистичес</b>кой <b>Федеративн</b>ой <b>Республи</b>ки <b>Югослав</b>ии. <b>Вступи</b>ла в <b>сил</b>у <b>2</b>1 <b>февра</b>ля <b>197</b>4 <b>год</b>а, <b>действ</b>ие <b>окончатель</b>но <b>прекратило</b>сь в <b>результа</b>те <b>начавшего</b>ся <b>распа</b>да <b>Югослав</b>ии в <b>199</b>2 <b>год</b>у.`;
+    const expected = `<b>Конституц</b>ия <b>СФР</b>Ю 1974 <b>год</b>а - <b>трет</b>ья и <b>последн</b>яя <b>конституц</b>ия <b>Социалистичес</b>кой <b>Федеративн</b>ой <b>Республи</b>ки <b>Югослав</b>ии. <b>Вступи</b>ла в <b>сил</b>у 21 <b>февра</b>ля 1974 <b>год</b>а, <b>действ</b>ие <b>окончатель</b>но <b>прекратило</b>сь в <b>результа</b>те <b>начавшего</b>ся <b>распа</b>да <b>Югослав</b>ии в 1992 <b>год</b>у.`;
     expect(bionicReading(text)).toBe(expected);
   });
 
@@ -228,5 +235,55 @@ describe('fixation point ([2, 5])', () => {
     const expected =
       '__<b>or</b>e__m __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>con</b>setet__ur __<b>sad</b>ipsci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>no</b>nu__my __<b>ei</b>rm__od __<b>te</b>mp__or __<b>inv</b>idu__nt __<b>u</b>__t __<b>la</b>bo__re __<b>e</b>__t __<b>do</b>lo__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A</b>__t __<b>ve</b>r__o __<b>eo</b>__s __<b>e</b>__t __<b>ac</b>cus__am __<b>e</b>__t __<b>ju</b>s__to __<b>du</b>__o __<b>do</b>lor__es __<b>e</b>__t __<b>e</b>__a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gub</b>ergr__en, __<b>n</b>__o __<b>se</b>__a __<b>tak</b>ima__ta __<b>sa</b>nct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t. __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>con</b>setet__ur __<b>sad</b>ipsci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>no</b>nu__my __<b>ei</b>rm__od __<b>te</b>mp__or __<b>inv</b>idu__nt __<b>u</b>__t __<b>la</b>bo__re __<b>e</b>__t __<b>do</b>lo__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A</b>__t __<b>ve</b>r__o __<b>eo</b>__s __<b>e</b>__t __<b>ac</b>cus__am __<b>e</b>__t __<b>ju</b>s__to __<b>du</b>__o __<b>do</b>lor__es __<b>e</b>__t __<b>e</b>__a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gub</b>ergr__en, __<b>n</b>__o __<b>se</b>__a __<b>tak</b>ima__ta __<b>sa</b>nct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t.';
     expect(bionicReading(text, { fixationPoint: 5 })).toBe(expected);
+  });
+});
+
+describe('numbers', () => {
+  it('1234567890', () => {
+    const text = '1234567890';
+    const expected = '1234567890';
+    expect(bionicReading(text), expected);
+  });
+
+  it('1234-567890', () => {
+    const text = '1234-567890';
+    const expected = '1234-567890';
+    expect(bionicReading(text), expected);
+  });
+
+  it('a1234567890', () => {
+    const text = 'a1234567890';
+    const expected = '<b>a12345678</b>90';
+    expect(bionicReading(text), expected);
+  });
+
+  it('1234567890a', () => {
+    const text = '1234567890a';
+    const expected = '<b>123456789</b>0a';
+    expect(bionicReading(text), expected);
+  });
+
+  it('1234a567890', () => {
+    const text = '1234a567890';
+    const expected = '<b>1234a5678</b>90';
+    expect(bionicReading(text), expected);
+  });
+
+  it('@1234567890', () => {
+    const text = '@1234567890';
+    const expected = '@1234567890';
+    expect(bionicReading(text), expected);
+  });
+
+  it('1234567890@', () => {
+    const text = '1234567890@';
+    const expected = '1234567890@';
+    expect(bionicReading(text), expected);
+  });
+
+  it('1234@567890', () => {
+    const text = '1234@567890';
+    const expected = '<b>1234@567890</b>';
+    expect(bionicReading(text), expected);
   });
 });

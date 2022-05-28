@@ -179,3 +179,47 @@ describe('fixation-points', async () => {
     }
   });
 });
+
+describe('numbers', () => {
+  it('1234567890', () => {
+    const text = '1234567890';
+    const expected = splitByLen(text, text.length); // ['', '', '1234567890']
+    t(text, expected);
+  });
+
+  it('a1234567890', () => {
+    const text = 'a1234567890';
+    const expected = splitByLen(text, 2); // ['', 'a12345678', '90']
+    t(text, expected);
+  });
+
+  it('1234567890a', () => {
+    const text = '1234567890a';
+    const expected = splitByLen(text, 2); // ['', '123456789', '0a']
+    t(text, expected);
+  });
+
+  it('1234a567890', () => {
+    const text = '1234a567890';
+    const expected = splitByLen(text, 2); // ['', '1234a5678', '90']
+    t(text, expected);
+  });
+
+  it('!1234567890', () => {
+    const text = '!1234567890';
+    const expected = splitByLen(text, text.length); // ['', '', '!1234567890']
+    t(text, expected);
+  });
+
+  it('1234567890!', () => {
+    const text = '1234567890!';
+    const expected = splitByLen(text, text.length); // ['', '', '1234567890!']
+    t(text, expected);
+  });
+
+  it('1234!567890', () => {
+    const text = '1234!567890';
+    const expected = splitByLen(text, 2); // ['', '1234!5678', '90']
+    t(text, expected);
+  });
+});
