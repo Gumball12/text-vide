@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Gumball12/bionic-reading/compare/v1.3.2...v1.4.0) (2022-05-28)
+
+
+### Features
+
+* implement fixationPoint option field ([53697f4](https://github.com/Gumball12/bionic-reading/commit/53697f43d8c291890f1d496e2a7fb2ba9c160106))
+* implement getOptions() ([100cb94](https://github.com/Gumball12/bionic-reading/commit/100cb94f83ecf181d04c1e4f67fc8ca0f07cd766))
+* implement isEmpty util function ([9450ac9](https://github.com/Gumball12/bionic-reading/commit/9450ac9a67b23248d2254e6120de8ae6047acf57))
+* implement isNumberString util function ([928c11b](https://github.com/Gumball12/bionic-reading/commit/928c11bf1e7df2fda56f74dbfcaa0190cc1444be))
+* improve readability ([5b2789a](https://github.com/Gumball12/bionic-reading/commit/5b2789ab42997ef52cb06a4a7b1e78a65fbed9c1))
+* improve sandbox ([2add790](https://github.com/Gumball12/bionic-reading/commit/2add7906eb040bbe81d90d6be88f29b1993247e2))
+* migrate to react ([1f17c36](https://github.com/Gumball12/bionic-reading/commit/1f17c369cdf2cfc558beada554242ec7d24adab7))
+
+
+### Bug Fixes
+
+* fix footer style ([f9aa436](https://github.com/Gumball12/bionic-reading/commit/f9aa43689e86f102ba31978fced6a397e44f08ec))
+* fix incorrect rendering for numbers ([2308eea](https://github.com/Gumball12/bionic-reading/commit/2308eeae27c6fca9f5ba5f8bb609b5e98b1e3ff1))
+* use br tag instead of linefeed char ([f8ba04f](https://github.com/Gumball12/bionic-reading/commit/f8ba04f2dd8971d2817e4c0cdbe89416a7b13acb))
+
 ### [1.3.2](https://github.com/Gumball12/bionic-reading/compare/v1.3.1...v1.3.2) (2022-05-27)
 
 
