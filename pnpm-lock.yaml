@@ -68,10 +68,12 @@ importers:
   packages/bionic-reading:
     specifiers:
       c8: ^7.11.3
+      public-google-sheets-parser: ^1.2.6
       standard-version: ^9.5.0
       tsconfig: workspace:*
     devDependencies:
       c8: 7.11.3
+      public-google-sheets-parser: 1.2.6
       standard-version: 9.5.0
       tsconfig: link:../tsconfig
 
@@ -3335,6 +3337,10 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
+    dev: true
+
+  /public-google-sheets-parser/1.2.6:
+    resolution: {integrity: sha512-sWtWEGw7735Hfo04zjMGiXF7XI9SNTjBJFQQluIQmPjI3hnB9pSgcUMPGRF+W0IiJSF28x2EksJ/n1Vi/x8jYg==}
     dev: true
 
   /punycode/2.1.1:

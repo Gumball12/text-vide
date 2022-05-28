@@ -26,6 +26,7 @@ type Edits = {
   renderStyle: 'html' | 'markdown';
   tagStyle: string;
   mdStyle: string;
+  fixationPoint: string;
   input: string;
 };
 
@@ -34,13 +35,21 @@ const defaultEdits: Edits = {
   tagStyle: 'b',
   mdStyle: '**',
   input: INITIAL_INPUT,
+  fixationPoint: '1',
 };
 
-const storeEdits = ({ renderStyle, tagStyle, mdStyle, input }: Edits) => {
+const storeEdits = ({
+  renderStyle,
+  tagStyle,
+  mdStyle,
+  input,
+  fixationPoint,
+}: Edits) => {
   const search = [
     `renderStyle=${encodeURIComponent(renderStyle)}`,
     `tagStyle=${encodeURIComponent(tagStyle)}`,
     `mdStyle=${encodeURIComponent(mdStyle)}`,
+    `fixationPoint=${encodeURIComponent(fixationPoint)}`,
     `input=${encodeURIComponent(input)}`,
   ].join('&');
 
@@ -90,6 +99,10 @@ const App = () => {
   );
   const [tagStyle, setTagStyle] = useState<string>(initialEdits.tagStyle);
   const [mdStyle, setMdStyle] = useState<string>(initialEdits.mdStyle);
+  const [fixationPoint, setFixationPoint] = useState<string>(
+    initialEdits.fixationPoint,
+  );
+
   const [input, setInput] = useState<string>(initialEdits.input);
   const [bionicReadingText, setBionicReadingText] = useState<string>('');
   const [copiedEffect, setCopiedEffect] = useState<boolean>(false);
@@ -100,6 +113,7 @@ const App = () => {
         markdown: renderStyle === 'markdown',
         highlightTag: tagStyle,
         markdownStyle: mdStyle,
+        fixationPoint: parseInt(fixationPoint),
       };
 
       const bionicReadingText = bionicReading(input, options);
@@ -109,11 +123,12 @@ const App = () => {
         tagStyle,
         mdStyle,
         input,
+        fixationPoint,
       });
     }, DEBOUNCE_TIMEOUT);
 
     return () => clearTimeout(store);
-  }, [renderStyle, tagStyle, mdStyle, input]);
+  }, [renderStyle, tagStyle, mdStyle, input, fixationPoint]);
 
   const copyUrl = () => {
     const { href: url } = location;
@@ -131,12 +146,14 @@ const App = () => {
   }, [copiedEffect]);
 
   const reset = () => {
-    const { renderStyle, tagStyle, mdStyle, input } = defaultEdits;
+    const { renderStyle, tagStyle, mdStyle, input, fixationPoint } =
+      defaultEdits;
 
     setRenderStyle(renderStyle);
     setTagStyle(tagStyle);
     setMdStyle(mdStyle);
     setInput(input);
+    setFixationPoint(fixationPoint);
   };
 
   return (
@@ -149,8 +166,8 @@ const App = () => {
       </header>
 
       <main className="flex flex-col gap-y-8">
-        <section>
-          <section className="flex justify-between mb-4">
+        <section className="flex flex-col gap-y-4">
+          <section className="flex justify-between">
             <ToggleButtonGroup
               exclusive
               color="primary"
@@ -185,6 +202,22 @@ const App = () => {
               onChange={({ target: { value } }) => setMdStyle(value)}
               disabled={renderStyle !== 'markdown'}
             />
+          </section>
+
+          <section>
+            <ToggleButtonGroup
+              size="small"
+              exclusive
+              color="primary"
+              value={fixationPoint}
+              onChange={(_, value) => value && setFixationPoint(value)}
+            >
+              <ToggleButton value="1">fixation point - 1</ToggleButton>
+              <ToggleButton value="2">2</ToggleButton>
+              <ToggleButton value="3">3</ToggleButton>
+              <ToggleButton value="4">4</ToggleButton>
+              <ToggleButton value="5">5</ToggleButton>
+            </ToggleButtonGroup>
           </section>
         </section>
 

@@ -63,6 +63,7 @@ type Options = Partial<{
   highlightTag: string;
   markdown: boolean;
   markdownStyle: string;
+  fixationPoint: number;
 }>;
 ```
 
@@ -73,9 +74,7 @@ type Options = Partial<{
 ```ts
 // default highlight tag: `<b>`
 bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
-```
 
-```ts
 // changed highlight tag: `<strong>`
 bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bion</strong>ic-<strong>readi</strong>ng'
 ```
@@ -99,6 +98,19 @@ bionicReading('bionic-reading', { markdown: true, markdownStyle: '__' }); // '__
 ```
 
 If the `markdown` option is false, this option is ignored.
+
+#### `fixationPoint`
+
+- Default Value: `1`
+- Range: `[1, 5]`
+
+```ts
+// default fixation-point: 1
+bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
+
+// changed fixation-point: 5
+bionicReading('bionic-reading', { fixationPoint: 5 }); // '<b>bi</b>onic-<b>re</b>ading'
+```
 
 ## Motivations
 

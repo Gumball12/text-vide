@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
-import isEmptyString from '../isEmptyString';
+import isEmpty from '../isEmpty';
 
 describe('test isEmptyString util', () => {
   it('pass not empty string', () => {
-    expect(isEmptyString('NOT_EMPTY')).toBeFalsy();
+    expect(isEmpty('NOT_EMPTY')).toBeFalsy();
   });
 
   it('pass empty string', () => {
-    expect(isEmptyString('')).toBeTruthy();
+    expect(isEmpty('')).toBeTruthy();
   });
 
   it('pass null value', () => {
-    expect(isEmptyString(null)).toBeTruthy();
+    expect(isEmpty(null)).toBeTruthy();
   });
 
   it('pass undefined value', () => {
-    expect(isEmptyString(undefined)).toBeTruthy();
+    expect(isEmpty(undefined)).toBeTruthy();
   });
 });
