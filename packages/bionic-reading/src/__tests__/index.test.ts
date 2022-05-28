@@ -67,11 +67,7 @@ describe('test bionicReading module', () => {
     c
     `;
 
-    const expected = `
-    a
-    b
-    c
-    `;
+    const expected = `<br>    a<br>    b<br>    c<br>    `;
 
     expect(bionicReading(text)).toBe(expected);
   });

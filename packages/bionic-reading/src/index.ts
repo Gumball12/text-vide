@@ -4,6 +4,8 @@ import conv2IntermediateWord from './conv2IntermediateWord';
 import splitMap from './utils/splitMap';
 import getOptions from './getOptions';
 
+const getLineMergeChar = ({ markdown }: Options) => (markdown ? '\n' : '<br>');
+
 export const bionicReading = (
   text: string,
   maybeOptions: Partial<Options> = {},
@@ -14,6 +16,7 @@ export const bionicReading = (
 
   const options = getOptions(maybeOptions);
   const bionicWordConvertor = getBionicWordConvertor(options);
+  const lineMergeChar = getLineMergeChar(options);
 
   const syllableToBionic = (syllable: string) => {
     const intermediate = conv2IntermediateWord(syllable, options.fixationPoint);
@@ -24,7 +27,7 @@ export const bionicReading = (
   const paragraphToWord = (paragraph: string) =>
     splitMap(paragraph, ' ', ' ', wordToSyllable);
   const textToParagraph = (text: string) =>
-    splitMap(text, /\r?\n/, '\n', paragraphToWord);
+    splitMap(text, /\r?\n/, lineMergeChar, paragraphToWord);
 
   const bionicText = textToParagraph(text);
   return bionicText;
