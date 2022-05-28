@@ -7,6 +7,7 @@ describe('test getOptions()', () => {
       highlightTag: 'b',
       markdown: false,
       markdownStyle: '**',
+      fixationPoint: 1,
     };
 
     expect(getOptions({})).toEqual(expected);
@@ -23,6 +24,7 @@ describe('test getOptions()', () => {
       highlightTag: 'b',
       markdown: false,
       markdownStyle: '**',
+      fixationPoint: 1,
     };
 
     expect(getOptions(maybeOptions)).toEqual(expected);
@@ -33,12 +35,14 @@ describe('test getOptions()', () => {
       highlightTag: '',
       markdown: undefined,
       markdownStyle: '',
+      fixationPoint: undefined,
     };
 
     const expected = {
       highlightTag: 'b',
       markdown: false,
       markdownStyle: '**',
+      fixationPoint: 1,
     };
 
     expect(getOptions(maybeOptions)).toEqual(expected);
@@ -49,6 +53,7 @@ describe('test getOptions()', () => {
       highlightTag: 'strong',
       markdown: true,
       markdownStyle: '__',
+      fixationPoint: 0, // but it's okay
     };
 
     expect(getOptions(expected)).toEqual(expected);

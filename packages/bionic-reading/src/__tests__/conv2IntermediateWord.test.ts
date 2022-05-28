@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import conv2IntermediateWord from '../conv2IntermediateWord';
+import getFixationPointSheet from './utils/getFixationPointLastLength';
 
 const splitByLen = (
   text: string,
-  firstLength: number,
   lastLength: number,
+  firstLength = 0,
 ): [string, string, string] => [
   text.slice(0, firstLength),
   text.slice(firstLength, text.length - lastLength),
@@ -12,24 +13,24 @@ const splitByLen = (
 ];
 
 const t = (text: string, expected: [string, string, string]) =>
-  expect(conv2IntermediateWord(text)).toEqual(expected);
+  expect(conv2IntermediateWord(text, 1)).toEqual(expected);
 
 describe('test conv2IntermediateWord util function', () => {
   it('pass len 4 word', () => {
     const text = 'abcd';
-    const expected = splitByLen(text, 0, 1); // ['', 'abc', 'd']
+    const expected = splitByLen(text, 1); // ['', 'abc', 'd']
     t(text, expected);
   });
 
   it('pass len 1 word', () => {
     const text = 'a';
-    const expected = splitByLen(text, 0, 1); // ['', '', 'a']
+    const expected = splitByLen(text, 1); // ['', '', 'a']
     t(text, expected);
   });
 
   it('pass 0 len word', () => {
     const text = '';
-    const expected = splitByLen(text, 0, 0); // ['', '', '']
+    const expected = splitByLen(text, 0); // ['', '', '']
     t(text, expected);
   });
 });
@@ -37,228 +38,144 @@ describe('test conv2IntermediateWord util function', () => {
 describe('special chars', () => {
   it('plain word :: OOOOO', () => {
     const text = 'apple';
-    const expected = splitByLen(text, 0, 2); // ['', 'app', 'le']
+    const expected = splitByLen(text, 2); // ['', 'app', 'le']
     t(text, expected);
   });
 
   it('special char :: OOOOOS', () => {
     const text = 'apple;';
-    const expected = splitByLen(text, 0, 3); // ['', 'app', 'le;']
+    const expected = splitByLen(text, 3); // ['', 'app', 'le;']
     t(text, expected);
   });
 
   it('special char :: OOOOSO', () => {
     const text = 'appl;e';
-    const expected = splitByLen(text, 0, 2); // ['', 'appl', ';e']
+    const expected = splitByLen(text, 2); // ['', 'appl', ';e']
     t(text, expected);
   });
 
   it('special char :: OOOSOO', () => {
     const text = 'app;le';
-    const expected = splitByLen(text, 0, 2); // ['', 'app;', 'le']
+    const expected = splitByLen(text, 2); // ['', 'app;', 'le']
     t(text, expected);
   });
 
   it('special char :: OOSOOO', () => {
     const text = 'ap;ple';
-    const expected = splitByLen(text, 0, 2); // ['', 'ap;p', 'le']
+    const expected = splitByLen(text, 2); // ['', 'ap;p', 'le']
     t(text, expected);
   });
 
   it('special char :: OSOOOO', () => {
     const text = 'a;pple';
-    const expected = splitByLen(text, 0, 2); // ['', 'a;pp', 'le']
+    const expected = splitByLen(text, 2); // ['', 'a;pp', 'le']
     t(text, expected);
   });
 
   it('special char :: SOOOOO', () => {
     const text = ';apple';
-    const expected = splitByLen(text, 1, 2); // [';', 'app', 'le']
+    const expected = splitByLen(text, 2, 1); // [';', 'app', 'le']
     t(text, expected);
   });
 
   it('special char :: OOOOSSO', () => {
     const text = 'appl;;e';
-    const expected = splitByLen(text, 0, 2); // ['', 'appl;', ';e']
+    const expected = splitByLen(text, 2); // ['', 'appl;', ';e']
     t(text, expected);
   });
 
   it('special char :: OSOSOSOSO', () => {
     const text = 'a;p;p;l;e';
-    const expected = splitByLen(text, 0, 2); // ['', 'a;p;p;l', ';e']
+    const expected = splitByLen(text, 2); // ['', 'a;p;p;l', ';e']
     t(text, expected);
   });
 
   it('special char :: OSSOOOSSO', () => {
     const text = 'a;;ppl;e';
-    const expected = splitByLen(text, 0, 2); // ['', 'a;;ppl', ';e']
+    const expected = splitByLen(text, 2); // ['', 'a;;ppl', ';e']
     t(text, expected);
   });
 
   it('special char :: SSSSS', () => {
     const text = ';;;;;';
-    const expected = splitByLen(text, 0, 5); // ['', '', ';;;;;']
+    const expected = splitByLen(text, 5); // ['', '', ';;;;;']
     t(text, expected);
   });
 
   it('complex special char', () => {
     const text = `;:.';!.@;#.$;%.;`;
-    const expected = splitByLen(text, 0, 16); // ['', '', ';:.';!.@;#.$;%.;']
+    const expected = splitByLen(text, 16); // ['', '', ';:.';!.@;#.$;%.;']
     t(text, expected);
   });
 });
 
-// [0, 4] (4) = -1
-// [5, 12] (7) = -2
-// [13, 16] (4) = -3
-// [17, 24] (6) = -4
-// [25, 29] (4) = -5
-// [30, 35] (5) = -6
-// [36, 42] (6) = -7
-// [43, 48] (5) = -8
-// [49, infty] (don't care) = -9
-describe('longest word', () => {
-  it('51 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconiosisaaaaa';
-    const expected = splitByLen(text, 0, 9); // ['', 'Pneumonoultramicroscopicsilicovolcanoconi', 'osisaaaaa']
-    t(text, expected);
+const getText = (length: number) => Array(length).fill('a').join('');
+
+describe('fixation-points', async () => {
+  const lastLength = {
+    fp1: [] as number[],
+    fp2: [] as number[],
+    fp3: [] as number[],
+    fp4: [] as number[],
+    fp5: [] as number[],
+  };
+
+  beforeAll(async () => {
+    const { fp1, fp2, fp3, fp4, fp5 } = await getFixationPointSheet();
+    lastLength.fp1 = fp1;
+    lastLength.fp2 = fp2;
+    lastLength.fp3 = fp3;
+    lastLength.fp4 = fp4;
+    lastLength.fp5 = fp5;
   });
 
-  it('51 len (different letters)', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconiosisapple';
-    const expected = splitByLen(text, 0, 9); // ['', 'Pneumonoultramicroscopicsilicovolcanoconi', 'osisapple']
-    t(text, expected);
+  it('fixation 1', () => {
+    const { fp1 } = lastLength;
+
+    for (let len = 1; len <= 50; len++) {
+      const text = getText(len);
+      const expected = splitByLen(text, fp1[len - 1]);
+      expect(conv2IntermediateWord(text, 1)).toEqual(expected);
+    }
   });
 
-  it('45 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconiosis';
-    const expected = splitByLen(text, 0, 8); // ['', 'Pneumonoultramicroscopicsilicovolcano', 'coniosis']
-    t(text, expected);
+  it('fixation 2', () => {
+    const { fp2 } = lastLength;
+
+    for (let len = 1; len <= 50; len++) {
+      const text = getText(len);
+      const expected = splitByLen(text, fp2[len - 1]);
+      expect(conv2IntermediateWord(text, 2)).toEqual(expected);
+    }
   });
 
-  it('44 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconiosi';
-    const expected = splitByLen(text, 0, 8); // ['', 'Pneumonoultramicroscopicsilicovolcan', 'oconiosi']
-    t(text, expected);
+  it('fixation 3', () => {
+    const { fp3 } = lastLength;
+
+    for (let len = 1; len <= 50; len++) {
+      const text = getText(len);
+      const expected = splitByLen(text, fp3[len - 1]);
+      expect(conv2IntermediateWord(text, 3)).toEqual(expected);
+    }
   });
 
-  it('43 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconios';
-    const expected = splitByLen(text, 0, 8); // ['', 'Pneumonoultramicroscopicsilicovolca', 'noconios']
-    t(text, expected);
+  it('fixation 4', () => {
+    const { fp4 } = lastLength;
+
+    for (let len = 1; len <= 50; len++) {
+      const text = getText(len);
+      const expected = splitByLen(text, fp4[len - 1]);
+      expect(conv2IntermediateWord(text, 4)).toEqual(expected);
+    }
   });
 
-  it('42 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconio';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilicovolca', 'noconio']
-    t(text, expected);
-  });
+  it('fixation 5', () => {
+    const { fp5 } = lastLength;
 
-  it('41 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoconi';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilicovolc', 'anoconi']
-    t(text, expected);
-  });
-
-  it('40 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanocon';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilicovol', 'canocon']
-    t(text, expected);
-  });
-
-  it('39 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoco';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilicovo', 'lcanoco']
-    t(text, expected);
-  });
-
-  it('38 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcanoc';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilicov', 'olcanoc']
-    t(text, expected);
-  });
-
-  it('37 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcano';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilico', 'volcano']
-    t(text, expected);
-  });
-
-  it('36 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolcan';
-    const expected = splitByLen(text, 0, 7); // ['', 'Pneumonoultramicroscopicsilic', 'ovolcan']
-    t(text, expected);
-  });
-
-  it('35 len', () => {
-    const text = 'Pneumonoultramicroscopicsilicovolca';
-    const expected = splitByLen(text, 0, 6); // ['', 'Pneumonoultramicroscopicsilic', 'ovolca']
-    t(text, expected);
-  });
-
-  it('30 len', () => {
-    const text = 'Pneumonoultramicroscopicsilico';
-    const expected = splitByLen(text, 0, 6); // ['', 'Pneumonoultramicroscopic', 'silico']
-    t(text, expected);
-  });
-
-  it('29 len', () => {
-    const text = 'Pneumonoultramicroscopicsilic';
-    const expected = splitByLen(text, 0, 5); // ['', 'Pneumonoultramicroscopic', 'silic']
-    t(text, expected);
-  });
-
-  it('25 len', () => {
-    const text = 'Pneumonoultramicroscopics';
-    const expected = splitByLen(text, 0, 5); // ['', 'Pneumonoultramicrosc', 'opics']
-    t(text, expected);
-  });
-
-  it('24 len', () => {
-    const text = 'Pneumonoultramicroscopic';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultramicrosc', 'opic']
-    t(text, expected);
-  });
-
-  it('21 len', () => {
-    const text = 'Pneumonoultramicrosco';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultramicr', 'osco']
-    t(text, expected);
-  });
-
-  it('20 len', () => {
-    const text = 'Pneumonoultramicrosc';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultramic', 'rosc']
-    t(text, expected);
-  });
-
-  it('19 len', () => {
-    const text = 'Pneumonoultramicros';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultrami', 'cros']
-    t(text, expected);
-  });
-
-  it('18 len', () => {
-    const text = 'Pneumonoultramicro';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultram', 'icro']
-    t(text, expected);
-  });
-
-  it('17 len', () => {
-    const text = 'Pneumonoultramicro';
-    const expected = splitByLen(text, 0, 4); // ['', 'Pneumonoultram', 'icro']
-    t(text, expected);
-  });
-
-  it('13 len', () => {
-    const text = 'Pneumonoultra';
-    const expected = splitByLen(text, 0, 3); // ['', 'Pneumonoul', 'tra']
-    t(text, expected);
-  });
-
-  it('12 len', () => {
-    const text = 'Pneumonoultr';
-    const expected = splitByLen(text, 0, 2); // ['', 'Pneumonoul', 'tr']
-    t(text, expected);
+    for (let len = 1; len <= 50; len++) {
+      const text = getText(len);
+      const expected = splitByLen(text, fp5[len - 1]);
+      expect(conv2IntermediateWord(text, 5)).toEqual(expected);
+    }
   });
 });

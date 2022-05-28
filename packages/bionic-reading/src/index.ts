@@ -16,7 +16,7 @@ export const bionicReading = (
   const bionicWordConvertor = getBionicWordConvertor(options);
 
   const syllableToBionic = (syllable: string) => {
-    const intermediate = conv2IntermediateWord(syllable);
+    const intermediate = conv2IntermediateWord(syllable, options.fixationPoint);
     return bionicWordConvertor(intermediate);
   };
   const wordToSyllable = (word: string) =>
