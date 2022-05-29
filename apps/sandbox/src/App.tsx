@@ -9,6 +9,7 @@ import {
 import { Html as HTMLIcon } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { bionicReading } from 'bionic-reading';
+import logo from './logo.png';
 
 const DEBOUNCE_TIMEOUT = 400;
 const COPIED_EFFECT_DEBOUNCE_TIMEOUT = 1200;
@@ -158,11 +159,16 @@ const App = () => {
 
   return (
     <div className="max-w-4xl m-auto sm:px-8 px-4 py-4 leading-tight">
-      <header className="flex justify-between mb-3">
-        <h1 className="text-2xl">Bionic Reading Sandbox</h1>
-        <Button variant="outlined" onClick={copyUrl}>
-          Copy URL
-        </Button>
+      <header>
+        <section>
+          <img src={logo} className="h-20" />
+        </section>
+        <section className="flex justify-between mb-3">
+          <h1 className="text-2xl">Bionic Reading Sandbox</h1>
+          <Button variant="outlined" onClick={copyUrl}>
+            Copy URL
+          </Button>
+        </section>
       </header>
 
       <main className="flex flex-col gap-y-8">
