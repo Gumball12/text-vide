@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { Html as HTMLIcon } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { bionicReading } from 'bionic-reading/src';
+import { bionicReading } from 'bionic-reading';
 
 const DEBOUNCE_TIMEOUT = 400;
 const COPIED_EFFECT_DEBOUNCE_TIMEOUT = 1200;

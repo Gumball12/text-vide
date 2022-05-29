@@ -8,6 +8,10 @@
     "dev": {
       "cache": false
     },
+    "sandbox#dev": {
+      "dependsOn": ["bionic-reading#build"],
+      "outputs": []
+    },
     "preview": {
       "dependsOn": ["build"]
     },
