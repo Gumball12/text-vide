@@ -4,6 +4,8 @@
 
 [![ci](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml/badge.svg)](https://github.com/Gumball12/bionic-reading/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/Gumball12/bionic-reading/branch/main/graph/badge.svg?token=MsLDgzri5B)](https://codecov.io/gh/Gumball12/bionic-reading)
 
+![logo](./docs/logo-extended.png)
+
 > **Support all languages that separate words with spaces**
 
 > [Try on Runkit](https://npm.runkit.com/bionic-reading) or [Online Sandbox](https://gumball12.github.io/bionic-reading/)
@@ -11,6 +13,16 @@
 An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-reading.com/).
 
 [How was this made?](./HOW.md)
+
+## 💫 Features
+
+| Feature                       | State                                                        |
+| ----------------------------- | ------------------------------------------------------------ |
+| HTML Mode                     | ✅                                                           |
+| Markdown Mode                 | ✅                                                           |
+| Custom HTML or Markdown Style | ✅                                                           |
+| Fixation-Points               | ✅                                                           |
+| Saccade                       | [#21](https://github.com/Gumball12/bionic-reading/issues/21) |
 
 ## ⚙️ Install
 
