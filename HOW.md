@@ -52,7 +52,7 @@ Below are the final rules for character count:
 
 [conv2IntermediateWord.ts](./packages/bionic-reading/src/conv2IntermediateWord.ts)
 
-The above is a description of the `fixationPoint` option value of `1`, and the same is done for other cases. [See here](https://docs.google.com/spreadsheets/d/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps/edit#gid=1839148703) for a complete list of test results for Fixation Points. (Note: The test results on the sheet are [automatically interlocked](./packages/bionic-reading/src/__tests__/utils/getFixationPointLastLength.ts) with the actual project test case.)
+The above is a description of the `fixationPoint` option value of `1`, and the same is done for other cases. [See here](https://docs.google.com/spreadsheets/d/1nG8OoYUK6rXsWdi-L8pWihx9i_aSn9V0eYfLKy9-B-U/edit?usp=sharing) for a complete list of test results for Fixation Points. (Note: The test results on the sheet are [automatically interlocked](./packages/bionic-reading/src/__tests__/utils/getFixationPointLastLength.ts) with the actual project test case.)
 
 ### Rules for Special Characters<a id="special-chars-rules"></a>
 
