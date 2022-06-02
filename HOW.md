@@ -6,6 +6,7 @@ I composed some example sentences and the API request results for them as [Test 
 
 - [Rules for the Number of Characters](#char-length-rules)
 - [Rules for Special Characters](#special-chars-rules)
+- [Rules for Numbers](#number-rules)
 
 ### Conversion Process
 
@@ -73,3 +74,40 @@ However, a Dash (`-`) among special characters located inside a word is treated 
 ```ts
 bionicReading('app-le'); // '<b>ap</b>p-<b>l</b>e'
 ```
+
+### Rules for numbers<a id="number-rules"></a>
+
+If there are only numbers, highlight nothing.
+
+```ts
+bionicReading('1234567890'); // '1234567890'
+```
+
+If there is a dash between the numbers, it is also not highlighted.
+
+```ts
+bionicReading('1234-567890'); // '1234-567890'
+```
+
+When numbers and letters are used together, they are treated as regular characters.
+
+```ts
+bionicReading('a1234567890'); // '<b>a12345678</b>90'
+bionicReading('1234567890a'); // '<b>123456789</b>0a'
+bionicReading('1234a567890'); // '<b>1234a5678</b>90'
+```
+
+If a special character other than a dash is between numbers, treat it like a regular character.
+
+```ts
+bionicReading('1234!567890'); // '<b>1234!5678</b>90'
+```
+
+Otherwise, it doesn't highlight anything.
+
+```ts
+bionicReading('!1234567890'); // '!1234567890'
+bionicReading('1234567890!'); // '1234567890!'
+```
+
+Note: Emojis are treated as special characters, not dashes.
