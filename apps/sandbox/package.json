@@ -19,7 +19,7 @@
     "@unocss/preset-wind": "^0.34.1",
     "@unocss/reset": "^0.34.1",
     "@vitejs/plugin-react": "^1.3.0",
-    "bionic-reading": "workspace:*",
+    "text-vide": "workspace:*",
     "tsconfig": "workspace:*",
     "unocss": "^0.34.1"
   }

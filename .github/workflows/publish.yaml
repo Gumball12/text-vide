@@ -34,6 +34,6 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
-      - run: cp ./README.md ./packages/bionic-reading/README.md && cd ./packages/bionic-reading && npm publish
+      - run: cp ./README.md ./packages/text-vide/README.md && cd ./packages/text-vide && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -9,7 +9,7 @@
       "cache": false
     },
     "sandbox#dev": {
-      "dependsOn": ["bionic-reading#build"],
+      "dependsOn": ["text-vide#build"],
       "outputs": []
     },
     "preview": {

@@ -4,7 +4,7 @@ import Unocss from 'unocss/vite';
 import presetWind from '@unocss/preset-wind';
 
 export default defineConfig({
-  base: '/bionic-reading/',
+  base: '/text-vide/',
   plugins: [
     Unocss({
       presets: [presetWind()],

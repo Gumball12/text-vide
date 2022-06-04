@@ -6,7 +6,7 @@ import {
   ToggleButtonGroup,
 } from '@mui/material';
 import { Reducer, useEffect, useReducer } from 'react';
-import { bionicReading } from 'bionic-reading';
+import { textVide } from 'text-vide';
 import logo from './logo.png';
 
 const DEBOUNCE_TIMEOUT = 400;
@@ -78,7 +78,7 @@ const getEdits = (): Edits => {
 const initialEdits = getEdits();
 
 type State = Edits & {
-  bionicReadingText: string;
+  highlightedText: string;
   copiedEffect: boolean;
 };
 
@@ -88,7 +88,7 @@ type Action = {
     | 'SECOND_SEP'
     | 'FIXATION_POINT'
     | 'INPUT'
-    | 'BIONIC_READING_TEXT'
+    | 'HIGHLIGHTED_TEXT'
     | 'COPIED'
     | 'RESET';
   value: string;
@@ -112,8 +112,8 @@ const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
     return { ...state, input: value };
   }
 
-  if (type === 'BIONIC_READING_TEXT') {
-    return { ...state, bionicReadingText: value };
+  if (type === 'HIGHLIGHTED_TEXT') {
+    return { ...state, highlightedText: value };
   }
 
   if (type === 'COPIED') {
@@ -123,7 +123,7 @@ const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
   if (type === 'RESET') {
     return {
       ...defaultEdits,
-      bionicReadingText: '',
+      highlightedText: '',
       copiedEffect: false,
     };
   }
@@ -134,7 +134,7 @@ const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
 const App = () => {
   const [state, dispatchState] = useReducer(reducer, {
     ...initialEdits,
-    bionicReadingText: '',
+    highlightedText: '',
     copiedEffect: false,
   });
 
@@ -144,7 +144,7 @@ const App = () => {
     input,
     fixationPoint,
     copiedEffect,
-    bionicReadingText,
+    highlightedText,
   } = state;
 
   useEffect(() => {
@@ -154,11 +154,11 @@ const App = () => {
         fixationPoint: parseInt(fixationPoint),
       };
 
-      const bionicReadingText = bionicReading(input, options);
+      const highlightedText = textVide(input, options);
 
       dispatchState({
-        type: 'BIONIC_READING_TEXT',
-        value: bionicReadingText,
+        type: 'HIGHLIGHTED_TEXT',
+        value: highlightedText,
         copied: false,
       });
 
@@ -191,6 +191,15 @@ const App = () => {
   const reset = () =>
     dispatchState({ type: 'RESET', value: '', copied: false });
 
+  const isResetDisabled =
+    JSON.stringify(defaultEdits) ===
+    JSON.stringify({
+      firstSep,
+      secondSep,
+      fixationPoint,
+      input,
+    });
+
   return (
     <div className="max-w-4xl m-auto sm:px-8 px-4 py-4 leading-tight">
       <header>
@@ -198,7 +207,7 @@ const App = () => {
           <img src={logo} className="h-20" />
         </section>
         <section className="flex justify-between mb-3">
-          <h1 className="text-2xl">Bionic Reading Sandbox</h1>
+          <h1 className="text-2xl">Text Vide Sandbox</h1>
           <Button variant="outlined" onClick={copyUrl}>
             Copy URL
           </Button>
@@ -243,6 +252,7 @@ const App = () => {
               variant="outlined"
               color="error"
               onClick={reset}
+              disabled={isResetDisabled}
             >
               reset
             </Button>
@@ -293,7 +303,7 @@ const App = () => {
           <Box className="rendered-box">
             <pre
               className="whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ __html: bionicReadingText }}
+              dangerouslySetInnerHTML={{ __html: highlightedText }}
             />
           </Box>
         </section>
@@ -301,9 +311,7 @@ const App = () => {
         <section>
           <p className="section-name">Raw Data</p>
           <Box className="rendered-box">
-            <pre className="whitespace-pre-wrap text-sm">
-              {bionicReadingText}
-            </pre>
+            <pre className="whitespace-pre-wrap text-sm">{highlightedText}</pre>
           </Box>
         </section>
       </main>
@@ -311,7 +319,7 @@ const App = () => {
       <footer className="fixed right-4 bottom-4 bg-white px-2 py-1">
         <a
           className="text-gray-400 underline-gray-300"
-          href="https://github.com/Gumball12/bionic-reading"
+          href="https://github.com/Gumball12/text-vide"
           target="_blank"
         >
           GitHub

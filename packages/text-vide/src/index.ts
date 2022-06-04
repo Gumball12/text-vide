@@ -5,10 +5,7 @@ import getHighlightedText from './getHighlightedText';
 
 const CONVERTIBLE_REGEX = /(\p{L}|\p{Nd})*\p{L}(\p{L}|\p{Nd})*/gu;
 
-export const bionicReading = (
-  text: string,
-  maybeOptions: Partial<Options> = {},
-) => {
+export const textVide = (text: string, maybeOptions: Partial<Options> = {}) => {
   if (!text?.length) {
     return '';
   }

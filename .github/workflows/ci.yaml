@@ -38,6 +38,6 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./packages/bionic-reading/coverage
+          directory: ./packages/text-vide/coverage
           fail_ci_if_error: true
           verbose: true
