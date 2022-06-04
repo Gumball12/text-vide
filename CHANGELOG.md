@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Gumball12/text-vide/compare/v1.4.0...v1.5.0) (2022-06-04)
+
+
+### Features
+
+* add logo ([befd0d6](https://github.com/Gumball12/text-vide/commit/befd0d6029b88361765bdc12d1d3d17dda89b96d))
+
 ## [1.4.0](https://github.com/Gumball12/bionic-reading/compare/v1.3.2...v1.4.0) (2022-05-28)
 
 
