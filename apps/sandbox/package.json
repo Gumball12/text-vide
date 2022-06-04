@@ -11,17 +11,16 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "bionic-reading": "workspace:*",
-    "tsconfig": "workspace:*",
-    "@unocss/reset": "^0.34.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@unocss/preset-wind": "^0.34.1",
+    "@unocss/reset": "^0.34.1",
     "@vitejs/plugin-react": "^1.3.0",
+    "bionic-reading": "workspace:*",
+    "tsconfig": "workspace:*",
     "unocss": "^0.34.1"
   }
 }

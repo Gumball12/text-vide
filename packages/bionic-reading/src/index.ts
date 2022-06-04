@@ -1,10 +1,9 @@
-import getBionicWordConvertor from './getBionicWordConvertor';
 import { Options } from './types';
-import conv2IntermediateWord from './conv2IntermediateWord';
-import splitMap from './utils/splitMap';
 import getOptions from './getOptions';
+import getFixationLength from './getFixationLength';
+import getHighlightedText from './getHighlightedText';
 
-const getLineMergeChar = ({ markdown }: Options) => (markdown ? '\n' : '<br>');
+const CONVERTIBLE_REGEX = /(\p{L}|\p{Nd})*\p{L}(\p{L}|\p{Nd})*/gu;
 
 export const bionicReading = (
   text: string,
@@ -14,21 +13,26 @@ export const bionicReading = (
     return '';
   }
 
-  const options = getOptions(maybeOptions);
-  const bionicWordConvertor = getBionicWordConvertor(options);
-  const lineMergeChar = getLineMergeChar(options);
+  const { fixationPoint, sep } = getOptions(maybeOptions);
+  const convertibleMatchList = text.matchAll(CONVERTIBLE_REGEX);
 
-  const syllableToBionic = (syllable: string) => {
-    const intermediate = conv2IntermediateWord(syllable, options.fixationPoint);
-    return bionicWordConvertor(intermediate);
-  };
-  const wordToSyllable = (word: string) =>
-    splitMap(word, '-', '-', syllableToBionic);
-  const paragraphToWord = (paragraph: string) =>
-    splitMap(paragraph, ' ', ' ', wordToSyllable);
-  const textToParagraph = (text: string) =>
-    splitMap(text, /\r?\n/, lineMergeChar, paragraphToWord);
+  let result = '';
+  let lastMatchedIndex = 0;
 
-  const bionicText = textToParagraph(text);
-  return bionicText;
+  for (const match of convertibleMatchList) {
+    const startIndex = match.index!;
+    const endIndex = startIndex + getFixationLength(match[0], fixationPoint);
+
+    const plainText = text.slice(lastMatchedIndex, startIndex);
+    result += plainText;
+
+    if (startIndex !== endIndex) {
+      result += getHighlightedText(text.slice(startIndex, endIndex), sep);
+    }
+
+    lastMatchedIndex = endIndex;
+  }
+
+  const remainText = text.slice(lastMatchedIndex);
+  return result + remainText;
 };

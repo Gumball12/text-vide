@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "c8": "^7.11.3",
-    "public-google-sheets-parser": "^1.2.6",
     "standard-version": "^9.5.0",
     "tsconfig": "workspace:*"
   }

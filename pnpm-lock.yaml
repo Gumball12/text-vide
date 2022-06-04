@@ -36,7 +36,6 @@ importers:
     specifiers:
       '@emotion/react': ^11.9.0
       '@emotion/styled': ^11.8.1
-      '@mui/icons-material': ^5.8.0
       '@mui/material': ^5.8.1
       '@types/react': ^18.0.0
       '@types/react-dom': ^18.0.0
@@ -54,7 +53,6 @@ importers:
     devDependencies:
       '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
       '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
-      '@mui/icons-material': 5.8.0_q6a55ti44bqbcdsn5noqhohg5u
       '@mui/material': 5.8.1_4xriuibr7qayay6mzcpq5f43me
       '@types/react': 18.0.9
       '@types/react-dom': 18.0.5
@@ -68,12 +66,10 @@ importers:
   packages/bionic-reading:
     specifiers:
       c8: ^7.11.3
-      public-google-sheets-parser: ^1.2.6
       standard-version: ^9.5.0
       tsconfig: workspace:*
     devDependencies:
       c8: 7.11.3
-      public-google-sheets-parser: 1.2.6
       standard-version: 9.5.0
       tsconfig: link:../tsconfig
 
@@ -606,23 +602,6 @@ packages:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
       react-is: 17.0.2
-    dev: true
-
-  /@mui/icons-material/5.8.0_q6a55ti44bqbcdsn5noqhohg5u:
-    resolution: {integrity: sha512-ScwLxa0q5VYV70Jfc60V/9VD0b9SvIeZ0Jddx2Dt2pBUFFO9vKdrbt9LYiT+4p21Au5NdYIb2XSHj46CLN1v3g==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@mui/material': ^5.0.0
-      '@types/react': ^17.0.0 || ^18.0.0
-      react: ^17.0.0 || ^18.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.18.3
-      '@mui/material': 5.8.1_4xriuibr7qayay6mzcpq5f43me
-      '@types/react': 18.0.9
-      react: 18.1.0
     dev: true
 
   /@mui/material/5.8.1_4xriuibr7qayay6mzcpq5f43me:
@@ -3337,10 +3316,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
-
-  /public-google-sheets-parser/1.2.6:
-    resolution: {integrity: sha512-sWtWEGw7735Hfo04zjMGiXF7XI9SNTjBJFQQluIQmPjI3hnB9pSgcUMPGRF+W0IiJSF28x2EksJ/n1Vi/x8jYg==}
     dev: true
 
   /punycode/2.1.1:

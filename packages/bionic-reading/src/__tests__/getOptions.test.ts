@@ -4,9 +4,7 @@ import getOptions from '../getOptions';
 describe('test getOptions()', () => {
   it('pass empty object', () => {
     const expected = {
-      highlightTag: 'b',
-      markdown: false,
-      markdownStyle: '**',
+      sep: ['<b>', '</b>'],
       fixationPoint: 1,
     };
 
@@ -15,15 +13,12 @@ describe('test getOptions()', () => {
 
   it('pass undefined value', () => {
     const maybeOptions = {
-      highlightTag: undefined,
-      markdown: undefined,
-      markdownStyle: undefined,
+      sep: undefined,
+      fixationPoint: undefined,
     };
 
     const expected = {
-      highlightTag: 'b',
-      markdown: false,
-      markdownStyle: '**',
+      sep: ['<b>', '</b>'],
       fixationPoint: 1,
     };
 
@@ -32,16 +27,12 @@ describe('test getOptions()', () => {
 
   it('pass empty string value', () => {
     const maybeOptions = {
-      highlightTag: '',
-      markdown: undefined,
-      markdownStyle: '',
+      sep: ['', ''],
       fixationPoint: undefined,
     };
 
     const expected = {
-      highlightTag: 'b',
-      markdown: false,
-      markdownStyle: '**',
+      sep: ['', ''],
       fixationPoint: 1,
     };
 
@@ -50,9 +41,7 @@ describe('test getOptions()', () => {
 
   it('pass valid value', () => {
     const expected = {
-      highlightTag: 'strong',
-      markdown: true,
-      markdownStyle: '__',
+      sep: ['a', 'b'],
       fixationPoint: 0, // but it's okay
     };
 

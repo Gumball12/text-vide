@@ -1,13 +1,11 @@
 import {
   Box,
   Button,
-  SvgIcon,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { Html as HTMLIcon } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { Reducer, useEffect, useReducer } from 'react';
 import { bionicReading } from 'bionic-reading';
 import logo from './logo.png';
 
@@ -17,39 +15,24 @@ const COPIED_EFFECT_DEBOUNCE_TIMEOUT = 1200;
 const INITIAL_INPUT =
   'Bionic Reading is a new method facilitating the reading process by guiding the eyes through text with artificial fixation points. As a result, the reader is only focusing on the highlighted initial letters and lets the brain center complete the word. In a digital world dominated by shallow forms of reading, Bionic Reading aims to encourage a more in-depth reading and understanding of written content.';
 
-const MarkdownIcon = () => (
-  <SvgIcon width="208" height="128" viewBox="0 0 208 128">
-    <path d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z" />
-  </SvgIcon>
-);
-
 type Edits = {
-  renderStyle: 'html' | 'markdown';
-  tagStyle: string;
-  mdStyle: string;
+  firstSep: string;
+  secondSep: string;
   fixationPoint: string;
   input: string;
 };
 
 const defaultEdits: Edits = {
-  renderStyle: 'html',
-  tagStyle: 'b',
-  mdStyle: '**',
-  input: INITIAL_INPUT,
+  firstSep: '<b>',
+  secondSep: '</b>',
   fixationPoint: '1',
+  input: INITIAL_INPUT,
 };
 
-const storeEdits = ({
-  renderStyle,
-  tagStyle,
-  mdStyle,
-  input,
-  fixationPoint,
-}: Edits) => {
+const storeEdits = ({ firstSep, secondSep, fixationPoint, input }: Edits) => {
   const search = [
-    `renderStyle=${encodeURIComponent(renderStyle)}`,
-    `tagStyle=${encodeURIComponent(tagStyle)}`,
-    `mdStyle=${encodeURIComponent(mdStyle)}`,
+    `firstSep=${encodeURIComponent(firstSep)}`,
+    `secondSep=${encodeURIComponent(secondSep)}`,
     `fixationPoint=${encodeURIComponent(fixationPoint)}`,
     `input=${encodeURIComponent(input)}`,
   ].join('&');
@@ -94,68 +77,119 @@ const getEdits = (): Edits => {
 
 const initialEdits = getEdits();
 
-const App = () => {
-  const [renderStyle, setRenderStyle] = useState<'html' | 'markdown'>(
-    initialEdits.renderStyle,
-  );
-  const [tagStyle, setTagStyle] = useState<string>(initialEdits.tagStyle);
-  const [mdStyle, setMdStyle] = useState<string>(initialEdits.mdStyle);
-  const [fixationPoint, setFixationPoint] = useState<string>(
-    initialEdits.fixationPoint,
-  );
+type State = Edits & {
+  bionicReadingText: string;
+  copiedEffect: boolean;
+};
 
-  const [input, setInput] = useState<string>(initialEdits.input);
-  const [bionicReadingText, setBionicReadingText] = useState<string>('');
-  const [copiedEffect, setCopiedEffect] = useState<boolean>(false);
+type Action = {
+  type:
+    | 'FIRST_SEP'
+    | 'SECOND_SEP'
+    | 'FIXATION_POINT'
+    | 'INPUT'
+    | 'BIONIC_READING_TEXT'
+    | 'COPIED'
+    | 'RESET';
+  value: string;
+  copied: boolean;
+};
+
+const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
+  if (type === 'FIRST_SEP') {
+    return { ...state, firstSep: value };
+  }
+
+  if (type === 'SECOND_SEP') {
+    return { ...state, secondSep: value };
+  }
+
+  if (type === 'FIXATION_POINT') {
+    return { ...state, fixationPoint: value };
+  }
+
+  if (type === 'INPUT') {
+    return { ...state, input: value };
+  }
+
+  if (type === 'BIONIC_READING_TEXT') {
+    return { ...state, bionicReadingText: value };
+  }
+
+  if (type === 'COPIED') {
+    return { ...state, copiedEffect: copied };
+  }
+
+  if (type === 'RESET') {
+    return {
+      ...defaultEdits,
+      bionicReadingText: '',
+      copiedEffect: false,
+    };
+  }
+
+  return state;
+};
+
+const App = () => {
+  const [state, dispatchState] = useReducer(reducer, {
+    ...initialEdits,
+    bionicReadingText: '',
+    copiedEffect: false,
+  });
+
+  const {
+    firstSep,
+    secondSep,
+    input,
+    fixationPoint,
+    copiedEffect,
+    bionicReadingText,
+  } = state;
 
   useEffect(() => {
     const store = setTimeout(() => {
       const options = {
-        markdown: renderStyle === 'markdown',
-        highlightTag: tagStyle,
-        markdownStyle: mdStyle,
+        sep: [firstSep, secondSep],
         fixationPoint: parseInt(fixationPoint),
       };
 
       const bionicReadingText = bionicReading(input, options);
-      setBionicReadingText(bionicReadingText);
+
+      dispatchState({
+        type: 'BIONIC_READING_TEXT',
+        value: bionicReadingText,
+        copied: false,
+      });
+
       storeEdits({
-        renderStyle,
-        tagStyle,
-        mdStyle,
+        firstSep,
+        secondSep,
         input,
         fixationPoint,
       });
     }, DEBOUNCE_TIMEOUT);
 
     return () => clearTimeout(store);
-  }, [renderStyle, tagStyle, mdStyle, input, fixationPoint]);
+  }, [firstSep, secondSep, input, fixationPoint]);
 
   const copyUrl = () => {
     const { href: url } = location;
     navigator.clipboard.writeText(url);
-    setCopiedEffect(true);
+    dispatchState({ type: 'COPIED', value: '', copied: true });
   };
 
   useEffect(() => {
     const store = setTimeout(
-      () => setCopiedEffect(false),
+      () => dispatchState({ type: 'COPIED', value: '', copied: false }),
       COPIED_EFFECT_DEBOUNCE_TIMEOUT,
     );
 
     return () => clearTimeout(store);
   }, [copiedEffect]);
 
-  const reset = () => {
-    const { renderStyle, tagStyle, mdStyle, input, fixationPoint } =
-      defaultEdits;
-
-    setRenderStyle(renderStyle);
-    setTagStyle(tagStyle);
-    setMdStyle(mdStyle);
-    setInput(input);
-    setFixationPoint(fixationPoint);
-  };
+  const reset = () =>
+    dispatchState({ type: 'RESET', value: '', copied: false });
 
   return (
     <div className="max-w-4xl m-auto sm:px-8 px-4 py-4 leading-tight">
@@ -174,56 +208,72 @@ const App = () => {
       <main className="flex flex-col gap-y-8">
         <section className="flex flex-col gap-y-4">
           <section className="flex justify-between">
-            <ToggleButtonGroup
-              exclusive
-              color="primary"
-              value={renderStyle}
-              onChange={(_, value) => value && setRenderStyle(value)}
-            >
-              <ToggleButton value="html">
-                <HTMLIcon />
-              </ToggleButton>
-              <ToggleButton value="markdown">
-                <MarkdownIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
+            <div className="flex gap-x-2">
+              <TextField
+                size="small"
+                label="first sep"
+                InputLabelProps={{ shrink: true }}
+                value={firstSep}
+                onInput={({ target }) =>
+                  dispatchState({
+                    type: 'FIRST_SEP',
+                    value: (target as HTMLInputElement).value,
+                    copied: false,
+                  })
+                }
+                required
+              />
+              <TextField
+                size="small"
+                label="second sep"
+                value={secondSep}
+                onInput={({ target }) =>
+                  dispatchState({
+                    type: 'SECOND_SEP',
+                    value: (target as HTMLInputElement).value,
+                    copied: false,
+                  })
+                }
+                InputLabelProps={{ shrink: true }}
+              />
+            </div>
 
-            <Button variant="outlined" color="error" onClick={reset}>
+            <Button
+              className="!hidden sm:!block"
+              variant="outlined"
+              color="error"
+              onClick={reset}
+            >
               reset
             </Button>
           </section>
 
-          <section className="flex gap-x-2">
-            <TextField
-              label="HTML Tag Style"
-              size="small"
-              value={tagStyle}
-              onChange={({ target: { value } }) => setTagStyle(value)}
-              disabled={renderStyle !== 'html'}
-            />
-            <TextField
-              label="Markdown Style"
-              size="small"
-              value={mdStyle}
-              onChange={({ target: { value } }) => setMdStyle(value)}
-              disabled={renderStyle !== 'markdown'}
-            />
-          </section>
-
-          <section>
+          <section className="flex justify-between">
             <ToggleButtonGroup
               size="small"
               exclusive
               color="primary"
               value={fixationPoint}
-              onChange={(_, value) => value && setFixationPoint(value)}
+              onChange={(_, value) =>
+                value &&
+                dispatchState({ type: 'FIXATION_POINT', value, copied: false })
+              }
             >
-              <ToggleButton value="1">fixation point - 1</ToggleButton>
+              <ToggleButton value="1">fixation - 1</ToggleButton>
               <ToggleButton value="2">2</ToggleButton>
               <ToggleButton value="3">3</ToggleButton>
               <ToggleButton value="4">4</ToggleButton>
               <ToggleButton value="5">5</ToggleButton>
             </ToggleButtonGroup>
+
+            <Button
+              className="!block sm:!hidden"
+              variant="outlined"
+              color="error"
+              onClick={reset}
+            >
+              reset
+            </Button>
           </section>
         </section>
 
@@ -232,7 +282,9 @@ const App = () => {
           <textarea
             className="border-gray-100 resize-y w-full rounded outline-none p-2 text-lg shadow-md focus:shadow-lg transition-shadow-300 min-h-48"
             value={input}
-            onInput={({ currentTarget: { value } }) => setInput(value)}
+            onInput={({ currentTarget: { value } }) =>
+              dispatchState({ type: 'INPUT', value, copied: false })
+            }
           />
         </section>
 

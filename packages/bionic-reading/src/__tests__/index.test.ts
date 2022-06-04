@@ -22,7 +22,7 @@ describe('test bionicReading module', () => {
 
   it('test paragraph 3 (with number)', () => {
     const text = `Pan Am Flight 7 was a westbound round-the-world flight operated by Pan American World Airways that crashed in the Pacific Ocean on November 8, 1957, while flying from San Francisco International Airport to Honolulu International Airport. The crash of the Boeing 377 Stratocruiser 10-29 (example pictured) killed all thirty-six passengers and eight crew members. The flight's fate was not known until about nine hours after its last radio transmission. No emergency radio reports were received.`;
-    const expectedText = `<b>Pa</b>n <b>A</b>m <b>Flig</b>ht 7 <b>wa</b>s a <b>westbou</b>nd <b>rou</b>nd-<b>th</b>e-<b>wor</b>ld <b>flig</b>ht <b>operat</b>ed <b>b</b>y <b>Pa</b>n <b>Americ</b>an <b>Wor</b>ld <b>Airwa</b>ys <b>tha</b>t <b>crash</b>ed <b>i</b>n <b>th</b>e <b>Pacif</b>ic <b>Oce</b>an <b>o</b>n <b>Novemb</b>er 8, 1957, <b>whi</b>le <b>flyi</b>ng <b>fro</b>m <b>Sa</b>n <b>Francis</b>co <b>Internatio</b>nal <b>Airpo</b>rt <b>t</b>o <b>Honolu</b>lu <b>Internatio</b>nal <b>Airpo</b>rt. <b>Th</b>e <b>cra</b>sh <b>o</b>f <b>th</b>e <b>Boei</b>ng 377 <b>Stratocrui</b>ser 10-29 (<b>examp</b>le <b>pictur</b>ed) <b>kill</b>ed <b>al</b>l <b>thir</b>ty-<b>si</b>x <b>passenge</b>rs <b>an</b>d <b>eig</b>ht <b>cre</b>w <b>membe</b>rs. <b>Th</b>e <b>flight</b>'s <b>fat</b>e <b>wa</b>s <b>no</b>t <b>kno</b>wn <b>unt</b>il <b>abo</b>ut <b>nin</b>e <b>hou</b>rs <b>aft</b>er <b>it</b>s <b>las</b>t <b>rad</b>io <b>transmissi</b>on. <b>N</b>o <b>emergen</b>cy <b>rad</b>io <b>repor</b>ts <b>wer</b>e <b>receiv</b>ed.`;
+    const expectedText = `<b>Pa</b>n <b>A</b>m <b>Flig</b>ht 7 <b>wa</b>s a <b>westbou</b>nd <b>rou</b>nd-<b>th</b>e-<b>wor</b>ld <b>flig</b>ht <b>operat</b>ed <b>b</b>y <b>Pa</b>n <b>Americ</b>an <b>Wor</b>ld <b>Airwa</b>ys <b>tha</b>t <b>crash</b>ed <b>i</b>n <b>th</b>e <b>Pacif</b>ic <b>Oce</b>an <b>o</b>n <b>Novemb</b>er 8, 1957, <b>whi</b>le <b>flyi</b>ng <b>fro</b>m <b>Sa</b>n <b>Francis</b>co <b>Internatio</b>nal <b>Airpo</b>rt <b>t</b>o <b>Honolu</b>lu <b>Internatio</b>nal <b>Airpo</b>rt. <b>Th</b>e <b>cra</b>sh <b>o</b>f <b>th</b>e <b>Boei</b>ng 377 <b>Stratocrui</b>ser 10-29 (<b>examp</b>le <b>pictur</b>ed) <b>kill</b>ed <b>al</b>l <b>thir</b>ty-<b>si</b>x <b>passenge</b>rs <b>an</b>d <b>eig</b>ht <b>cre</b>w <b>membe</b>rs. <b>Th</b>e <b>flig</b>ht's <b>fat</b>e <b>wa</b>s <b>no</b>t <b>kno</b>wn <b>unt</b>il <b>abo</b>ut <b>nin</b>e <b>hou</b>rs <b>aft</b>er <b>it</b>s <b>las</b>t <b>rad</b>io <b>transmissi</b>on. <b>N</b>o <b>emergen</b>cy <b>rad</b>io <b>repor</b>ts <b>wer</b>e <b>receiv</b>ed.`;
 
     expect(bionicReading(text)).toBe(expectedText);
   });
@@ -67,8 +67,20 @@ describe('test bionicReading module', () => {
     c
     `;
 
-    const expected = `<br>    a<br>    b<br>    c<br>    `;
+    const expected = `
+    a
+    b
+    c
+    `;
 
+    expect(bionicReading(text)).toBe(expected);
+  });
+
+  it('very long word', () => {
+    const text =
+      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+    const expected =
+      '<b>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</b>aaaaaaaaa';
     expect(bionicReading(text)).toBe(expected);
   });
 });
@@ -78,97 +90,73 @@ describe('test options', () => {
     expect(bionicReading('aaaa', {})).toBe('<b>aaa</b>a');
   });
 
-  it('options.highlightTag :: <b> -> <strong>', () => {
+  it('options.sep :: [<strong>, </strong>]', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     const expectedText =
       '<strong>ore</strong>m <strong>ips</strong>um <strong>dol</strong>or <strong>si</strong>t <strong>ame</strong>t, <strong>consetet</strong>ur <strong>sadipsci</strong>ng <strong>eli</strong>tr, <strong>se</strong>d <strong>dia</strong>m <strong>nonu</strong>my <strong>eirm</strong>od <strong>temp</strong>or <strong>invidu</strong>nt <strong>u</strong>t <strong>labo</strong>re <strong>e</strong>t <strong>dolo</strong>re <strong>mag</strong>na <strong>aliquy</strong>am <strong>era</strong>t, <strong>se</strong>d <strong>dia</strong>m <strong>volupt</strong>ua. <strong>A</strong>t <strong>ver</strong>o <strong>eo</strong>s <strong>e</strong>t <strong>accus</strong>am <strong>e</strong>t <strong>jus</strong>to <strong>du</strong>o <strong>dolor</strong>es <strong>e</strong>t <strong>e</strong>a <strong>reb</strong>um. <strong>Ste</strong>t <strong>cli</strong>ta <strong>kas</strong>d <strong>gubergr</strong>en, <strong>n</strong>o <strong>se</strong>a <strong>takima</strong>ta <strong>sanct</strong>us <strong>es</strong>t <strong>Lor</strong>em <strong>ips</strong>um <strong>dol</strong>or <strong>si</strong>t <strong>ame</strong>t. <strong>Lor</strong>em <strong>ips</strong>um <strong>dol</strong>or <strong>si</strong>t <strong>ame</strong>t, <strong>consetet</strong>ur <strong>sadipsci</strong>ng <strong>eli</strong>tr, <strong>se</strong>d <strong>dia</strong>m <strong>nonu</strong>my <strong>eirm</strong>od <strong>temp</strong>or <strong>invidu</strong>nt <strong>u</strong>t <strong>labo</strong>re <strong>e</strong>t <strong>dolo</strong>re <strong>mag</strong>na <strong>aliquy</strong>am <strong>era</strong>t, <strong>se</strong>d <strong>dia</strong>m <strong>volupt</strong>ua. <strong>A</strong>t <strong>ver</strong>o <strong>eo</strong>s <strong>e</strong>t <strong>accus</strong>am <strong>e</strong>t <strong>jus</strong>to <strong>du</strong>o <strong>dolor</strong>es <strong>e</strong>t <strong>e</strong>a <strong>reb</strong>um. <strong>Ste</strong>t <strong>cli</strong>ta <strong>kas</strong>d <strong>gubergr</strong>en, <strong>n</strong>o <strong>se</strong>a <strong>takima</strong>ta <strong>sanct</strong>us <strong>es</strong>t <strong>Lor</strong>em <strong>ips</strong>um <strong>dol</strong>or <strong>si</strong>t <strong>ame</strong>t.';
 
-    expect(bionicReading(text, { highlightTag: 'strong' })).toBe(expectedText);
+    expect(bionicReading(text, { sep: ['<strong>', '</strong>'] })).toBe(
+      expectedText,
+    );
   });
 
-  it('options.markdown', () => {
+  it('options.sep :: `**`', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     const expectedText =
       '**ore**m **ips**um **dol**or **si**t **ame**t, **consetet**ur **sadipsci**ng **eli**tr, **se**d **dia**m **nonu**my **eirm**od **temp**or **invidu**nt **u**t **labo**re **e**t **dolo**re **mag**na **aliquy**am **era**t, **se**d **dia**m **volupt**ua. **A**t **ver**o **eo**s **e**t **accus**am **e**t **jus**to **du**o **dolor**es **e**t **e**a **reb**um. **Ste**t **cli**ta **kas**d **gubergr**en, **n**o **se**a **takima**ta **sanct**us **es**t **Lor**em **ips**um **dol**or **si**t **ame**t. **Lor**em **ips**um **dol**or **si**t **ame**t, **consetet**ur **sadipsci**ng **eli**tr, **se**d **dia**m **nonu**my **eirm**od **temp**or **invidu**nt **u**t **labo**re **e**t **dolo**re **mag**na **aliquy**am **era**t, **se**d **dia**m **volupt**ua. **A**t **ver**o **eo**s **e**t **accus**am **e**t **jus**to **du**o **dolor**es **e**t **e**a **reb**um. **Ste**t **cli**ta **kas**d **gubergr**en, **n**o **se**a **takima**ta **sanct**us **es**t **Lor**em **ips**um **dol**or **si**t **ame**t.';
 
-    expect(bionicReading(text, { markdown: true })).toBe(expectedText);
+    expect(bionicReading(text, { sep: '**' })).toBe(expectedText);
   });
 
-  it('options.markdown w/ options.markdownStyle :: `**` -> `__`', () => {
+  it('options.sep :: `__`', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     const expectedText =
       '__ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
 
-    expect(bionicReading(text, { markdown: true, markdownStyle: '__' })).toBe(
-      expectedText,
-    );
+    expect(bionicReading(text, { sep: '__' })).toBe(expectedText);
   });
 
-  it('empty options.markdownStyle :: `**` -> ``', () => {
+  it('undefeined options.sep', () => {
     const text =
       'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
     const expectedText =
-      '**ore**m **ips**um **dol**or **si**t **ame**t, **consetet**ur **sadipsci**ng **eli**tr, **se**d **dia**m **nonu**my **eirm**od **temp**or **invidu**nt **u**t **labo**re **e**t **dolo**re **mag**na **aliquy**am **era**t, **se**d **dia**m **volupt**ua. **A**t **ver**o **eo**s **e**t **accus**am **e**t **jus**to **du**o **dolor**es **e**t **e**a **reb**um. **Ste**t **cli**ta **kas**d **gubergr**en, **n**o **se**a **takima**ta **sanct**us **es**t **Lor**em **ips**um **dol**or **si**t **ame**t. **Lor**em **ips**um **dol**or **si**t **ame**t, **consetet**ur **sadipsci**ng **eli**tr, **se**d **dia**m **nonu**my **eirm**od **temp**or **invidu**nt **u**t **labo**re **e**t **dolo**re **mag**na **aliquy**am **era**t, **se**d **dia**m **volupt**ua. **A**t **ver**o **eo**s **e**t **accus**am **e**t **jus**to **du**o **dolor**es **e**t **e**a **reb**um. **Ste**t **cli**ta **kas**d **gubergr**en, **n**o **se**a **takima**ta **sanct**us **es**t **Lor**em **ips**um **dol**or **si**t **ame**t.';
+      '<b>ore</b>m <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t, <b>consetet</b>ur <b>sadipsci</b>ng <b>eli</b>tr, <b>se</b>d <b>dia</b>m <b>nonu</b>my <b>eirm</b>od <b>temp</b>or <b>invidu</b>nt <b>u</b>t <b>labo</b>re <b>e</b>t <b>dolo</b>re <b>mag</b>na <b>aliquy</b>am <b>era</b>t, <b>se</b>d <b>dia</b>m <b>volupt</b>ua. <b>A</b>t <b>ver</b>o <b>eo</b>s <b>e</b>t <b>accus</b>am <b>e</b>t <b>jus</b>to <b>du</b>o <b>dolor</b>es <b>e</b>t <b>e</b>a <b>reb</b>um. <b>Ste</b>t <b>cli</b>ta <b>kas</b>d <b>gubergr</b>en, <b>n</b>o <b>se</b>a <b>takima</b>ta <b>sanct</b>us <b>es</b>t <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t. <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t, <b>consetet</b>ur <b>sadipsci</b>ng <b>eli</b>tr, <b>se</b>d <b>dia</b>m <b>nonu</b>my <b>eirm</b>od <b>temp</b>or <b>invidu</b>nt <b>u</b>t <b>labo</b>re <b>e</b>t <b>dolo</b>re <b>mag</b>na <b>aliquy</b>am <b>era</b>t, <b>se</b>d <b>dia</b>m <b>volupt</b>ua. <b>A</b>t <b>ver</b>o <b>eo</b>s <b>e</b>t <b>accus</b>am <b>e</b>t <b>jus</b>to <b>du</b>o <b>dolor</b>es <b>e</b>t <b>e</b>a <b>reb</b>um. <b>Ste</b>t <b>cli</b>ta <b>kas</b>d <b>gubergr</b>en, <b>n</b>o <b>se</b>a <b>takima</b>ta <b>sanct</b>us <b>es</b>t <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t.';
 
-    expect(bionicReading(text, { markdown: true, markdownStyle: '' })).toBe(
-      expectedText,
-    );
+    expect(bionicReading(text, { sep: undefined })).toBe(expectedText);
   });
 
-  it('pass strings with line break (markdown)', () => {
+  it('pass strings with line break (w/ set options.sep to `__`)', () => {
     const text = `
-    a
-    b
-    c
-    `;
-
-    const expected = `
-    a
-    b
-    c
-    `;
-
-    expect(bionicReading(text, { markdown: true })).toBe(expected);
-  });
-
-  it('pass strings with line break (markdown + style)', () => {
-    const text = `
-    a
-    b
-    c
-    `;
-
-    const expected = `
-    a
-    b
-    c
-    `;
-
-    expect(bionicReading(text, { markdown: true, markdownStyle: '__' })).toBe(
-      expected,
-    );
-
-    const text2 = `
     orem ipsum dolor sit amet, consetetur sadipscing elitr,
     sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
     sed diam voluptua.`;
 
-    const expected2 = `
+    const expected = `
     __ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr,
     __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t,
     __se__d __dia__m __volupt__ua.`;
 
-    expect(bionicReading(text2, { markdown: true, markdownStyle: '__' })).toBe(
-      expected2,
-    );
+    expect(bionicReading(text, { sep: '__' })).toBe(expected);
   });
 
-  it('pass empty highlightTag', () => {
-    expect(bionicReading('a', { highlightTag: '' })).toBe('a');
-    expect(bionicReading('apple', { highlightTag: '' })).toBe('<b>app</b>le');
+  it('invalid fixation point', () => {
+    const text =
+      'orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+    const expectedText =
+      '<b>ore</b>m <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t, <b>consetet</b>ur <b>sadipsci</b>ng <b>eli</b>tr, <b>se</b>d <b>dia</b>m <b>nonu</b>my <b>eirm</b>od <b>temp</b>or <b>invidu</b>nt <b>u</b>t <b>labo</b>re <b>e</b>t <b>dolo</b>re <b>mag</b>na <b>aliquy</b>am <b>era</b>t, <b>se</b>d <b>dia</b>m <b>volupt</b>ua. <b>A</b>t <b>ver</b>o <b>eo</b>s <b>e</b>t <b>accus</b>am <b>e</b>t <b>jus</b>to <b>du</b>o <b>dolor</b>es <b>e</b>t <b>e</b>a <b>reb</b>um. <b>Ste</b>t <b>cli</b>ta <b>kas</b>d <b>gubergr</b>en, <b>n</b>o <b>se</b>a <b>takima</b>ta <b>sanct</b>us <b>es</b>t <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t. <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t, <b>consetet</b>ur <b>sadipsci</b>ng <b>eli</b>tr, <b>se</b>d <b>dia</b>m <b>nonu</b>my <b>eirm</b>od <b>temp</b>or <b>invidu</b>nt <b>u</b>t <b>labo</b>re <b>e</b>t <b>dolo</b>re <b>mag</b>na <b>aliquy</b>am <b>era</b>t, <b>se</b>d <b>dia</b>m <b>volupt</b>ua. <b>A</b>t <b>ver</b>o <b>eo</b>s <b>e</b>t <b>accus</b>am <b>e</b>t <b>jus</b>to <b>du</b>o <b>dolor</b>es <b>e</b>t <b>e</b>a <b>reb</b>um. <b>Ste</b>t <b>cli</b>ta <b>kas</b>d <b>gubergr</b>en, <b>n</b>o <b>se</b>a <b>takima</b>ta <b>sanct</b>us <b>es</b>t <b>Lor</b>em <b>ips</b>um <b>dol</b>or <b>si</b>t <b>ame</b>t.';
+
+    expect(bionicReading(text, { fixationPoint: -1 })).toBe(expectedText);
+  });
+
+  it('emojis', () => {
+    const text = '👆 h👆el👆lo there, this is s👆ome dummy text';
+    const expected =
+      '👆 h👆<b>e</b>l👆<b>l</b>o <b>the</b>re, <b>thi</b>s <b>i</b>s s👆<b>om</b>e <b>dum</b>my <b>tex</b>t';
+
+    expect(bionicReading(text)).toBe(expected);
   });
 });
 
@@ -184,7 +172,7 @@ describe('fixation point ([2, 5])', () => {
     const text =
       '__ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
     const expected =
-      '__<b>ore_</b>_m __<b>ips__</b>um __<b>dol__</b>or __<b>si_</b>_t __<b>ame_</b>_t, __<b>consetet</b>__ur __<b>sadipsci</b>__ng __<b>eli__</b>tr, __<b>se_</b>_d __<b>dia_</b>_m __<b>nonu_</b>_my __<b>eirm_</b>_od __<b>temp_</b>_or __<b>invidu_</b>_nt __<b>u_</b>_t __<b>labo_</b>_re __<b>e_</b>_t __<b>dolo_</b>_re __<b>mag__</b>na __<b>aliquy_</b>_am __<b>era_</b>_t, __<b>se_</b>_d __<b>dia_</b>_m __<b>volupt_</b>_ua. __<b>A_</b>_t __<b>ver_</b>_o __<b>eo_</b>_s __<b>e_</b>_t __<b>accus_</b>_am __<b>e_</b>_t __<b>jus__</b>to __<b>du_</b>_o __<b>dolor_</b>_es __<b>e_</b>_t __<b>e_</b>_a __<b>reb__</b>um. __<b>Ste_</b>_t __<b>cli__</b>ta __<b>kas_</b>_d __<b>gubergr</b>__en, __<b>n_</b>_o __<b>se_</b>_a __<b>takima_</b>_ta __<b>sanct_</b>_us __<b>es_</b>_t __<b>Lor__</b>em __<b>ips__</b>um __<b>dol__</b>or __<b>si_</b>_t __<b>ame_</b>_t. __<b>Lor__</b>em __<b>ips__</b>um __<b>dol__</b>or __<b>si_</b>_t __<b>ame_</b>_t, __<b>consetet</b>__ur __<b>sadipsci</b>__ng __<b>eli__</b>tr, __<b>se_</b>_d __<b>dia_</b>_m __<b>nonu_</b>_my __<b>eirm_</b>_od __<b>temp_</b>_or __<b>invidu_</b>_nt __<b>u_</b>_t __<b>labo_</b>_re __<b>e_</b>_t __<b>dolo_</b>_re __<b>mag__</b>na __<b>aliquy_</b>_am __<b>era_</b>_t, __<b>se_</b>_d __<b>dia_</b>_m __<b>volupt_</b>_ua. __<b>A_</b>_t __<b>ver_</b>_o __<b>eo_</b>_s __<b>e_</b>_t __<b>accus_</b>_am __<b>e_</b>_t __<b>jus__</b>to __<b>du_</b>_o __<b>dolor_</b>_es __<b>e_</b>_t __<b>e_</b>_a __<b>reb__</b>um. __<b>Ste_</b>_t __<b>cli__</b>ta __<b>kas_</b>_d __<b>gubergr</b>__en, __<b>n_</b>_o __<b>se_</b>_a __<b>takima_</b>_ta __<b>sanct_</b>_us __<b>es_</b>_t __<b>Lor__</b>em __<b>ips__</b>um __<b>dol__</b>or __<b>si_</b>_t __<b>ame_</b>_t.';
+      '__<b>o</b>re__<b>m</b> __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>, __<b>conse</b>tet__<b>u</b>r __<b>sadip</b>sci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>invi</b>du__<b>n</b>t __<b>u</b>__<b>t</b> __<b>la</b>bo__<b>r</b>e __<b>e</b>__<b>t</b> __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>aliq</b>uy__<b>a</b>m __<b>e</b>ra__<b>t</b>, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>volu</b>pt__<b>u</b>a. __<b>A</b>__<b>t</b> __<b>v</b>er__<b>o</b> __<b>e</b>o__<b>s</b> __<b>e</b>__<b>t</b> __<b>acc</b>us__<b>a</b>m __<b>e</b>__<b>t</b> __<b>j</b>us__<b>t</b>o __<b>d</b>u__<b>o</b> __<b>dol</b>or__<b>e</b>s __<b>e</b>__<b>t</b> __<b>e</b>__<b>a</b> __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__<b>t</b> __<b>c</b>li__<b>t</b>a __<b>k</b>as__<b>d</b> __<b>guber</b>gr__<b>e</b>n, __<b>n</b>__<b>o</b> __<b>s</b>e__<b>a</b> __<b>taki</b>ma__<b>t</b>a __<b>san</b>ct__<b>u</b>s __<b>e</b>s__<b>t</b> __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>. __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>, __<b>conse</b>tet__<b>u</b>r __<b>sadip</b>sci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>invi</b>du__<b>n</b>t __<b>u</b>__<b>t</b> __<b>la</b>bo__<b>r</b>e __<b>e</b>__<b>t</b> __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>aliq</b>uy__<b>a</b>m __<b>e</b>ra__<b>t</b>, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>volu</b>pt__<b>u</b>a. __<b>A</b>__<b>t</b> __<b>v</b>er__<b>o</b> __<b>e</b>o__<b>s</b> __<b>e</b>__<b>t</b> __<b>acc</b>us__<b>a</b>m __<b>e</b>__<b>t</b> __<b>j</b>us__<b>t</b>o __<b>d</b>u__<b>o</b> __<b>dol</b>or__<b>e</b>s __<b>e</b>__<b>t</b> __<b>e</b>__<b>a</b> __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__<b>t</b> __<b>c</b>li__<b>t</b>a __<b>k</b>as__<b>d</b> __<b>guber</b>gr__<b>e</b>n, __<b>n</b>__<b>o</b> __<b>s</b>e__<b>a</b> __<b>taki</b>ma__<b>t</b>a __<b>san</b>ct__<b>u</b>s __<b>e</b>s__<b>t</b> __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>.';
     expect(bionicReading(text, { fixationPoint: 2 })).toBe(expected);
   });
 
@@ -199,7 +187,7 @@ describe('fixation point ([2, 5])', () => {
     const text =
       '__ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
     const expected =
-      '__<b>ore</b>__m __<b>ips_</b>_um __<b>dol_</b>_or __<b>si_</b>_t __<b>ame</b>__t, __<b>conset</b>et__ur __<b>sadips</b>ci__ng __<b>eli_</b>_tr, __<b>se_</b>_d __<b>dia</b>__m __<b>nonu</b>__my __<b>eirm</b>__od __<b>temp</b>__or __<b>invid</b>u__nt __<b>u_</b>_t __<b>labo</b>__re __<b>e_</b>_t __<b>dolo</b>__re __<b>mag_</b>_na __<b>aliqu</b>y__am __<b>era</b>__t, __<b>se_</b>_d __<b>dia</b>__m __<b>volup</b>t__ua. __<b>A_</b>_t __<b>ver</b>__o __<b>eo_</b>_s __<b>e_</b>_t __<b>accus</b>__am __<b>e_</b>_t __<b>jus_</b>_to __<b>du_</b>_o __<b>dolor</b>__es __<b>e_</b>_t __<b>e_</b>_a __<b>reb_</b>_um. __<b>Ste</b>__t __<b>cli_</b>_ta __<b>kas</b>__d __<b>guberg</b>r__en, __<b>n_</b>_o __<b>se_</b>_a __<b>takim</b>a__ta __<b>sanct</b>__us __<b>es_</b>_t __<b>Lor_</b>_em __<b>ips_</b>_um __<b>dol_</b>_or __<b>si_</b>_t __<b>ame</b>__t. __<b>Lor_</b>_em __<b>ips_</b>_um __<b>dol_</b>_or __<b>si_</b>_t __<b>ame</b>__t, __<b>conset</b>et__ur __<b>sadips</b>ci__ng __<b>eli_</b>_tr, __<b>se_</b>_d __<b>dia</b>__m __<b>nonu</b>__my __<b>eirm</b>__od __<b>temp</b>__or __<b>invid</b>u__nt __<b>u_</b>_t __<b>labo</b>__re __<b>e_</b>_t __<b>dolo</b>__re __<b>mag_</b>_na __<b>aliqu</b>y__am __<b>era</b>__t, __<b>se_</b>_d __<b>dia</b>__m __<b>volup</b>t__ua. __<b>A_</b>_t __<b>ver</b>__o __<b>eo_</b>_s __<b>e_</b>_t __<b>accus</b>__am __<b>e_</b>_t __<b>jus_</b>_to __<b>du_</b>_o __<b>dolor</b>__es __<b>e_</b>_t __<b>e_</b>_a __<b>reb_</b>_um. __<b>Ste</b>__t __<b>cli_</b>_ta __<b>kas</b>__d __<b>guberg</b>r__en, __<b>n_</b>_o __<b>se_</b>_a __<b>takim</b>a__ta __<b>sanct</b>__us __<b>es_</b>_t __<b>Lor_</b>_em __<b>ips_</b>_um __<b>dol_</b>_or __<b>si_</b>_t __<b>ame</b>__t.';
+      '__<b>o</b>re__<b>m</b> __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>, __<b>cons</b>etet__<b>u</b>r __<b>sadi</b>psci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>inv</b>idu__<b>n</b>t __<b>u</b>__<b>t</b> __<b>la</b>bo__<b>r</b>e __<b>e</b>__<b>t</b> __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>ali</b>quy__<b>a</b>m __<b>e</b>ra__<b>t</b>, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>vol</b>upt__<b>u</b>a. __<b>A</b>__<b>t</b> __<b>v</b>er__<b>o</b> __<b>e</b>o__<b>s</b> __<b>e</b>__<b>t</b> __<b>acc</b>us__<b>a</b>m __<b>e</b>__<b>t</b> __<b>j</b>us__<b>t</b>o __<b>d</b>u__<b>o</b> __<b>dol</b>or__<b>e</b>s __<b>e</b>__<b>t</b> __<b>e</b>__<b>a</b> __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__<b>t</b> __<b>c</b>li__<b>t</b>a __<b>k</b>as__<b>d</b> __<b>gube</b>rgr__<b>e</b>n, __<b>n</b>__<b>o</b> __<b>s</b>e__<b>a</b> __<b>tak</b>ima__<b>t</b>a __<b>san</b>ct__<b>u</b>s __<b>e</b>s__<b>t</b> __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>. __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>, __<b>cons</b>etet__<b>u</b>r __<b>sadi</b>psci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>inv</b>idu__<b>n</b>t __<b>u</b>__<b>t</b> __<b>la</b>bo__<b>r</b>e __<b>e</b>__<b>t</b> __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>ali</b>quy__<b>a</b>m __<b>e</b>ra__<b>t</b>, __<b>s</b>e__<b>d</b> __<b>d</b>ia__<b>m</b> __<b>vol</b>upt__<b>u</b>a. __<b>A</b>__<b>t</b> __<b>v</b>er__<b>o</b> __<b>e</b>o__<b>s</b> __<b>e</b>__<b>t</b> __<b>acc</b>us__<b>a</b>m __<b>e</b>__<b>t</b> __<b>j</b>us__<b>t</b>o __<b>d</b>u__<b>o</b> __<b>dol</b>or__<b>e</b>s __<b>e</b>__<b>t</b> __<b>e</b>__<b>a</b> __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__<b>t</b> __<b>c</b>li__<b>t</b>a __<b>k</b>as__<b>d</b> __<b>gube</b>rgr__<b>e</b>n, __<b>n</b>__<b>o</b> __<b>s</b>e__<b>a</b> __<b>tak</b>ima__<b>t</b>a __<b>san</b>ct__<b>u</b>s __<b>e</b>s__<b>t</b> __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__<b>t</b> __<b>a</b>me__<b>t</b>.';
     expect(bionicReading(text, { fixationPoint: 3 })).toBe(expected);
   });
 
@@ -214,7 +202,7 @@ describe('fixation point ([2, 5])', () => {
     const text =
       '__ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
     const expected =
-      '__<b>or</b>e__m __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>cons</b>etet__ur __<b>sadi</b>psci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>non</b>u__my __<b>eir</b>m__od __<b>tem</b>p__or __<b>inv</b>idu__nt __<b>u_</b>_t __<b>lab</b>o__re __<b>e_</b>_t __<b>dol</b>o__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A_</b>_t __<b>ve</b>r__o __<b>eo</b>__s __<b>e_</b>_t __<b>acc</b>us__am __<b>e_</b>_t __<b>ju</b>s__to __<b>du</b>__o __<b>dol</b>or__es __<b>e_</b>_t __<b>e_</b>_a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gube</b>rgr__en, __<b>n_</b>_o __<b>se</b>__a __<b>tak</b>ima__ta __<b>san</b>ct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t. __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>cons</b>etet__ur __<b>sadi</b>psci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>non</b>u__my __<b>eir</b>m__od __<b>tem</b>p__or __<b>inv</b>idu__nt __<b>u_</b>_t __<b>lab</b>o__re __<b>e_</b>_t __<b>dol</b>o__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A_</b>_t __<b>ve</b>r__o __<b>eo</b>__s __<b>e_</b>_t __<b>acc</b>us__am __<b>e_</b>_t __<b>ju</b>s__to __<b>du</b>__o __<b>dol</b>or__es __<b>e_</b>_t __<b>e_</b>_a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gube</b>rgr__en, __<b>n_</b>_o __<b>se</b>__a __<b>tak</b>ima__ta __<b>san</b>ct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t.';
+      '__<b>o</b>re__m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t, __<b>con</b>setet__<b>u</b>r __<b>sad</b>ipsci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__d __<b>d</b>ia__m __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>in</b>vidu__<b>n</b>t __u__t __<b>la</b>bo__<b>r</b>e __e__t __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>al</b>iquy__<b>a</b>m __<b>e</b>ra__t, __<b>s</b>e__d __<b>d</b>ia__m __<b>vo</b>lupt__<b>u</b>a. __A__t __<b>v</b>er__o __<b>e</b>o__s __e__t __<b>ac</b>cus__<b>a</b>m __e__t __<b>j</b>us__<b>t</b>o __<b>d</b>u__o __<b>do</b>lor__<b>e</b>s __e__t __e__a __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__t __<b>c</b>li__<b>t</b>a __<b>k</b>as__d __<b>gu</b>bergr__<b>e</b>n, __n__o __<b>s</b>e__a __<b>ta</b>kima__<b>t</b>a __<b>sa</b>nct__<b>u</b>s __<b>e</b>s__t __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t. __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t, __<b>con</b>setet__<b>u</b>r __<b>sad</b>ipsci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__d __<b>d</b>ia__m __<b>no</b>nu__<b>m</b>y __<b>ei</b>rm__<b>o</b>d __<b>te</b>mp__<b>o</b>r __<b>in</b>vidu__<b>n</b>t __u__t __<b>la</b>bo__<b>r</b>e __e__t __<b>do</b>lo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>al</b>iquy__<b>a</b>m __<b>e</b>ra__t, __<b>s</b>e__d __<b>d</b>ia__m __<b>vo</b>lupt__<b>u</b>a. __A__t __<b>v</b>er__o __<b>e</b>o__s __e__t __<b>ac</b>cus__<b>a</b>m __e__t __<b>j</b>us__<b>t</b>o __<b>d</b>u__o __<b>do</b>lor__<b>e</b>s __e__t __e__a __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__t __<b>c</b>li__<b>t</b>a __<b>k</b>as__d __<b>gu</b>bergr__<b>e</b>n, __n__o __<b>s</b>e__a __<b>ta</b>kima__<b>t</b>a __<b>sa</b>nct__<b>u</b>s __<b>e</b>s__t __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t.';
     expect(bionicReading(text, { fixationPoint: 4 })).toBe(expected);
   });
 
@@ -229,7 +217,7 @@ describe('fixation point ([2, 5])', () => {
     const text =
       '__ore__m __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t. __Lor__em __ips__um __dol__or __si__t __ame__t, __consetet__ur __sadipsci__ng __eli__tr, __se__d __dia__m __nonu__my __eirm__od __temp__or __invidu__nt __u__t __labo__re __e__t __dolo__re __mag__na __aliquy__am __era__t, __se__d __dia__m __volupt__ua. __A__t __ver__o __eo__s __e__t __accus__am __e__t __jus__to __du__o __dolor__es __e__t __e__a __reb__um. __Ste__t __cli__ta __kas__d __gubergr__en, __n__o __se__a __takima__ta __sanct__us __es__t __Lor__em __ips__um __dol__or __si__t __ame__t.';
     const expected =
-      '__<b>or</b>e__m __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>con</b>setet__ur __<b>sad</b>ipsci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>no</b>nu__my __<b>ei</b>rm__od __<b>te</b>mp__or __<b>inv</b>idu__nt __<b>u</b>__t __<b>la</b>bo__re __<b>e</b>__t __<b>do</b>lo__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A</b>__t __<b>ve</b>r__o __<b>eo</b>__s __<b>e</b>__t __<b>ac</b>cus__am __<b>e</b>__t __<b>ju</b>s__to __<b>du</b>__o __<b>do</b>lor__es __<b>e</b>__t __<b>e</b>__a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gub</b>ergr__en, __<b>n</b>__o __<b>se</b>__a __<b>tak</b>ima__ta __<b>sa</b>nct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t. __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t, __<b>con</b>setet__ur __<b>sad</b>ipsci__ng __<b>el</b>i__tr, __<b>se</b>__d __<b>di</b>a__m __<b>no</b>nu__my __<b>ei</b>rm__od __<b>te</b>mp__or __<b>inv</b>idu__nt __<b>u</b>__t __<b>la</b>bo__re __<b>e</b>__t __<b>do</b>lo__re __<b>ma</b>g__na __<b>ali</b>quy__am __<b>er</b>a__t, __<b>se</b>__d __<b>di</b>a__m __<b>vol</b>upt__ua. __<b>A</b>__t __<b>ve</b>r__o __<b>eo</b>__s __<b>e</b>__t __<b>ac</b>cus__am __<b>e</b>__t __<b>ju</b>s__to __<b>du</b>__o __<b>do</b>lor__es __<b>e</b>__t __<b>e</b>__a __<b>re</b>b__um. __<b>St</b>e__t __<b>cl</b>i__ta __<b>ka</b>s__d __<b>gub</b>ergr__en, __<b>n</b>__o __<b>se</b>__a __<b>tak</b>ima__ta __<b>sa</b>nct__us __<b>es</b>__t __<b>Lo</b>r__em __<b>ip</b>s__um __<b>do</b>l__or __<b>si</b>__t __<b>am</b>e__t.';
+      '__<b>o</b>re__m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t, __<b>co</b>nsetet__<b>u</b>r __<b>sa</b>dipsci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__d __<b>d</b>ia__m __<b>n</b>onu__<b>m</b>y __<b>e</b>irm__<b>o</b>d __<b>t</b>emp__<b>o</b>r __<b>in</b>vidu__<b>n</b>t __u__t __<b>l</b>abo__<b>r</b>e __e__t __<b>d</b>olo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>al</b>iquy__<b>a</b>m __<b>e</b>ra__t, __<b>s</b>e__d __<b>d</b>ia__m __<b>vo</b>lupt__<b>u</b>a. __A__t __<b>v</b>er__o __<b>e</b>o__s __e__t __<b>ac</b>cus__<b>a</b>m __e__t __<b>j</b>us__<b>t</b>o __<b>d</b>u__o __<b>do</b>lor__<b>e</b>s __e__t __e__a __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__t __<b>c</b>li__<b>t</b>a __<b>k</b>as__d __<b>gu</b>bergr__<b>e</b>n, __n__o __<b>s</b>e__a __<b>ta</b>kima__<b>t</b>a __<b>sa</b>nct__<b>u</b>s __<b>e</b>s__t __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t. __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t, __<b>co</b>nsetet__<b>u</b>r __<b>sa</b>dipsci__<b>n</b>g __<b>e</b>li__<b>t</b>r, __<b>s</b>e__d __<b>d</b>ia__m __<b>n</b>onu__<b>m</b>y __<b>e</b>irm__<b>o</b>d __<b>t</b>emp__<b>o</b>r __<b>in</b>vidu__<b>n</b>t __u__t __<b>l</b>abo__<b>r</b>e __e__t __<b>d</b>olo__<b>r</b>e __<b>m</b>ag__<b>n</b>a __<b>al</b>iquy__<b>a</b>m __<b>e</b>ra__t, __<b>s</b>e__d __<b>d</b>ia__m __<b>vo</b>lupt__<b>u</b>a. __A__t __<b>v</b>er__o __<b>e</b>o__s __e__t __<b>ac</b>cus__<b>a</b>m __e__t __<b>j</b>us__<b>t</b>o __<b>d</b>u__o __<b>do</b>lor__<b>e</b>s __e__t __e__a __<b>r</b>eb__<b>u</b>m. __<b>S</b>te__t __<b>c</b>li__<b>t</b>a __<b>k</b>as__d __<b>gu</b>bergr__<b>e</b>n, __n__o __<b>s</b>e__a __<b>ta</b>kima__<b>t</b>a __<b>sa</b>nct__<b>u</b>s __<b>e</b>s__t __<b>L</b>or__<b>e</b>m __<b>i</b>ps__<b>u</b>m __<b>d</b>ol__<b>o</b>r __<b>s</b>i__t __<b>a</b>me__t.';
     expect(bionicReading(text, { fixationPoint: 5 })).toBe(expected);
   });
 });
@@ -279,7 +267,7 @@ describe('numbers', () => {
 
   it('1234@567890', () => {
     const text = '1234@567890';
-    const expected = '<b>1234@567890</b>';
+    const expected = '1234@567890';
     expect(bionicReading(text), expected);
   });
 });

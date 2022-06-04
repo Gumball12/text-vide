@@ -11,6 +11,7 @@ module.exports = {
   rules: {
     'no-unused-vars': ['error', { varsIgnorePattern: '.*', args: 'none' }],
     'no-restricted-syntax': ['error', 'ObjectPattern > RestElement'],
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
   overrides: [
     {
