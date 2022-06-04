@@ -1,20 +1,14 @@
 # How was this made?
 
-This module was developed using the [Official Bionic-Reading API](https://rapidapi.com/bionic-reading-bionic-reading-default/api/bionic-reading1/).
+This module was developed by referring to the official [BR API](https://rapidapi.com/bionic-reading-bionic-reading-default/api/bionic-reading1/). However, there is a difference in that it is implemented with a slightly different logic, such as not highlighting special characters. I'm going to talk about this here.
 
-I composed some example sentences and the API request results for them as [Test Cases](./src/__tests__/conv2IntermediateWord.test.ts), and I also found some Rules together in the process.
+## The Rules
+
+First, I found the rule below through the BR API call result.
 
 - [Rules for the Number of Characters](#char-length-rules)
 - [Rules for Special Characters](#special-chars-rules)
 - [Rules for Numbers](#number-rules)
-
-### Conversion Process
-
-<p align="center">
-  <a href="https://mermaid.live/edit#pako:eNp1kcFugzAQRH_F2nPyAxx6cNJDKiohGYkD5uBgt1g1NjKmLQr59xqwBYrSPe3hzWhn9ga14QIS-LSsa1COqUZ-srzMFJMa5eLXVeh4fJlIp6RD1xGlUosJZWkg05JCxixbDMqKwgNOOlZ7vgh8MfOFsbysnsBn1jcTIoElM0tGpdhViT1_MvpbWIecQRfthG0Fl8wJFNl-Qpf36DJv3mcP_uOFpdGy3rvgaIIXjxV4dtGb8WX9SNesEXCMi4tN95h604SOcCwVZ5vqSbebcP0FzoMsL0OE5W1UwwFaH5pJ7j98myEKrhGtoJD4lTP7RYHqu-eGjvtiXrl0xkLywVQvDsAGZ8ioa0icHUSEznI-qA3U_Q8fWL9T">
-    <img alt="mermaid image" src="https://mermaid.ink/img/pako:eNp1kcFugzAQRH_F2nPyAxx6cNJDKiohGYkD5uBgt1g1NjKmLQr59xqwBYrSPe3hzWhn9ga14QIS-LSsa1COqUZ-srzMFJMa5eLXVeh4fJlIp6RD1xGlUosJZWkg05JCxixbDMqKwgNOOlZ7vgh8MfOFsbysnsBn1jcTIoElM0tGpdhViT1_MvpbWIecQRfthG0Fl8wJFNl-Qpf36DJv3mcP_uOFpdGy3rvgaIIXjxV4dtGb8WX9SNesEXCMi4tN95h604SOcCwVZ5vqSbebcP0FzoMsL0OE5W1UwwFaH5pJ7j98myEKrhGtoJD4lTP7RYHqu-eGjvtiXrl0xkLywVQvDsAGZ8ioa0icHUSEznI-qA3U_Q8fWL9T">
-  </a>
-</p>
 
 ### Rules for the Number of Characters<a id="char-length-rules"></a>
 
@@ -51,63 +45,83 @@ Below are the final rules for character count:
 | 43           | 48           | 5         | 8                        |
 | 49           | infinity     | infinity  | 9                        |
 
-[conv2IntermediateWord.ts](./packages/bionic-reading/src/conv2IntermediateWord.ts)
-
-The above is a description of the `fixationPoint` option value of `1`, and the same is done for other cases. [See here](https://docs.google.com/spreadsheets/d/1nG8OoYUK6rXsWdi-L8pWihx9i_aSn9V0eYfLKy9-B-U/edit?usp=sharing) for a complete list of test results for Fixation Points. (Note: The test results on the sheet are [automatically interlocked](./packages/bionic-reading/src/__tests__/utils/getFixationPointLastLength.ts) with the actual project test case.)
+The above is a description of the `fixationPoint` option value of `1`, and the same is done for other cases. [See here](https://docs.google.com/spreadsheets/d/1nG8OoYUK6rXsWdi-L8pWihx9i_aSn9V0eYfLKy9-B-U/edit?usp=sharing) for a complete list of test results for Fixation Points.
 
 ### Rules for Special Characters<a id="special-chars-rules"></a>
 
 Special characters at the Beginning or End of a word are **not** highlighted.
 
 ```ts
-bionicReading(';apple;'); // ';<b>app</b>le;'
+';apple;' -> ';<b>app</b>le;'
 ```
 
 Special characters placed **inside words** are treated the same as Regular characters.
 
 ```ts
-bionicReading('a;ppl;e'); // '<b>a;ppl</b>;e'
+'a;ppl;e' -> '<b>a;ppl</b>;e'
 ```
 
 However, a Dash (`-`) among special characters located inside a word is treated the same as a Space.
 
 ```ts
-bionicReading('app-le'); // '<b>ap</b>p-<b>l</b>e'
+'app-le' -> '<b>ap</b>p-<b>l</b>e'
 ```
+
+> I thought it was awkward to highlight special characters, so I implemented it to divide them based on special characters.
+>
+> ```ts
+> // Origin
+> 'a;ppl;e' -> '<b>a;ppl</b>;e'
+> 'app-le' -> '<b>ap</b>p-<b>l</b>e'
+>
+> // This module
+> 'a;ppl;e' -> 'a;<b>pp</b>l;e'
+> 'app-le' -> '<b>ap</b>p-<b>l</b>e'
+> ```
 
 ### Rules for numbers<a id="number-rules"></a>
 
 If there are only numbers, highlight nothing.
 
 ```ts
-bionicReading('1234567890'); // '1234567890'
+'1234567890' -> '1234567890'
 ```
 
 If there is a dash between the numbers, it is also not highlighted.
 
 ```ts
-bionicReading('1234-567890'); // '1234-567890'
+'1234-567890' -> '1234-567890'
 ```
 
 When numbers and letters are used together, they are treated as regular characters.
 
 ```ts
-bionicReading('a1234567890'); // '<b>a12345678</b>90'
-bionicReading('1234567890a'); // '<b>123456789</b>0a'
-bionicReading('1234a567890'); // '<b>1234a5678</b>90'
+'a1234567890' -> '<b>a12345678</b>90'
+'1234567890a' -> '<b>123456789</b>0a'
+'1234a567890' -> '<b>1234a5678</b>90'
 ```
 
 If a special character other than a dash is between numbers, treat it like a regular character.
 
 ```ts
-bionicReading('1234!567890'); // '<b>1234!5678</b>90'
+'1234!567890' -> '<b>1234!5678</b>90'
 ```
 
 Otherwise, it doesn't highlight anything.
 
 ```ts
-bionicReading('!1234567890'); // '!1234567890'
-bionicReading('1234567890!'); // '1234567890!'
+'!1234567890' -> '!1234567890'
+'1234567890!' -> '1234567890!'
 ```
 
 Note: Emojis are treated as special characters, not dashes.
+
+> This module does not highlight even if there are special characters between numbers.
+>
+> ```ts
+> // Origin
+> '1234!567890' -> '<b>1234!5678</b>90'
+>
+> // This module
+> '1234!567890' -> '1234!567890'
+> ```

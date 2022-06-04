@@ -67,51 +67,36 @@ console.log(bionicText); // '<b>Bion</b>ic <b>Readi</b>ng ... <b>writt</b>en <b>
 ### `BionicReading(text: string, options?: Options)`
 
 ```ts
-bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
+bionicReading('bionic-reading');
+bionicReading('bionic-reading', {
+  // ... Options
+});
 ```
 
 ### Options
 
 ```ts
 type Options = Partial<{
-  highlightTag: string;
-  markdown: boolean;
-  markdownStyle: string;
+  sep: string | string[];
   fixationPoint: number;
 }>;
 ```
 
-#### `highlightTag`
+#### `sep`
 
-- Default Value: `'b'`
+- Default Value: `['<b>', '</b>']`
 
-```ts
-// default highlight tag: `<b>`
-bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
-
-// changed highlight tag: `<strong>`
-bionicReading('bionic-reading', { highlightTag: 'strong' }); // '<strong>bion</strong>ic-<strong>readi</strong>ng'
-```
-
-#### `markdown`
-
-- Default Value: `false`
+Passing a string allows you to specify the Beginning and End of the highlighted word at once.
 
 ```ts
-bionicReading('bionic-reading', { markdown: true, highlightTag: 'strong' }); // '**bion**ic-**readi**ng'
+bionicReading('bionic-reading', '**'); // '**bion**ic-**readi**ng'
 ```
 
-If true, the `highlightTag` option is ignored.
-
-#### `markdownStyle`
-
-- Default Value: `'**'`
+It can also set them up by passing a list of length 2.
 
 ```ts
-bionicReading('bionic-reading', { markdown: true, markdownStyle: '__' }); // '__bion__ic-__readi__ng'
+bionicReading('bionic-reading', ['<strong>', '</strong>']); // '<strong>bion</strong>ic-<strong>readi</strong>ng'
 ```
-
-If the `markdown` option is false, this option is ignored.
 
 #### `fixationPoint`
 
@@ -119,17 +104,12 @@ If the `markdown` option is false, this option is ignored.
 - Range: `[1, 5]`
 
 ```ts
-// default fixation-point: 1
+// Default fixation-point: 1
 bionicReading('bionic-reading'); // '<b>bion</b>ic-<b>readi</b>ng'
 
-// changed fixation-point: 5
+// Changed fixation-point: 5
 bionicReading('bionic-reading', { fixationPoint: 5 }); // '<b>bi</b>onic-<b>re</b>ading'
 ```
-
-## Motivations
-
-- [bionic-reading.com](https://bionic-reading.com/)
-- [ansh/bionic-reading](https://github.com/ansh/bionic-reading)
 
 ## License
 
