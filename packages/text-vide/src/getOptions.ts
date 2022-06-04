@@ -1,5 +1,5 @@
 import { Options } from './types';
-import defaults from './utils/defaults';
+import defaults from 'utils/defaults';
 
 const DEFAULT_SEP = ['<b>', '</b>'];
 const DEFAULT_FIXATION_POINT = 1;

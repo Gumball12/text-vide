@@ -40,6 +40,7 @@
   "devDependencies": {
     "c8": "^7.11.3",
     "standard-version": "^9.5.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "utils": "workspace:*"
   }
 }
