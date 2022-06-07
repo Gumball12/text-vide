@@ -14,6 +14,7 @@ An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-
 
 - _[How was this made?](./HOW.md)_
 - _[I don't think it's going to be more readable](./ABOUT_READABILITY.md)_
+- _[CONTRIBUTING.md](./CONTRIBUTING.md)_
 
 ## 💫 Features
 
