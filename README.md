@@ -1,4 +1,4 @@
-# text-vide
+# TextVide (vide; Latin for "see")
 
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/text-vide)](https://www.npmjs.com/package/text-vide) ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/Gumball12/text-vide?filename=packages%2Ftext-vide%2Fpackage.json) [![changelog](https://img.shields.io/badge/CHANGELOG-gray)](./CHANGELOG.md)
 
