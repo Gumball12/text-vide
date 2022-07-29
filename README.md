@@ -18,13 +18,19 @@ An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-
 
 ## 💫 Features
 
-| Feature                       | State                                                   |
-| ----------------------------- | ------------------------------------------------------- |
-| HTML Mode                     | ✅                                                      |
-| Markdown Mode                 | ✅                                                      |
-| Custom HTML or Markdown Style | ✅                                                      |
-| Fixation-Points               | ✅                                                      |
-| Saccade                       | [#21](https://github.com/Gumball12/text-vide/issues/21) |
+| Feature                                                                 | State |
+| ----------------------------------------------------------------------- | ----- |
+| [Support all languages](https://github.com/Gumball12/text-vide/pull/16) | ✅    |
+| [Support ESM and CommonJS](#usage)                                      | ✅    |
+| [Custom `sep` Style](#options-sep)                                      | ✅    |
+| [Fixation-Points](#options-fixationpoint)                               | ✅    |
+
+### Work in Progress
+
+| Feature                                              | Issues                                                  |
+| ---------------------------------------------------- | ------------------------------------------------------- |
+| Saccade                                              | [#21](https://github.com/Gumball12/text-vide/issues/21) |
+| Apply the Bionic Reading technique without HTML code | [#36](https://github.com/Gumball12/text-vide/issues/36) |
 
 ## ⚙️ Install
 
@@ -34,7 +40,7 @@ yarn add text-vide
 pnpm add text-vide
 ```
 
-## 📖 Usage
+## 📖 Usage<a id="usage"></a>
 
 ### ESM (Browser)
 
@@ -82,7 +88,7 @@ type Options = Partial<{
 }>;
 ```
 
-#### `sep`
+#### `sep`<a id="options-sep"></a>
 
 - Default Value: `['<b>', '</b>']`
 
@@ -98,7 +104,7 @@ It can also set them up by passing a list of length 2.
 textVide('text-vide', ['<strong>', '</strong>']); // '<strong>tex</strong>t-<strong>vid</strong>e'
 ```
 
-#### `fixationPoint`
+#### `fixationPoint`<a id="options-fixationpoint"></a>
 
 - Default Value: `1`
 - Range: `[1, 5]`
