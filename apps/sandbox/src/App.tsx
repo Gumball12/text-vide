@@ -343,7 +343,7 @@ const App = () => {
         </section>
 
         <section>
-          <p className="section-name">Input</p>
+          <p className="section-name mb-2px">Input</p>
           <textarea
             className="border-gray-100 resize-y w-full rounded outline-none p-2 text-lg shadow-md focus:shadow-lg transition-shadow-300 min-h-48"
             value={input}
