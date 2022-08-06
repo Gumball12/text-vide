@@ -32,6 +32,21 @@ An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-
 | ------- | ------------------------------------------------------- |
 | Saccade | [#21](https://github.com/Gumball12/text-vide/issues/21) |
 
+### Benchmark
+
+```
+Sun Aug 07 2022 01:33:40 GM +0900
+length of normal text: 590
+length of text with html tags: 1579
+
+normal#ignoreHtmlTags x 46,106 ops/sec ±4.22% (86 runs sampled)
+normal#notIgnoreHtmlTags x 53,200 ops/sec ±0.93% (89 runs sampled)
+withHtmlTags#ignoreHtmlTags x 3,213 ops/sec ±0.92% (87 runs sampled)
+withHtmlTags#notIgnoreHtmlTags x 3,605 ops/sec ±1.59% (87 runs sampled)
+```
+
+[code](./apps/benchmark/index.js)
+
 ## ⚙️ Install
 
 ```bash

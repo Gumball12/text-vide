@@ -1,0 +1,11 @@
+{
+  "name": "benchmark",
+  "version": "0.0.0",
+  "scripts": {
+    "benchmark": "node index.js"
+  },
+  "devDependencies": {
+    "benchmark": "^2.1.4",
+    "text-vide": "workspace:*"
+  }
+}

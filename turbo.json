@@ -18,6 +18,9 @@
     "test": {
       "cache": false
     },
+    "benchmark": {
+      "outputs": []
+    },
     "release": {
       "cache": false
     }
