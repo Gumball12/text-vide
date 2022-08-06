@@ -24,13 +24,13 @@ An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-
 | [Support ESM and CommonJS](#usage)                                      | ✅    |
 | [Custom `sep` Style](#options-sep)                                      | ✅    |
 | [Fixation-Points](#options-fixationpoint)                               | ✅    |
+| [Ignore HTML Tags](#options-ignorehtmltag)                              | ✅    |
 
 ### Work in Progress
 
-| Feature                                              | Issues                                                  |
-| ---------------------------------------------------- | ------------------------------------------------------- |
-| Saccade                                              | [#21](https://github.com/Gumball12/text-vide/issues/21) |
-| Apply the Bionic Reading technique without HTML code | [#36](https://github.com/Gumball12/text-vide/issues/36) |
+| Feature | Issues                                                  |
+| ------- | ------------------------------------------------------- |
+| Saccade | [#21](https://github.com/Gumball12/text-vide/issues/21) |
 
 ## ⚙️ Install
 
@@ -85,6 +85,7 @@ textVide('text-vide', {
 type Options = Partial<{
   sep: string | string[];
   fixationPoint: number;
+  ignoreHtmlTag: boolean;
 }>;
 ```
 
@@ -115,6 +116,17 @@ textVide('text-vide'); // '<b>tex</b>t-<b>vid</b>e'
 
 // Changed fixation-point: 5
 textVide('text-vide', { fixationPoint: 5 }); // '<b>t</b>ext-<b>v</b>ide'
+```
+
+#### `ignoreHtmlTag`<a id="options-ignorehtmltag"></a>
+
+- Default Value: `true`
+
+If this option is `true`, HTML tags are not highlighted.
+
+```ts
+textVite('<div>abcd</div>efg'); // '<div><b>abc</b>d</div><b>ef</b>g'
+textVite('<div>abcd</div>efg', { ignoreHtmlTag: false }); // '<<b>di</b>v><b>abc</b>d</<b>di</b>v><b>ef</b>g'
 ```
 
 ## License

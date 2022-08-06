@@ -19,6 +19,7 @@ type Edits = {
   firstSep: string;
   secondSep: string;
   fixationPoint: string;
+  ignoreHtmlTag: string;
   input: string;
 };
 
@@ -26,15 +27,23 @@ const defaultEdits: Edits = {
   firstSep: '<b>',
   secondSep: '</b>',
   fixationPoint: '1',
+  ignoreHtmlTag: '1', // 1 = true, 0 = false
   input: INITIAL_INPUT,
 };
 
-const storeEdits = ({ firstSep, secondSep, fixationPoint, input }: Edits) => {
+const storeEdits = ({
+  firstSep,
+  secondSep,
+  fixationPoint,
+  input,
+  ignoreHtmlTag,
+}: Edits) => {
   const search = [
     `firstSep=${encodeURIComponent(firstSep)}`,
     `secondSep=${encodeURIComponent(secondSep)}`,
     `fixationPoint=${encodeURIComponent(fixationPoint)}`,
     `input=${encodeURIComponent(input)}`,
+    `ignoreHtmlTag=${encodeURIComponent(ignoreHtmlTag)}`,
   ].join('&');
 
   // eslint-disable-next-line
@@ -90,6 +99,7 @@ type Action = {
     | 'INPUT'
     | 'HIGHLIGHTED_TEXT'
     | 'COPIED'
+    | 'TOGGLE_IGNORE_HTML_TAG'
     | 'RESET';
   value: string;
   copied: boolean;
@@ -120,6 +130,11 @@ const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
     return { ...state, copiedEffect: copied };
   }
 
+  if (type === 'TOGGLE_IGNORE_HTML_TAG') {
+    const nextIgnoreHtmlTag = state.ignoreHtmlTag === '1' ? '0' : '1';
+    return { ...state, ignoreHtmlTag: nextIgnoreHtmlTag };
+  }
+
   if (type === 'RESET') {
     return {
       ...defaultEdits,
@@ -145,6 +160,7 @@ const App = () => {
     fixationPoint,
     copiedEffect,
     highlightedText,
+    ignoreHtmlTag,
   } = state;
 
   useEffect(() => {
@@ -152,6 +168,7 @@ const App = () => {
       const options = {
         sep: [firstSep, secondSep],
         fixationPoint: parseInt(fixationPoint),
+        ignoreHtmlTag: ignoreHtmlTag === '1',
       };
 
       const highlightedText = textVide(input, options);
@@ -167,11 +184,12 @@ const App = () => {
         secondSep,
         input,
         fixationPoint,
+        ignoreHtmlTag,
       });
     }, DEBOUNCE_TIMEOUT);
 
     return () => clearTimeout(store);
-  }, [firstSep, secondSep, input, fixationPoint]);
+  }, [firstSep, secondSep, input, fixationPoint, ignoreHtmlTag]);
 
   const copyUrl = () => {
     const { href: url } = location;
@@ -198,6 +216,7 @@ const App = () => {
       secondSep,
       fixationPoint,
       input,
+      ignoreHtmlTag,
     });
 
   return (
@@ -277,12 +296,48 @@ const App = () => {
             </ToggleButtonGroup>
 
             <Button
+              className="!hidden sm:!block"
+              variant="outlined"
+              color="success"
+              onClick={() =>
+                dispatchState({
+                  type: 'TOGGLE_IGNORE_HTML_TAG',
+                  value: '',
+                  copied: false,
+                })
+              }
+            >
+              {ignoreHtmlTag === '1'
+                ? 'not ignore html tags'
+                : 'ignore html tags'}
+            </Button>
+
+            <Button
               className="!block sm:!hidden"
               variant="outlined"
               color="error"
               onClick={reset}
             >
               reset
+            </Button>
+          </section>
+
+          <section>
+            <Button
+              className="!block sm:!hidden"
+              variant="outlined"
+              color="success"
+              onClick={() =>
+                dispatchState({
+                  type: 'TOGGLE_IGNORE_HTML_TAG',
+                  value: '',
+                  copied: false,
+                })
+              }
+            >
+              {ignoreHtmlTag === '1'
+                ? 'not ignore html tags'
+                : 'ignore html tags'}
             </Button>
           </section>
         </section>

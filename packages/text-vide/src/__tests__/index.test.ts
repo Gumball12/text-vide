@@ -226,48 +226,124 @@ describe('numbers', () => {
   it('1234567890', () => {
     const text = '1234567890';
     const expected = '1234567890';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('1234-567890', () => {
     const text = '1234-567890';
     const expected = '1234-567890';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('a1234567890', () => {
     const text = 'a1234567890';
     const expected = '<b>a12345678</b>90';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('1234567890a', () => {
     const text = '1234567890a';
     const expected = '<b>123456789</b>0a';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('1234a567890', () => {
     const text = '1234a567890';
     const expected = '<b>1234a5678</b>90';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('@1234567890', () => {
     const text = '@1234567890';
     const expected = '@1234567890';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('1234567890@', () => {
     const text = '1234567890@';
     const expected = '1234567890@';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
   });
 
   it('1234@567890', () => {
     const text = '1234@567890';
     const expected = '1234@567890';
-    expect(textVide(text), expected);
+    expect(textVide(text)).toBe(expected);
+  });
+});
+
+describe('with html tags', () => {
+  it('normal text', () => {
+    const text = 'abcdefg';
+    const expected = '<b>abcde</b>fg';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('with a tag', () => {
+    const text = '<a>abcd</a>efg';
+    const expected = '<a><b>abc</b>d</a><b>ef</b>g';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('with b tag', () => {
+    const text = '<b>abcd</b>efg';
+    const expected = '<b><b>abc</b>d</b><b>ef</b>g';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('with div tag', () => {
+    const text = '<div>abcd</div>efg';
+    const expected = '<div><b>abc</b>d</div><b>ef</b>g';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('complex html tags', () => {
+    const text = `<div class="bionic-reader-container">
+            
+            
+    <span class="w bionic"><b class="b bionic">nor</b>mal </span><span class="w bionic"><b class="b bionic">te</b>xt</span>: <span class="w bionic"><b class="b bionic">abcd</b>efg</span><br><span class="w bionic"><b class="b bionic">wi</b>th </span><span class="w bionic"><b class="b bionic">a</b> </span><span class="w bionic"><b class="b bionic">t</b>ag</span>: <a target="_blank"><span class="w bionic"><b class="b bionic">ab</b>cd</span></a><span class="w bionic"><b class="b bionic">e</b>fg</span><br><span class="w bionic"><b class="b bionic">wi</b>th </span><span class="w bionic"><b class="b bionic">b</b> </span><span class="w bionic"><b class="b bionic">t</b>ag</span>: <b><span class="w bionic"><b class="b bionic">ab</b>cd</span></b><span class="w bionic"><b class="b bionic">e</b>fg</span><br><span class="w bionic"><b class="b bionic">wi</b>th </span><span class="w bionic"><b class="b bionic">d</b>iv </span><span class="w bionic"><b class="b bionic">t</b>ag</span>: <div><span class="w bionic"><b class="b bionic">ab</b>cd</span></div><span class="w bionic"><b class="b bionic">e</b>fg</span><br>
+    
+        <!-- <div class="br-foot-node">
+            <p style="margin: 32px 0 32px 70px; font-weight: 700; font-size: 26px; line-height: 1.6em;">
+                —
+            </p>
+            <p>
+                Bionic Reading<sup>®</sup><br>
+                A higher dimension of reading.<br>
+                <a href="https://bionic-reading.com">bionic-reading.com</a>
+            </p>
+            <br/>
+            <br/>
+            <p>
+                
+            </p>
+        </div> -->
+    
+</div>`;
+
+    const expected = `<div class="bionic-reader-container">
+            
+            
+    <span class="w bionic"><b class="b bionic"><b>no</b>r</b><b>ma</b>l </span><span class="w bionic"><b class="b bionic"><b>t</b>e</b><b>x</b>t</span>: <span class="w bionic"><b class="b bionic"><b>abc</b>d</b><b>ef</b>g</span><br><span class="w bionic"><b class="b bionic"><b>w</b>i</b><b>t</b>h </span><span class="w bionic"><b class="b bionic">a</b> </span><span class="w bionic"><b class="b bionic">t</b><b>a</b>g</span>: <a target="_blank"><span class="w bionic"><b class="b bionic"><b>a</b>b</b><b>c</b>d</span></a><span class="w bionic"><b class="b bionic">e</b><b>f</b>g</span><br><span class="w bionic"><b class="b bionic"><b>w</b>i</b><b>t</b>h </span><span class="w bionic"><b class="b bionic">b</b> </span><span class="w bionic"><b class="b bionic">t</b><b>a</b>g</span>: <b><span class="w bionic"><b class="b bionic"><b>a</b>b</b><b>c</b>d</span></b><span class="w bionic"><b class="b bionic">e</b><b>f</b>g</span><br><span class="w bionic"><b class="b bionic"><b>w</b>i</b><b>t</b>h </span><span class="w bionic"><b class="b bionic">d</b><b>i</b>v </span><span class="w bionic"><b class="b bionic">t</b><b>a</b>g</span>: <div><span class="w bionic"><b class="b bionic"><b>a</b>b</b><b>c</b>d</span></div><span class="w bionic"><b class="b bionic">e</b><b>f</b>g</span><br>
+    
+        <!-- <div class="br-foot-node">
+            <p style="margin: 32px 0 32px 70px; font-weight: 700; font-size: 26px; line-height: 1.6em;">
+                —
+            </p>
+            <p>
+                Bionic Reading<sup>®</sup><br>
+                A higher dimension of reading.<br>
+                <a href="https://bionic-reading.com">bionic-reading.com</a>
+            </p>
+            <br/>
+            <br/>
+            <p>
+                
+            </p>
+        </div> -->
+    
+</div>`;
+
+    expect(textVide(text)).toBe(expected);
   });
 });

@@ -1,48 +1,55 @@
 import { describe, expect, it } from 'vitest';
 import getOptions from '../getOptions';
+import { Options } from '../types';
 
 describe('test getOptions()', () => {
   it('pass empty object', () => {
-    const expected = {
+    const expected: Options = {
       sep: ['<b>', '</b>'],
       fixationPoint: 1,
+      ignoreHtmlTag: true,
     };
 
     expect(getOptions({})).toEqual(expected);
   });
 
   it('pass undefined value', () => {
-    const maybeOptions = {
+    const undefinedOptionValues = {
       sep: undefined,
       fixationPoint: undefined,
+      ignoreHtmlTag: undefined,
     };
 
-    const expected = {
+    const expected: Options = {
       sep: ['<b>', '</b>'],
       fixationPoint: 1,
+      ignoreHtmlTag: true,
     };
 
-    expect(getOptions(maybeOptions)).toEqual(expected);
+    expect(getOptions(undefinedOptionValues)).toEqual(expected);
   });
 
   it('pass empty string value', () => {
     const maybeOptions = {
       sep: ['', ''],
       fixationPoint: undefined,
+      ignoreHtmlTag: undefined,
     };
 
-    const expected = {
+    const expected: Options = {
       sep: ['', ''],
       fixationPoint: 1,
+      ignoreHtmlTag: true,
     };
 
     expect(getOptions(maybeOptions)).toEqual(expected);
   });
 
   it('pass valid value', () => {
-    const expected = {
+    const expected: Options = {
       sep: ['a', 'b'],
       fixationPoint: 0, // but it's okay
+      ignoreHtmlTag: false,
     };
 
     expect(getOptions(expected)).toEqual(expected);
