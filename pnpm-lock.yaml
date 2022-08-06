@@ -51,8 +51,8 @@ importers:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
     devDependencies:
-      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
-      '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
+      '@emotion/react': 11.9.0_wyic7k6y4scqvmgrpshixuqwly
+      '@emotion/styled': 11.8.1_v7eedgdx7xjx7aqq5pyjhqmfyu
       '@mui/material': 5.8.1_4xriuibr7qayay6mzcpq5f43me
       '@types/react': 18.0.9
       '@types/react-dom': 18.0.5
@@ -61,7 +61,7 @@ importers:
       '@vitejs/plugin-react': 1.3.2
       text-vide: link:../../packages/text-vide
       tsconfig: link:../../packages/tsconfig
-      unocss: 0.34.1
+      unocss: 0.34.1_vite@2.9.9
 
   packages/text-vide:
     specifiers:
@@ -262,15 +262,8 @@ packages:
     resolution: {integrity: sha512-rL50YcEuHbbauAFAysNsJA4/f89fGTOBRNs9P81sniKnKAr4xULe5AecolcsKbi88xu0ByWYDj/S1AJ3FSFuSQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
-    dev: true
-
-  /@babel/plugin-syntax-jsx/7.17.12:
-    resolution: {integrity: sha512-spyY3E3AURfxh/RHtjx5j6hs8am5NbUBGfcZ2vB3uShSpZdQyXSf5rR5Mk76vbtlAZOelyVQ71Fg0x9SG4fsog==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/helper-plugin-utils': 7.17.12
+      '@babel/types': 7.18.2
     dev: true
 
   /@babel/plugin-syntax-jsx/7.17.12_@babel+core@7.18.2:
@@ -373,13 +366,14 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@emotion/babel-plugin/11.9.2:
+  /@emotion/babel-plugin/11.9.2_@babel+core@7.18.2:
     resolution: {integrity: sha512-Pr/7HGH6H6yKgnVFNEj2MVlreu3ADqftqjqwUvDy/OJzKFgxKeTQ+eeUf20FOTuHVkDON2iNa25rAXVYtWJCjw==}
     peerDependencies:
       '@babel/core': ^7.0.0
     dependencies:
+      '@babel/core': 7.18.2
       '@babel/helper-module-imports': 7.16.7
-      '@babel/plugin-syntax-jsx': 7.17.12
+      '@babel/plugin-syntax-jsx': 7.17.12_@babel+core@7.18.2
       '@babel/runtime': 7.18.3
       '@emotion/hash': 0.8.0
       '@emotion/memoize': 0.7.5
@@ -416,7 +410,7 @@ packages:
     resolution: {integrity: sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==}
     dev: true
 
-  /@emotion/react/11.9.0_7cpxmzzodpxnolj5zcc5cr63ji:
+  /@emotion/react/11.9.0_wyic7k6y4scqvmgrpshixuqwly:
     resolution: {integrity: sha512-lBVSF5d0ceKtfKCDQJveNAtkC7ayxpVlgOohLgXqRwqWr9bOf4TZAFFyIcNngnV6xK6X4x2ZeXq7vliHkoVkxQ==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -428,8 +422,9 @@ packages:
       '@types/react':
         optional: true
     dependencies:
+      '@babel/core': 7.18.2
       '@babel/runtime': 7.18.3
-      '@emotion/babel-plugin': 11.9.2
+      '@emotion/babel-plugin': 11.9.2_@babel+core@7.18.2
       '@emotion/cache': 11.7.1
       '@emotion/serialize': 1.0.3
       '@emotion/utils': 1.1.0
@@ -453,7 +448,7 @@ packages:
     resolution: {integrity: sha512-u0AX4aSo25sMAygCuQTzS+HsImZFuS8llY8O7b9MDRzbJM0kVJlAz6KNDqcG7pOuQZJmj/8X/rAW+66kMnMW+g==}
     dev: true
 
-  /@emotion/styled/11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm:
+  /@emotion/styled/11.8.1_v7eedgdx7xjx7aqq5pyjhqmfyu:
     resolution: {integrity: sha512-OghEVAYBZMpEquHZwuelXcRjRJQOVayvbmNR0zr174NHdmMgrNkLC6TljKC5h9lZLkN5WGrdUcrKlOJ4phhoTQ==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -466,10 +461,11 @@ packages:
       '@types/react':
         optional: true
     dependencies:
+      '@babel/core': 7.18.2
       '@babel/runtime': 7.18.3
-      '@emotion/babel-plugin': 11.9.2
+      '@emotion/babel-plugin': 11.9.2_@babel+core@7.18.2
       '@emotion/is-prop-valid': 1.1.2
-      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
+      '@emotion/react': 11.9.0_wyic7k6y4scqvmgrpshixuqwly
       '@emotion/serialize': 1.0.3
       '@emotion/utils': 1.1.0
       '@types/react': 18.0.9
@@ -627,8 +623,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.18.3
-      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
-      '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
+      '@emotion/react': 11.9.0_wyic7k6y4scqvmgrpshixuqwly
+      '@emotion/styled': 11.8.1_v7eedgdx7xjx7aqq5pyjhqmfyu
       '@mui/base': 5.0.0-alpha.82_ohobp6rpsmerwlq5ipwfh5yigy
       '@mui/system': 5.8.1_2f7y4c3dlygqpuszd3d43oslwi
       '@mui/types': 7.1.3_@types+react@18.0.9
@@ -677,8 +673,8 @@ packages:
     dependencies:
       '@babel/runtime': 7.18.3
       '@emotion/cache': 11.7.1
-      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
-      '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
+      '@emotion/react': 11.9.0_wyic7k6y4scqvmgrpshixuqwly
+      '@emotion/styled': 11.8.1_v7eedgdx7xjx7aqq5pyjhqmfyu
       prop-types: 15.8.1
       react: 18.1.0
     dev: true
@@ -700,8 +696,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.18.3
-      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
-      '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
+      '@emotion/react': 11.9.0_wyic7k6y4scqvmgrpshixuqwly
+      '@emotion/styled': 11.8.1_v7eedgdx7xjx7aqq5pyjhqmfyu
       '@mui/private-theming': 5.8.0_7cpxmzzodpxnolj5zcc5cr63ji
       '@mui/styled-engine': 5.8.0_t4r7icl7x3elshpaxc4xm7jrem
       '@mui/types': 7.1.3_@types+react@18.0.9
@@ -1078,7 +1074,7 @@ packages:
       '@unocss/core': 0.34.1
     dev: true
 
-  /@unocss/vite/0.34.1:
+  /@unocss/vite/0.34.1_vite@2.9.9:
     resolution: {integrity: sha512-XQB4Y4hdg0Zof1obmzN1pR+/pyDOLGhvu13J6lw67nUwvLdy0t9IpBufh8yHpoka6E3j25yaGfLPqO0c5VYgkw==}
     peerDependencies:
       vite: ^2.9.0
@@ -1090,6 +1086,7 @@ packages:
       '@unocss/scope': 0.34.1
       '@unocss/transformer-directives': 0.34.1
       magic-string: 0.26.2
+      vite: 2.9.9
     dev: true
 
   /@vitejs/plugin-react/1.3.2:
@@ -3350,7 +3347,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.1.0
       scheduler: 0.22.0
-    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -3384,7 +3380,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-pkg-up/3.0.0:
     resolution: {integrity: sha1-PtSWaF26D4/hGNBpHcUfSh/5bwc=}
@@ -3547,7 +3542,6 @@ packages:
     resolution: {integrity: sha512-6QAm1BgQI88NPYymgGQLCZgvep4FyePDWFpXVK+zNSUgHwlqpJy8VEh8Et0KxTACS4VWwMousBElAZOH9nkkoQ==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
@@ -4159,7 +4153,7 @@ packages:
     engines: {node: '>=12.18'}
     dev: true
 
-  /unocss/0.34.1:
+  /unocss/0.34.1_vite@2.9.9:
     resolution: {integrity: sha512-rk1xKh+ROUHxcFq56Wa0vuOqPFhqvomp3pQW+XEhPHSwOasiHXHtuNgPUgrbE2dhS2OAY9zz1dNhjkbOXnjS8w==}
     engines: {node: '>=14'}
     dependencies:
@@ -4176,7 +4170,7 @@ packages:
       '@unocss/transformer-compile-class': 0.34.1
       '@unocss/transformer-directives': 0.34.1
       '@unocss/transformer-variant-group': 0.34.1
-      '@unocss/vite': 0.34.1
+      '@unocss/vite': 0.34.1_vite@2.9.9
     transitivePeerDependencies:
       - supports-color
       - vite
