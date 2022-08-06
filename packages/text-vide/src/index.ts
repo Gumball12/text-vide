@@ -29,8 +29,9 @@ export const textVide = (text: string, maybeOptions: Partial<Options> = {}) => {
       continue;
     }
 
+    const [matchedWord] = match;
     const startIndex = match.index!;
-    const endIndex = startIndex + getFixationLength(match[0], fixationPoint);
+    const endIndex = startIndex + getFixationLength(matchedWord, fixationPoint);
 
     const plainText = text.slice(lastMatchedIndex, startIndex);
     result += plainText;
