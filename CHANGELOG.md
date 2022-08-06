@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/Gumball12/text-vide/compare/v1.5.0...v1.6.0) (2022-08-06)
+
+
+### Features
+
+* add benchmark tests ([977e008](https://github.com/Gumball12/text-vide/commit/977e0087b4670de2196e68574d697f13683d4fb1))
+* add ignoreHtmlTag option ([c209f8c](https://github.com/Gumball12/text-vide/commit/c209f8cfffff4f61c12727ccbe02fb19d4f95c67))
+* add mb-2px to Input paragraph ([f3f7160](https://github.com/Gumball12/text-vide/commit/f3f71605ea735ac1111c46ee1ff5cff2566cb8d7))
+* make the utils directory into the utils package ([45e34a3](https://github.com/Gumball12/text-vide/commit/45e34a37eb1517114e12f1553eedf902c107b335))
+
 ## [1.5.0](https://github.com/Gumball12/text-vide/compare/v1.4.0...v1.5.0) (2022-06-04)
 
 
