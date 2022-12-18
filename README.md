@@ -25,12 +25,7 @@ An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-
 | [Custom `sep` Style](#options-sep)                                      | ✅    |
 | [Fixation-Points](#options-fixationpoint)                               | ✅    |
 | [Ignore HTML Tags](#options-ignorehtmltag)                              | ✅    |
-
-### Work in Progress
-
-| Feature | Issues                                                  |
-| ------- | ------------------------------------------------------- |
-| Saccade | [#21](https://github.com/Gumball12/text-vide/issues/21) |
+| [Saccade](https://github.com/Gumball12/text-vide/issues/21)             | ❌    |
 
 ### Benchmark
 
