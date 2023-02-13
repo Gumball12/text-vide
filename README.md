@@ -10,7 +10,9 @@
 
 > [Try on Runkit](https://npm.runkit.com/text-vide) or [Online Sandbox](https://gumball12.github.io/text-vide/)
 
-An Open-Source JavaScript Implementation of [Bionic Reading API](https://bionic-reading.com/).
+This module is an open source implementation that mimics the behavior of the [Bionic Reading API](https://bionic-reading.com/).
+
+It does not require any additional licenses, except for MIT. ([#38](https://github.com/Gumball12/text-vide/issues/38))
 
 - _[How was this made?](./HOW.md)_
 - _[I don't think it's going to be more readable](./ABOUT_READABILITY.md)_
@@ -142,3 +144,5 @@ textVite('<div>abcd</div>efg', { ignoreHtmlTag: false }); // '<<b>di</b>v><b>abc
 ## License
 
 [MIT](./LICENSE) @Gumball12
+
+It does not require any additional licenses, except for MIT. ([#38](https://github.com/Gumball12/text-vide/issues/38))
