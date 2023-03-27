@@ -108,13 +108,13 @@ type Options = Partial<{
 Passing a string allows you to specify the Beginning and End of the highlighted word at once.
 
 ```ts
-textVide('text-vide', '**'); // '**tex**t-**vid**e'
+textVide('text-vide', { sep: '**' }); // '**tex**t-**vid**e'
 ```
 
 It can also set them up by passing a list of length 2.
 
 ```ts
-textVide('text-vide', ['<strong>', '</strong>']); // '<strong>tex</strong>t-<strong>vid</strong>e'
+textVide('text-vide', { sep: ['<strong>', '</strong>'] }); // '<strong>tex</strong>t-<strong>vid</strong>e'
 ```
 
 #### `fixationPoint`<a id="options-fixationpoint"></a>
