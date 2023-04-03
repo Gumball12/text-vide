@@ -28,19 +28,20 @@
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "dist/packages/text-vide/src/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "vitest run --coverage",
-    "build": "tsup",
+    "build": "vite build",
     "release": "standard-version"
   },
   "devDependencies": {
-    "c8": "^7.11.3",
+    "@vitest/coverage-c8": "^0.29.8",
     "standard-version": "^9.5.0",
     "tsconfig": "workspace:*",
-    "utils": "workspace:*"
+    "utils": "workspace:*",
+    "vite-plugin-dts": "^2.1.0"
   }
 }
