@@ -1,4 +1,4 @@
-export default <T>(
+export default <T extends object>(
   obj: T,
   omitFilter: (value: T[keyof typeof obj]) => boolean,
 ) => {
