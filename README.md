@@ -1,6 +1,6 @@
 # TextVide (vide; Latin for "see")
 
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/text-vide)](https://www.npmjs.com/package/text-vide) ![[npm downloads]((https://img.shields.io/bundlephobia/minzip/text-vide))](https://img.shields.io/npm/dm/text-vide) ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/Gumball12/text-vide?filename=packages%2Ftext-vide%2Fpackage.json) [![changelog](https://img.shields.io/badge/CHANGELOG-gray)](./CHANGELOG.md)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/text-vide)](https://www.npmjs.com/package/text-vide) ![[npm downloads]((https://img.shields.io/bundlephobia/minzip/text-vide))](https://img.shields.io/npm/dm/text-vide) ![jsDelivr hits (npm)](https://img.shields.io/jsdelivr/npm/hm/text-vide) ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/Gumball12/text-vide?filename=packages%2Ftext-vide%2Fpackage.json) [![changelog](https://img.shields.io/badge/CHANGELOG-gray)](./CHANGELOG.md)
 
 [![ci](https://github.com/Gumball12/text-vide/actions/workflows/ci.yaml/badge.svg)](https://github.com/Gumball12/text-vide/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/Gumball12/text-vide/branch/main/graph/badge.svg?token=MsLDgzri5B)](https://codecov.io/gh/Gumball12/text-vide)
 
