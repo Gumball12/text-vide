@@ -56,7 +56,7 @@ pnpm add text-vide
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/text-vide@1.6.2/dist/index.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/text-vide/dist/index.iife.js"></script>
 ```
 
 ## 📖 Usage<a id="usage"></a>
