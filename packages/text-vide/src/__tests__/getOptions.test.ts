@@ -8,6 +8,7 @@ describe('test getOptions()', () => {
       sep: ['<b>', '</b>'],
       fixationPoint: 1,
       ignoreHtmlTag: true,
+      ignoreHtmlEntity: true,
     };
 
     expect(getOptions({})).toEqual(expected);
@@ -18,12 +19,14 @@ describe('test getOptions()', () => {
       sep: undefined,
       fixationPoint: undefined,
       ignoreHtmlTag: undefined,
+      ignoreHtmlEntity: undefined,
     };
 
     const expected: Options = {
       sep: ['<b>', '</b>'],
       fixationPoint: 1,
       ignoreHtmlTag: true,
+      ignoreHtmlEntity: true,
     };
 
     expect(getOptions(undefinedOptionValues)).toEqual(expected);
@@ -34,12 +37,14 @@ describe('test getOptions()', () => {
       sep: ['', ''],
       fixationPoint: undefined,
       ignoreHtmlTag: undefined,
+      ignoreHtmlEntity: undefined,
     };
 
     const expected: Options = {
       sep: ['', ''],
       fixationPoint: 1,
       ignoreHtmlTag: true,
+      ignoreHtmlEntity: true,
     };
 
     expect(getOptions(maybeOptions)).toEqual(expected);
@@ -50,6 +55,7 @@ describe('test getOptions()', () => {
       sep: ['a', 'b'],
       fixationPoint: 0, // but it's okay
       ignoreHtmlTag: false,
+      ignoreHtmlEntity: false,
     };
 
     expect(getOptions(expected)).toEqual(expected);

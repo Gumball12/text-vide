@@ -27,6 +27,7 @@ It does not require any additional licenses, except for MIT. ([#38](https://gith
 | [Custom `sep` Style](#options-sep)                                      | ✅    |
 | [Fixation-Points](#options-fixationpoint)                               | ✅    |
 | [Ignore HTML Tags](#options-ignorehtmltag)                              | ✅    |
+| [Ignore HTML Entity](#options-ignorehtmlentity)                         | ✅    |
 | [Saccade](https://github.com/Gumball12/text-vide/issues/21)             | ❌    |
 
 ### Benchmark
@@ -123,7 +124,7 @@ type Options = Partial<{
 
 #### `sep`<a id="options-sep"></a>
 
-- Default Value: `['<b>', '</b>']`
+- Default: `['<b>', '</b>']`
 
 Passing a string allows you to specify the Beginning and End of the highlighted word at once.
 
@@ -139,7 +140,7 @@ textVide('text-vide', { sep: ['<strong>', '</strong>'] }); // '<strong>tex</stro
 
 #### `fixationPoint`<a id="options-fixationpoint"></a>
 
-- Default Value: `1`
+- Default: `1`
 - Range: `[1, 5]`
 
 ```ts
@@ -152,13 +153,24 @@ textVide('text-vide', { fixationPoint: 5 }); // '<b>t</b>ext-<b>v</b>ide'
 
 #### `ignoreHtmlTag`<a id="options-ignorehtmltag"></a>
 
-- Default Value: `true`
+- Default: `true`
 
 If this option is `true`, HTML tags are not highlighted.
 
 ```ts
 textVite('<div>abcd</div>efg'); // '<div><b>abc</b>d</div><b>ef</b>g'
 textVite('<div>abcd</div>efg', { ignoreHtmlTag: false }); // '<<b>di</b>v><b>abc</b>d</<b>di</b>v><b>ef</b>g'
+```
+
+#### `ignoreHtmlEntity`<a id="options-ignorehtmlentity"></a>
+
+- Default: `true`
+
+If this option is `true`, HTML entities are not highlighted.
+
+```ts
+textVide('&nbsp;abcd&gt;'); // '&nbsp;<b>abc</b>d&gt;'
+textVide('&nbsp;abcd&gt;', { ignoreHtmlEntity: false }); // &<b>nbs</b>p;<b>abc</b>d&<b>g</b>t;
 ```
 
 ## License

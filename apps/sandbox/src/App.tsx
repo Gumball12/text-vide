@@ -20,6 +20,7 @@ type Edits = {
   secondSep: string;
   fixationPoint: string;
   ignoreHtmlTag: string;
+  ignoreHtmlEntity: string;
   input: string;
 };
 
@@ -28,6 +29,7 @@ const defaultEdits: Edits = {
   secondSep: '</b>',
   fixationPoint: '1',
   ignoreHtmlTag: '1', // 1 = true, 0 = false
+  ignoreHtmlEntity: '1', // 1 = true, 0 = false
   input: INITIAL_INPUT,
 };
 
@@ -37,6 +39,7 @@ const storeEdits = ({
   fixationPoint,
   input,
   ignoreHtmlTag,
+  ignoreHtmlEntity,
 }: Edits) => {
   const search = [
     `firstSep=${encodeURIComponent(firstSep)}`,
@@ -44,6 +47,7 @@ const storeEdits = ({
     `fixationPoint=${encodeURIComponent(fixationPoint)}`,
     `input=${encodeURIComponent(input)}`,
     `ignoreHtmlTag=${encodeURIComponent(ignoreHtmlTag)}`,
+    `ignoreHtmlEntity=${encodeURIComponent(ignoreHtmlEntity)}`,
   ].join('&');
 
   // eslint-disable-next-line
@@ -100,6 +104,7 @@ type Action = {
     | 'HIGHLIGHTED_TEXT'
     | 'COPIED'
     | 'TOGGLE_IGNORE_HTML_TAG'
+    | 'TOGGLE_IGNORE_HTML_ENTITY'
     | 'RESET';
   value: string;
   copied: boolean;
@@ -135,6 +140,11 @@ const reducer: Reducer<State, Action> = (state, { type, value, copied }) => {
     return { ...state, ignoreHtmlTag: nextIgnoreHtmlTag };
   }
 
+  if (type === 'TOGGLE_IGNORE_HTML_ENTITY') {
+    const nextIgnoreHtmlEntity = state.ignoreHtmlEntity === '1' ? '0' : '1';
+    return { ...state, ignoreHtmlEntity: nextIgnoreHtmlEntity };
+  }
+
   if (type === 'RESET') {
     return {
       ...defaultEdits,
@@ -161,6 +171,7 @@ const App = () => {
     copiedEffect,
     highlightedText,
     ignoreHtmlTag,
+    ignoreHtmlEntity,
   } = state;
 
   useEffect(() => {
@@ -169,6 +180,7 @@ const App = () => {
         sep: [firstSep, secondSep],
         fixationPoint: parseInt(fixationPoint),
         ignoreHtmlTag: ignoreHtmlTag === '1',
+        ignoreHtmlEntity: ignoreHtmlEntity === '1',
       };
 
       const highlightedText = textVide(input, options);
@@ -185,11 +197,19 @@ const App = () => {
         input,
         fixationPoint,
         ignoreHtmlTag,
+        ignoreHtmlEntity,
       });
     }, DEBOUNCE_TIMEOUT);
 
     return () => clearTimeout(store);
-  }, [firstSep, secondSep, input, fixationPoint, ignoreHtmlTag]);
+  }, [
+    firstSep,
+    secondSep,
+    input,
+    fixationPoint,
+    ignoreHtmlTag,
+    ignoreHtmlEntity,
+  ]);
 
   const copyUrl = () => {
     const { href: url } = location;
@@ -217,6 +237,7 @@ const App = () => {
       fixationPoint,
       input,
       ignoreHtmlTag,
+      ignoreHtmlEntity,
     });
 
   return (
@@ -265,19 +286,9 @@ const App = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </div>
-
-            <Button
-              className="!hidden sm:!block"
-              variant="outlined"
-              color="error"
-              onClick={reset}
-              disabled={isResetDisabled}
-            >
-              reset
-            </Button>
           </section>
 
-          <section className="flex justify-between">
+          <section className="flex gap-2 flex-wrap">
             <ToggleButtonGroup
               size="small"
               exclusive
@@ -296,7 +307,6 @@ const App = () => {
             </ToggleButtonGroup>
 
             <Button
-              className="!hidden sm:!block"
               variant="outlined"
               color="success"
               onClick={() =>
@@ -313,31 +323,30 @@ const App = () => {
             </Button>
 
             <Button
-              className="!block sm:!hidden"
               variant="outlined"
-              color="error"
-              onClick={reset}
+              color="success"
+              onClick={() =>
+                dispatchState({
+                  type: 'TOGGLE_IGNORE_HTML_ENTITY',
+                  value: '',
+                  copied: false,
+                })
+              }
             >
-              reset
+              {ignoreHtmlEntity === '1'
+                ? 'not ignore html entities'
+                : 'ignore html entities'}
             </Button>
           </section>
 
-          <section>
+          <section className="flex gap-2">
             <Button
-              className="!block sm:!hidden"
               variant="outlined"
-              color="success"
-              onClick={() =>
-                dispatchState({
-                  type: 'TOGGLE_IGNORE_HTML_TAG',
-                  value: '',
-                  copied: false,
-                })
-              }
+              color="error"
+              onClick={reset}
+              disabled={isResetDisabled}
             >
-              {ignoreHtmlTag === '1'
-                ? 'not ignore html tags'
-                : 'ignore html tags'}
+              reset
             </Button>
           </section>
         </section>
