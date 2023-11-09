@@ -3,6 +3,7 @@ import getOptions from './getOptions';
 import getFixationLength from './getFixationLength';
 import getHighlightedText from './getHighlightedText';
 import { useCheckIsHtmlTag } from './useCheckIsHtmlTag';
+import { useCheckIsHtmlEntity } from './useCheckIsHtmlEntity';
 
 const CONVERTIBLE_REGEX = /(\p{L}|\p{Nd})*\p{L}(\p{L}|\p{Nd})*/gu;
 
@@ -11,21 +12,31 @@ export const textVide = (text: string, maybeOptions: Partial<Options> = {}) => {
     return '';
   }
 
-  const { fixationPoint, sep, ignoreHtmlTag } = getOptions(maybeOptions);
-  const convertibleMatchList = text.matchAll(CONVERTIBLE_REGEX);
+  const { fixationPoint, sep, ignoreHtmlTag, ignoreHtmlEntity } =
+    getOptions(maybeOptions);
+  const convertibleMatchList = Array.from(text.matchAll(CONVERTIBLE_REGEX));
 
   let result = '';
   let lastMatchedIndex = 0;
 
   let checkIsHtmlTag: ReturnType<typeof useCheckIsHtmlTag> | undefined;
-
   if (ignoreHtmlTag) {
     checkIsHtmlTag = useCheckIsHtmlTag(text);
+  }
+
+  let checkIsHtmlEntity: ReturnType<typeof useCheckIsHtmlEntity> | undefined;
+  if (ignoreHtmlEntity) {
+    checkIsHtmlEntity = useCheckIsHtmlEntity(text);
   }
 
   for (const match of convertibleMatchList) {
     const isHtmlTag = checkIsHtmlTag?.(match);
     if (isHtmlTag) {
+      continue;
+    }
+
+    const isHtmlEntity = checkIsHtmlEntity?.(match);
+    if (isHtmlEntity) {
       continue;
     }
 

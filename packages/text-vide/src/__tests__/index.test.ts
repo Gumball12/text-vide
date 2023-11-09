@@ -158,6 +158,30 @@ describe('test options', () => {
 
     expect(textVide(text)).toBe(expected);
   });
+
+  it('ignoreHtmlTag: true', () => {
+    const text = '<div>abcd</div>efg';
+    const expectedText = '<div><b>abc</b>d</div><b>ef</b>g';
+    expect(textVide(text, { ignoreHtmlTag: true })).toBe(expectedText);
+  });
+
+  it('ignoreHtmlTag: false', () => {
+    const text = '<div>abcd</div>efg';
+    const expected = '<<b>di</b>v><b>abc</b>d</<b>di</b>v><b>ef</b>g';
+    expect(textVide(text, { ignoreHtmlTag: false })).toBe(expected);
+  });
+
+  it('ignoreHtmlEntity: true', () => {
+    const text = '&nbsp;abcd&gt;';
+    const expectedText = '&nbsp;<b>abc</b>d&gt;';
+    expect(textVide(text, { ignoreHtmlEntity: true })).toBe(expectedText);
+  });
+
+  it('ignoreHtmlEntity: false', () => {
+    const text = '&nbsp;abcd&gt;';
+    const expected = '&<b>nbs</b>p;<b>abc</b>d&<b>g</b>t;';
+    expect(textVide(text, { ignoreHtmlEntity: false })).toBe(expected);
+  });
 });
 
 describe('fixation point ([2, 5])', () => {
