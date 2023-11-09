@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/Gumball12/text-vide/compare/v1.7.0...v1.8.0) (2023-11-09)
+
+
+### Features
+
+* add ignoreHtmlEntity option ([#46](https://github.com/Gumball12/text-vide/issues/46)) ([6fbef3d](https://github.com/Gumball12/text-vide/commit/6fbef3d367cbb6e8b0a3f1028ce2c2a8b91c19b2))
+
 ## [1.7.0](https://github.com/Gumball12/text-vide/compare/v1.6.2...v1.7.0) (2023-04-03)
 
 ### [1.6.2](https://github.com/Gumball12/text-vide/compare/v1.6.1...v1.6.2) (2023-03-27)
