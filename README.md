@@ -119,6 +119,7 @@ type Options = Partial<{
   sep: string | string[];
   fixationPoint: number;
   ignoreHtmlTag: boolean;
+  ignoreHtmlEntity: boolean;
 }>;
 ```
 
