@@ -179,3 +179,14 @@ textVide('&nbsp;abcd&gt;', { ignoreHtmlEntity: false }); // &<b>nbs</b>p;<b>abc<
 [MIT](./LICENSE) @Gumball12
 
 It does not require any additional licenses, except for MIT. ([#38](https://github.com/Gumball12/text-vide/issues/38))
+
+## Why Monorepo?
+
+I acknowledge that the current monorepo structure might seem complex for the project's requirements. Here's why I chose this approach:
+
+- This project served as a learning experience for implementing monorepo architecture, as I was preparing to introduce it at my workplace
+- I intentionally used this small project as a practical exercise to understand monorepo concepts and best practices
+- While the current structure might be over-engineered, I plan to maintain it since:
+  - The project requirements are relatively stable
+  - Major changes or additions are unlikely
+- However, I'm open to simplifying the architecture if there's a compelling reason to do so
