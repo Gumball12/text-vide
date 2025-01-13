@@ -10,16 +10,16 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
 
-      - uses: pnpm/action-setup@v2.2.1
+      - uses: pnpm/action-setup@v4.0.0
         with:
-          version: 7
+          version: 9.15.3
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         id: pnpm-cache
         with:
           path: |
@@ -35,7 +35,7 @@ jobs:
       - run: pnpm run build
       - run: pnpm run test
 
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./packages/text-vide/coverage
