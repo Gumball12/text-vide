@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/Gumball12/text-vide/compare/v1.8.1...v1.8.2) (2025-03-17)
+
 ### [1.8.1](https://github.com/Gumball12/text-vide/compare/v1.8.0...v1.8.1) (2023-11-09)
 
 ## [1.8.0](https://github.com/Gumball12/text-vide/compare/v1.7.0...v1.8.0) (2023-11-09)
