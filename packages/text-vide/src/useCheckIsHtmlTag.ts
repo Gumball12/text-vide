@@ -1,6 +1,6 @@
 import { extractMatchRangeList } from './utils';
 
-const HTML_TAG_REGEX = /(<!--[\s\S]*?-->)|(<[^>]*>)/g;
+const HTML_TAG_REGEX = /(<!--[^]*?-->)|(<[^>]+>)/g;
 
 export const useCheckIsHtmlTag = (text: string) => {
   const htmlTagMatchList = text.matchAll(HTML_TAG_REGEX);
