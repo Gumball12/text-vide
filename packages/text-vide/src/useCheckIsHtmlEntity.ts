@@ -1,6 +1,6 @@
 import { extractMatchRangeList } from './utils';
 
-const HTML_ENTITY_REGEX = /(&[\w#]+;)/g;
+const HTML_ENTITY_REGEX = /&[\w#]+;/g;
 
 export const useCheckIsHtmlEntity = (text: string) => {
   const htmlEntityMatchList = text.matchAll(HTML_ENTITY_REGEX);
