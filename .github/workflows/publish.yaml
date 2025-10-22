@@ -4,6 +4,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -35,5 +39,3 @@ jobs:
       - run: pnpm run build
 
       - run: cp ./README.md ./packages/text-vide/README.md && cd ./packages/text-vide && npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
