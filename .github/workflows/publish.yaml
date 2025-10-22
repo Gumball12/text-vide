@@ -38,4 +38,20 @@ jobs:
       - run: pnpm run test
       - run: pnpm run build
 
+      - name: Debug npm publish context
+        run: |
+          node -v
+          npm -v
+          echo "registry=$(npm config get registry)"
+          NAME=$(node -p "require('./package.json').name")
+          echo "pkg.name=${NAME}"
+          npm view "${NAME}" name maintainers || true
+          cat package.json
+      
+      - name: Print npm debug log on failure
+        if: failure()
+        run: |
+          LOG=$(ls -t /home/runner/.npm/_logs/*-debug-0.log 2>/dev/null | head -n1 || true)
+          test -f "$LOG" && { echo "== NPM DEBUG LOG =="; cat "$LOG"; } || echo "no npm debug log"
+
       - run: cp ./README.md ./packages/text-vide/README.md && cd ./packages/text-vide && npm publish
