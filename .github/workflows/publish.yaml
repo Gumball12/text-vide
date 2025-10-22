@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - run: corepack enable
+      - run: npm i -g npm@latest
 
       - uses: pnpm/action-setup@v4.0.0
         with:
@@ -43,15 +47,18 @@ jobs:
           node -v
           npm -v
           echo "registry=$(npm config get registry)"
-          NAME=$(node -p "require('./package.json').name")
+          NAME=$(node -p "require('./packages/text-vide/package.json').name")
           echo "pkg.name=${NAME}"
           npm view "${NAME}" name maintainers || true
-          cat package.json
-      
+          cat ./packages/text-vide/package.json
+
+      - run: |
+          cp ./README.md ./packages/text-vide/README.md &&
+          cd ./packages/text-vide &&
+          npm publish
+
       - name: Print npm debug log on failure
         if: failure()
         run: |
           LOG=$(ls -t /home/runner/.npm/_logs/*-debug-0.log 2>/dev/null | head -n1 || true)
           test -f "$LOG" && { echo "== NPM DEBUG LOG =="; cat "$LOG"; } || echo "no npm debug log"
-
-      - run: cp ./README.md ./packages/text-vide/README.md && cd ./packages/text-vide && npm publish
