@@ -21,8 +21,7 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
-      # - run: corepack enable
-      # - run: npm i -g npm@latest
+      - run: npm i -g npm@latest
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm run lint
