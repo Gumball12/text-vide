@@ -31,4 +31,4 @@ jobs:
       - run: |
           cp ./README.md ./packages/text-vide/README.md &&
           cd ./packages/text-vide &&
-          npm publish --tag oidc
+          npm publish
