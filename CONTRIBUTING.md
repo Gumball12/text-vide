@@ -7,7 +7,7 @@ git clone https://github.com/<username>/text-vide.git
 cd text-vide
 
 pnpm install
-pnpm dev # run sandbox application (:3000)
+pnpm dev # run sandbox application (:5173)
 pnpm test
 pnpm lint
 pnpm build

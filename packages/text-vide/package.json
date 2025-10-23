@@ -1,6 +1,6 @@
 {
   "name": "text-vide",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "An Open-Source JavaScript Implementation of Bionic Reading.",
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
     "release": "standard-version"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.29.8",
+    "@vitest/coverage-v8": "^4.0.1",
     "standard-version": "^9.5.0",
     "tsconfig": "workspace:*",
     "utils": "workspace:*",
