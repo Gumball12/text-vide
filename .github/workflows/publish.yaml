@@ -17,25 +17,12 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - run: corepack enable
-      - run: npm i -g npm@latest
-
-      - uses: pnpm/action-setup@v4.0.0
-        with:
-          version: 9.15.3
-
-      - uses: actions/cache@v4
-        id: pnpm-cache
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - if: steps.pnpm-cache.outputs.cache-hit != 'true'
-        run: pnpm install
+      # - run: npm i -g npm@latest
+      - run: pnpm install --frozen-lockfile
 
       - run: pnpm run lint
       - run: pnpm run test
@@ -54,7 +41,7 @@ jobs:
       - run: |
           cp ./README.md ./packages/text-vide/README.md &&
           cd ./packages/text-vide &&
-          npm publish
+          npm publish --tag oidc
 
       - name: Print npm debug log on failure
         if: failure()
