@@ -37,5 +37,10 @@
       "eslint --fix",
       "prettier --parser=typescript --write"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "handlebars": ">=4.7.9"
+    }
   }
 }
