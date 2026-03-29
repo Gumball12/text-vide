@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.5](https://github.com/Gumball12/text-vide/compare/v1.8.4...v1.8.5) (2026-03-29)
+
+
+### Bug Fixes
+
+* **security:** upgrade handlebars to 4.7.9 via pnpm overrides ([304c78d](https://github.com/Gumball12/text-vide/commit/304c78dec05ae2725178d378eff4772cc16a8341))
+
 ### [1.8.2](https://github.com/Gumball12/text-vide/compare/v1.8.1...v1.8.2) (2025-03-17)
 
 ### [1.8.1](https://github.com/Gumball12/text-vide/compare/v1.8.0...v1.8.1) (2023-11-09)
