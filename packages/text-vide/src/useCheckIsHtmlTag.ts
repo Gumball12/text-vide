@@ -11,14 +11,15 @@ const getHtmlTagRangeList = (text: string): MatchRange[] => {
     }
 
     if (text.startsWith('<!--', openIndex)) {
-      const closeIndex = text.indexOf('-->', openIndex + 4);
-      if (closeIndex === -1) {
-        break;
+      const commentCloseIndex = text.indexOf('-->', openIndex + 4);
+      if (commentCloseIndex !== -1) {
+        htmlTagRangeList.push([openIndex, commentCloseIndex + 2]);
+        cursor = commentCloseIndex + 3;
+        continue;
       }
-
-      htmlTagRangeList.push([openIndex, closeIndex + 2]);
-      cursor = closeIndex + 3;
-      continue;
+      // Unterminated `<!--`: fall through and treat the `<` as a normal
+      // tag opener so subsequent tags are still recognized (matches the
+      // behavior of the previous `/<!--[^]*?-->|<[^>]+>/g` regex).
     }
 
     const closeIndex = text.indexOf('>', openIndex + 1);
