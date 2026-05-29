@@ -1,10 +1,44 @@
-import { extractMatchRangeList } from './utils';
+import { MatchRange } from './utils';
 
-const HTML_TAG_REGEX = /<!--[^]*?-->|<[^>]+>/g;
+const getHtmlTagRangeList = (text: string): MatchRange[] => {
+  const htmlTagRangeList: MatchRange[] = [];
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    const openIndex = text.indexOf('<', cursor);
+    if (openIndex === -1) {
+      break;
+    }
+
+    if (text.startsWith('<!--', openIndex)) {
+      const commentCloseIndex = text.indexOf('-->', openIndex + 4);
+      if (commentCloseIndex !== -1) {
+        htmlTagRangeList.push([openIndex, commentCloseIndex + 2]);
+        cursor = commentCloseIndex + 3;
+        continue;
+      }
+      // Unterminated `<!--`: fall through and treat the `<` as a normal
+      // tag opener so subsequent tags are still recognized (matches the
+      // behavior of the previous `/<!--[^]*?-->|<[^>]+>/g` regex).
+    }
+
+    const closeIndex = text.indexOf('>', openIndex + 1);
+    if (closeIndex === -1) {
+      break;
+    }
+
+    if (closeIndex > openIndex + 1) {
+      htmlTagRangeList.push([openIndex, closeIndex]);
+    }
+
+    cursor = closeIndex + 1;
+  }
+
+  return htmlTagRangeList;
+};
 
 export const useCheckIsHtmlTag = (text: string) => {
-  const htmlTagMatchList = text.matchAll(HTML_TAG_REGEX);
-  const htmlTagRangeList = extractMatchRangeList(htmlTagMatchList);
+  const htmlTagRangeList = getHtmlTagRangeList(text);
   const reversedHtmlTagRangeList = htmlTagRangeList.reverse();
 
   return (match: RegExpMatchArray) => {

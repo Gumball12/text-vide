@@ -321,6 +321,30 @@ describe('with html tags', () => {
     expect(textVide(text)).toBe(expected);
   });
 
+  it('preserves tag ranges after an unterminated HTML comment opener', () => {
+    const text = 'aa <!-- bb <div>cd</div>';
+    const expected = '<b>a</b>a <!-- bb <div><b>c</b>d</div>';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('continues highlighting after an unterminated comment with multiple tags', () => {
+    const text = 'x <!-- unterminated <div>ab</div> yy <i>cd</i>';
+    const expected =
+      'x <!-- unterminated <div><b>a</b>b</div> <b>y</b>y <i><b>c</b>d</i>';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('treats an unterminated comment opener like a regular tag opener', () => {
+    const text = 'a <!-- foo';
+    const expected = 'a <!-- <b>fo</b>o';
+    expect(textVide(text)).toBe(expected);
+  });
+
+  it('ignores empty angle brackets', () => {
+    const text = '<>';
+    expect(textVide(text)).toBe('<>');
+  });
+
   it('complex html tags', () => {
     const text = `<div class="bionic-reader-container">
             

@@ -1,6 +1,8 @@
+export type MatchRange = [number, number];
+
 export const extractMatchRangeList = (
   matchList: IterableIterator<RegExpMatchArray>,
-) =>
+): MatchRange[] =>
   Array.from(matchList).map(match => {
     const startIndex = match.index!;
     const [matchedWord] = match;
