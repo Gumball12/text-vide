@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.6](https://github.com/Gumball12/text-vide/compare/v1.8.5...v1.8.6) (2026-06-03)
+
+
+### Bug Fixes
+
+* replace regex HTML pre-scan with linear scanner ([#49](https://github.com/Gumball12/text-vide/issues/49)) ([91b4e28](https://github.com/Gumball12/text-vide/commit/91b4e287f74591dafdb8e46bb733be6da2fc16e5))
+
 ### [1.8.5](https://github.com/Gumball12/text-vide/compare/v1.8.4...v1.8.5) (2026-03-29)
 
 
