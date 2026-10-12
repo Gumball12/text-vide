@@ -2,7 +2,7 @@ name: publish
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 permissions:
   id-token: write
@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: pnpm/action-setup@v4.2.0
       - uses: actions/setup-node@v6
         with:
@@ -20,6 +22,19 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
+
+
+      - name: Validate release tag
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+          PACKAGE_VERSION=$(node -p "require('./packages/text-vide/package.json').version")
+          if [ "$TAG" != "v$PACKAGE_VERSION" ]; then
+            echo "Release tag ($TAG) must match package version (v$PACKAGE_VERSION)."
+            exit 1
+          fi
 
       - run: npm i -g npm@latest
       - run: pnpm install --frozen-lockfile
