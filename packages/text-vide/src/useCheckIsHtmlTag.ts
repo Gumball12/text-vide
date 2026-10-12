@@ -3,6 +3,7 @@ import { MatchRange } from './utils';
 const getHtmlTagRangeList = (text: string): MatchRange[] => {
   const htmlTagRangeList: MatchRange[] = [];
   let cursor = 0;
+  let noMoreCommentClosers = false;
 
   while (cursor < text.length) {
     const openIndex = text.indexOf('<', cursor);
@@ -10,13 +11,15 @@ const getHtmlTagRangeList = (text: string): MatchRange[] => {
       break;
     }
 
-    if (text.startsWith('<!--', openIndex)) {
+    if (!noMoreCommentClosers && text.startsWith('<!--', openIndex)) {
       const commentCloseIndex = text.indexOf('-->', openIndex + 4);
       if (commentCloseIndex !== -1) {
         htmlTagRangeList.push([openIndex, commentCloseIndex + 2]);
         cursor = commentCloseIndex + 3;
         continue;
       }
+      // A failed search covers the entire remaining input.
+      noMoreCommentClosers = true;
       // Unterminated `<!--`: fall through and treat the `<` as a normal
       // tag opener so subsequent tags are still recognized (matches the
       // behavior of the previous `/<!--[^]*?-->|<[^>]+>/g` regex).
